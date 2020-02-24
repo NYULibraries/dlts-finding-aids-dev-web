@@ -1,23 +1,23 @@
 module.exports = {
-    'env'   : {
-        'development' : {
+    env   : {
+        development : {
             presets : [
                 '@vue/cli-plugin-babel/preset',
             ],
         },
-        'production' : {
+        production : {
             presets : [
                 '@vue/cli-plugin-babel/preset',
             ],
         },
-        'test' : {
+        test : {
             presets : [
                 [
                     '@babel/preset-env', {
-                    targets : {
-                        node : 'current',
+                        targets : {
+                            node : 'current',
+                        },
                     },
-                },
                 ],
             ],
         },
