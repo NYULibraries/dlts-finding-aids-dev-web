@@ -1,5 +1,5 @@
 module.exports = {
-    publicPath          : '/fam/mockup-01/',
+    publicPath          : '/finding-aids-dev-web/fam/mockup-01/',
     outputDir           : 'dist',
     assetsDir           : 'assets',
     indexPath           : 'index.html',
