@@ -1,13 +1,13 @@
 // https://eslint.org/docs/user-guide/configuring
 
 module.exports = {
-  root: true,
+  root          : true,
   env           : {
-    browser        : true,
-    es6            : true,
-    node           : true,
+    browser : true,
+    es6     : true,
+    node    : true,
   },
-  extends: [
+  extends       : [
     '@vue/standard',
     // https://github.com/vuejs/eslint-plugin-vue/blob/9fdf8e030c880e99f9bfa63fe10c3408961ee256/lib/configs/recommended.js
     'plugin:vue/recommended',
@@ -25,10 +25,10 @@ module.exports = {
     'vue',
   ],
   rules         : {
-    'comma-dangle'                            : [ 'error', 'always-multiline' ],
+    'comma-dangle'                            : ['error', 'always-multiline'],
     // allow async-await
     'generator-star-spacing'                  : 'off',
-    'indent'                                  : [ 'warn', 4 ],
+    'indent'                                  : ['warn', 4],
     'key-spacing'                             : [
       'error',
       {
@@ -57,9 +57,9 @@ module.exports = {
     'no-multi-spaces'                         : 'off',
     // https://github.com/babel/babel-eslint/issues/517
     'no-use-before-define'                    : 'off',
-    'one-var'                                 : [ 'error', { var : 'always' } ],
+    'one-var'                                 : ['error', { var : 'always' }],
     // Always terminate statements with semi-colons
-    'semi'                                    : [ 'error', 'always' ],
+    'semi'                                    : ['error', 'always'],
     'space-before-function-paren'             : [
       'error',
       {
@@ -68,7 +68,7 @@ module.exports = {
         'asyncArrow' : 'always',
       },
     ],
-    'space-in-parens'                         : [ 'error', 'always' ],
+    'space-in-parens'                         : ['error', 'always'],
     'space-unary-ops'                         : [
       'error',
       {
@@ -79,8 +79,8 @@ module.exports = {
         },
       },
     ],
-    'standard/computed-property-even-spacing' : [ 'error', 'always' ],
-    'template-curly-spacing'                  : [ 'error', 'always' ],
+    'standard/computed-property-even-spacing' : ['error', 'always'],
+    'template-curly-spacing'                  : ['error', 'always'],
     'vue/attributes-order'                    : 'error',
     'vue/html-end-tags'                       : 'error',
     'vue/html-indent'                         : [
