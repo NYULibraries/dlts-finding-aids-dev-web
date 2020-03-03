@@ -1,13 +1,13 @@
 <template>
     <div>
         <h1>Finding Aids Manager - Interactive Mockup #1</h1>
-        Coming soon
+        Home screen!
     </div>
 </template>
 
 <script>
 export default {
-    name  : 'Placeholder',
+    name  : 'Home',
     props : {
         msg : {
             type     : String,
