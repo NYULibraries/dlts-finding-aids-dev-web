@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue'
+import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue';
 
 import App from './App.vue';
 import router from './router';
