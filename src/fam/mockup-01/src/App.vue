@@ -9,6 +9,49 @@
     </div>
 </template>
 
+<script>
+import { mapGetters, mapActions } from 'vuex';
+
+export default {
+    name       : 'App',
+    components : {
+    },
+    data() {
+        return {
+            helpText : 'This is help text!',
+        };
+    },
+    computed : {
+        ...mapGetters(
+            [
+            ],
+        ),
+    },
+    watch : {
+    },
+    mounted() {
+        this._keyListener = function ( e ) {
+            if ( e.key === 'h' && ( e.ctrlKey ) ) {
+                e.preventDefault(); // present "Save Page" from getting triggered.
+
+                alert( this.helpText );
+            }
+        };
+
+        document.addEventListener( 'keydown', this._keyListener.bind( this ) );
+    },
+    beforeDestroy() {
+        document.removeEventListener( 'keydown', this._keyListener );
+    },
+    methods : {
+        ...mapActions(
+            [
+            ],
+        ),
+    },
+};
+</script>
+
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
