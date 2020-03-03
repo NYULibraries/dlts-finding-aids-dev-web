@@ -1,5 +1,6 @@
 *.idea/
 *~
+*.iml
 
 ##### https://github.com/github/gitignore/blob/7ab549fcae8269fdd4004065470176f829d88200/Node.gitignore
 
