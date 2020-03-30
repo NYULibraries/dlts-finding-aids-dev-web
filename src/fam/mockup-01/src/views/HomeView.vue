@@ -1,17 +1,17 @@
 <template>
     <div>
-        <Placeholder />
+        <Home />
     </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import Placeholder from '@/components/Home.vue';
+import Home from '@/components/Home.vue';
 
 export default {
-    name       : 'Home',
+    name       : 'HomeView',
     components : {
-        Placeholder,
+        Home,
     },
 };
 </script>
