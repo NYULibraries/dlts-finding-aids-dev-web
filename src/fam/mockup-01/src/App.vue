@@ -7,8 +7,6 @@
         </div>
         <router-view />
 
-        <h1>App component</h1>
-
         this.$route:
 
         <code>
