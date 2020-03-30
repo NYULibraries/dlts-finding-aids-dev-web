@@ -1,7 +1,8 @@
 <template>
     <div>
         <h1>Finding Aids Manager - Interactive Mockup #1</h1>
-        Home screen!
+
+        <h2>Home component</h2>
     </div>
 </template>
 
