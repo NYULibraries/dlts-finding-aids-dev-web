@@ -6,6 +6,14 @@
             </router-link>
         </div>
         <router-view />
+
+        <h1>App component</h1>
+
+        this.$route:
+
+        <code>
+            {{ helpText }}
+        </code>
     </div>
 </template>
 
@@ -18,7 +26,7 @@ export default {
     },
     data() {
         return {
-            helpText : 'This is help text!',
+            helpText : this.$route,
         };
     },
     computed : {
