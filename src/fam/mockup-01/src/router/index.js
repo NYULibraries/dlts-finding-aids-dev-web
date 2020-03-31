@@ -1,20 +1,38 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import Home from '../views/HomeView.vue';
-import Login from '../views/LoginView.vue';
+import HomeView from '../views/HomeView.vue';
+import CreateNewFindingAidView from '../views/CreateNewFindingAidView.vue';
+import LoginView from '../views/LoginView';
+import ManageInProcessFindingAidsView from '../views/ManageInProcessFindingAids.vue';
+import ManagePublishedFindingAidsView from '../views/ManagePublishedFindingAids.vue';
 
 Vue.use( VueRouter );
 
 const routes = [
     {
-        path      : '/login',
-        name      : 'Login',
-        component : Login,
+        path      : '/',
+        name      : 'home',
+        component : HomeView,
     },
     {
-        path      : '/',
-        name      : 'Home',
-        component : Home,
+        path      : '/create',
+        name      : 'create',
+        component : CreateNewFindingAidView,
+    },
+    {
+        path      : '/in-process',
+        name      : 'in-process',
+        component : ManageInProcessFindingAidsView,
+    },
+    {
+        path      : '/login',
+        name      : 'login',
+        component : LoginView,
+    },
+    {
+        path      : '/published',
+        name      : 'published',
+        component : ManagePublishedFindingAidsView,
     },
 ];
 
