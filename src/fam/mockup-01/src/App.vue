@@ -9,12 +9,6 @@
             </router-link>
         </div>
         <router-view />
-
-        this.$route:
-
-        <code>
-            {{ helpText }}
-        </code>
     </div>
 </template>
 
@@ -27,7 +21,7 @@ export default {
     },
     data() {
         return {
-            helpText : this.$route,
+            route : this.$route,
         };
     },
     computed : {
