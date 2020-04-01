@@ -5,8 +5,10 @@
 
             <h2>Login</h2>
 
-            <b-form-row class="my-1">
-                <b-col cols="3" />
+            <b-row
+                align-h="center"
+                class="my-1"
+            >
                 <b-col cols="2">
                     <label>Username</label>
                 </b-col>
@@ -16,11 +18,12 @@
                         type="email"
                     />
                 </b-col>
-                <b-col cols="3" />
-            </b-form-row>
+            </b-row>
 
-            <b-form-row class="my-1">
-                <b-col cols="3" />
+            <b-row
+                align-h="center"
+                class="my-1"
+            >
                 <b-col cols="2">
                     <label>Password</label>
                 </b-col>
@@ -30,8 +33,7 @@
                         type="password"
                     />
                 </b-col>
-                <b-col cols="3" />
-            </b-form-row>
+            </b-row>
         </b-container>
     </div>
 </template>
