@@ -1,16 +1,21 @@
 <template>
     <div>
-        <b-container>
+        <b-container
+            id="main-container"
+            class="main-container h-100"
+        >
             <h1>Welcome to the Finding Aids Manager (FAM)</h1>
 
-            <h2>Login</h2>
+            <h2 id="login-header">
+                Login
+            </h2>
 
             <b-row
+                id="main-row"
                 align-h="center"
-                class="my-1"
             >
                 <b-col cols="2">
-                    <label>Username</label>
+                    <label for="username">Username</label>
                 </b-col>
                 <b-col cols="4">
                     <b-form-input
@@ -25,11 +30,11 @@
                 class="my-1"
             >
                 <b-col cols="2">
-                    <label>Password</label>
+                    <label for="password">Password</label>
                 </b-col>
                 <b-col cols="4">
                     <b-form-input
-                        id="psasword"
+                        id="password"
                         type="password"
                     />
                 </b-col>
@@ -46,7 +51,15 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-div {
-    border: solid black 1px;
+#login-header {
+    margin-top: 5%;
+}
+
+#main-container {
+    padding-top: 5%;
+}
+
+#main-row {
+    margin-top: 5%;
 }
 </style>
