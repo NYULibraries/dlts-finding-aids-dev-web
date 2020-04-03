@@ -4,6 +4,14 @@ import mutations from './mutations';
 
 const state = function () {
     return {
+        users : [
+            'admin@nyu.edu',
+            'abu-dhabi-archivist@nyu.edu',
+            'acm-archivist@nyu.edu',
+            'bhs-archivist@brooklynhistory.org',
+            'nyhs-archivist@nyhistory.org',
+            'poly-archivist@nyhistory.org',
+        ],
     };
 };
 
