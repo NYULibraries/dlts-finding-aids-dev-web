@@ -6,9 +6,20 @@
         >
             <h1>Welcome to the Finding Aids Manager (FAM)</h1>
 
+            <b-row
+                id="feedback-row"
+                align-h="center"
+            >
+                <b-col cols="6">
+                    <div id="feedback">
+                        {{ feedback }}
+                    </div>
+                </b-col>
+            </b-row>
+
             <b-form @submit.prevent="clickSignIn">
                 <b-row
-                    id="main-row"
+                    id="username-row"
                     align-h="center"
                 >
                     <b-col cols="2">
@@ -63,6 +74,7 @@ export default {
     name     : 'Login',
     data() {
         return {
+            feedback : '',
             username : '',
             password : '',
         };
@@ -77,9 +89,10 @@ export default {
     methods : {
         clickSignIn() {
             if ( this.users.includes( this.username ) && this.password === 'password' ) {
+                this.feedback = '';
                 alert( 'User ' + this.username + ' has signed in.' );
             } else {
-                alert( 'Invalid user and password combination' );
+                this.feedback = 'Invalid username and password combination';
             }
         },
     },
@@ -92,12 +105,20 @@ export default {
     margin-top: 5%;
 }
 
+#feedback {
+    color: red;
+}
+
+#feedback-row {
+    padding-top: 5%;
+}
+
 #main-container {
     padding-top: 5%;
 }
 
-#main-row {
-    margin-top: 5%;
+#username-row {
+    padding-top: 5%;
 }
 
 #sign-in-button {
