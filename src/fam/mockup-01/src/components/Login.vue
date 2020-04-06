@@ -14,6 +14,8 @@
                     <div id="feedback">
                         {{ feedback }}
                     </div>
+
+                    <b-spinner v-if="showSpinner" />
                 </b-col>
             </b-row>
 
@@ -77,6 +79,8 @@ export default {
             feedback : '',
             username : '',
             password : '',
+
+            showSpinner : false,
         };
     },
     computed : {
@@ -109,12 +113,18 @@ finally logging in with a valid username/password.</p>
     },
     methods : {
         clickSignIn() {
-            if ( this.users.includes( this.username ) && this.password === 'password' ) {
-                this.feedback = '';
-                alert( 'User ' + this.username + ' has signed in.' );
-            } else {
-                this.feedback = 'Invalid username and password combination';
-            }
+            this.feedback = '';
+            this.showSpinner = true;
+
+            sleep( 300 ).then( () => {
+                this.showSpinner = false;
+
+                if ( this.users.includes( this.username ) && this.password === 'password' ) {
+                    alert( 'User ' + this.username + ' has signed in.' );
+                } else {
+                    this.feedback = 'Invalid username and password combination';
+                }
+            } );
         },
         ...mapActions(
             [
@@ -122,6 +132,10 @@ finally logging in with a valid username/password.</p>
             ],
         ),
     },
+};
+
+const sleep = ( milliseconds ) => {
+    return new Promise( resolve => setTimeout( resolve, milliseconds ) );
 };
 </script>
 
