@@ -4,8 +4,11 @@ import mutations from './mutations';
 
 const state = function () {
     return {
-        helpText : '',
-        users    : [
+        helpModal : {
+            content : '',
+            title   : '',
+        },
+        users            : [
             'admin@nyu.edu',
             'abu-dhabi-archivist@nyu.edu',
             'acm-archivist@nyu.edu',

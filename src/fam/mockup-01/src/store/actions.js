@@ -1,5 +1,5 @@
 export default {
-    setHelpText( { commit }, helpText ) {
-        commit( 'setHelpText', helpText );
+    setHelpModal( { commit }, HelpModal ) {
+        commit( 'setHelpModal', HelpModal );
     },
 };

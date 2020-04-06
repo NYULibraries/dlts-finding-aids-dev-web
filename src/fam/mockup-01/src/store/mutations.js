@@ -1,5 +1,5 @@
 export default {
-    setHelpText( state, helpText ) {
-        state.helpText = helpText;
+    setHelpModal( state, helpModal ) {
+        state.helpModal = helpModal;
     },
 };

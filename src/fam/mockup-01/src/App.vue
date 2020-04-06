@@ -8,8 +8,9 @@
             centered
             ok-only
             scrollable
+            :title="helpModal.title"
         >
-            {{ helpText }}
+            {{ helpModal.content }}
         </b-modal>
     </div>
 </template>
@@ -30,7 +31,7 @@ export default {
     computed : {
         ...mapGetters(
             [
-                'helpText',
+                'helpModal',
             ],
         ),
     },

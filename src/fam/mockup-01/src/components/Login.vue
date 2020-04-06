@@ -87,7 +87,12 @@ export default {
         ),
     },
     mounted() {
-        this.setHelpText( 'Login' );
+        this.setHelpModal(
+            {
+                content : 'Login',
+                title   : 'Login screen',
+            },
+        );
     },
     methods : {
         clickSignIn() {
@@ -100,7 +105,7 @@ export default {
         },
         ...mapActions(
             [
-                'setHelpText',
+                'setHelpModal',
             ],
         ),
     },
