@@ -1,6 +1,16 @@
 <template>
     <div id="app">
         <router-view />
+
+        <b-modal
+            id="help-modal"
+            size="lg    "
+            centered
+            ok-only
+            scrollable
+        >
+            {{ helpText }}
+        </b-modal>
     </div>
 </template>
 
@@ -20,6 +30,7 @@ export default {
     computed : {
         ...mapGetters(
             [
+                'helpText',
             ],
         ),
     },
@@ -30,7 +41,7 @@ export default {
             if ( e.key === 'h' && ( e.ctrlKey ) ) {
                 e.preventDefault(); // present "Save Page" from getting triggered.
 
-                alert( this.helpText );
+                this.$bvModal.show( 'help-modal' );
             }
         };
 

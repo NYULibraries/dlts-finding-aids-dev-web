@@ -68,7 +68,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
     name     : 'Login',
@@ -86,6 +86,9 @@ export default {
             ],
         ),
     },
+    mounted() {
+        this.setHelpText( 'Login' );
+    },
     methods : {
         clickSignIn() {
             if ( this.users.includes( this.username ) && this.password === 'password' ) {
@@ -95,6 +98,11 @@ export default {
                 this.feedback = 'Invalid username and password combination';
             }
         },
+        ...mapActions(
+            [
+                'setHelpText',
+            ],
+        ),
     },
 };
 </script>
