@@ -4,7 +4,7 @@
 
         <b-modal
             id="help-modal"
-            size="lg    "
+            size="lg"
             centered
             ok-only
             scrollable
