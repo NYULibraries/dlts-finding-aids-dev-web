@@ -10,7 +10,9 @@
             scrollable
             :title="helpModal.title"
         >
-            {{ helpModal.content }}
+            <!-- eslint-disable no-v-html -->
+            <span v-html="helpModal.content"></span>
+            <!-- eslint-enable -->
         </b-modal>
     </div>
 </template>

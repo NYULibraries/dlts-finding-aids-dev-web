@@ -87,9 +87,22 @@ export default {
         ),
     },
     mounted() {
+        const userList = this.users.map( user => {
+            return `<li>${ user }</li>`;
+        } ).join( '\n' );
         this.setHelpModal(
             {
-                content : 'Login',
+                content : `
+<p>Each FAM user is granted permissions to a specific group of repositories.
+This interactive mockup comes with these fictitious, generic users, wall of whom
+have a password of "password":</p>
+<ul>
+${ userList }
+</ul>
+
+<p>Try logging in one or more times with an incorrect username or password, before
+finally logging in with a valid username/password.</p>
+`,
                 title   : 'Login screen',
             },
         );
