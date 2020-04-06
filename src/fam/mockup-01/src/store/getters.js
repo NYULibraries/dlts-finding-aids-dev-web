@@ -1,3 +1,4 @@
 export default {
-    users : state => state.users,
+    helpText : state => state.helpText,
+    users    : state => state.users,
 };
