@@ -86,6 +86,8 @@ export default {
     computed : {
         ...mapGetters(
             [
+                'currentRepositories',
+                'currentUser',
                 'users',
             ],
         ),
@@ -128,6 +130,8 @@ finally logging in with a valid username/password.</p>
         },
         ...mapActions(
             [
+                'setCurrentRepositories',
+                'setCurrentUser',
                 'setHelpModal',
             ],
         ),
