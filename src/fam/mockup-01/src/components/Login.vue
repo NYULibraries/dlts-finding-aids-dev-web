@@ -118,7 +118,7 @@ finally logging in with a valid username/password.</p>
             this.feedback = '';
             this.showSpinner = true;
 
-            await sleep( 300 );
+            await this.$sleep( 300 );
 
             this.showSpinner = false;
 
@@ -138,9 +138,6 @@ finally logging in with a valid username/password.</p>
     },
 };
 
-const sleep = ( milliseconds ) => {
-    return new Promise( resolve => setTimeout( resolve, milliseconds ) );
-};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
