@@ -5,13 +5,13 @@ import mutations from './mutations';
 const state = function () {
     return {
         currentRepositories : [],
-        currentUser : '',
-        helpModal : {
+        currentUser         : '',
+        helpModal           : {
             content : '',
             title   : '',
         },
-        repositories : {
-            'akkasah' : [
+        repositories        : {
+            'akkasah'  : [
                 'weatherly@nyu.edu',
                 'brad@nyu.edu',
             ],
@@ -19,11 +19,11 @@ const state = function () {
                 'weatherly@nyu.edu',
                 'megan@nyu.edu',
             ],
-            'bhs' : [
+            'bhs'      : [
                 'weatherly@nyu.edu',
                 'maggie@brooklynhistory.org',
             ],
-            'fales' : [
+            'fales'    : [
                 'weatherly@nyu.edu',
                 'megan@nyu.edu',
             ],
@@ -31,29 +31,29 @@ const state = function () {
                 'weatherly@nyu.edu',
                 'francesca@nyu.edu',
             ],
-            'nyhs' : [
+            'nyhs'     : [
                 'weatherly@nyu.edu',
                 'larry@nyhistory.org',
             ],
-            'nyuad' : [
+            'nyuad'    : [
                 'weatherly@nyu.edu',
                 'brad@nyu.edu',
             ],
-            'poly' : [
+            'poly'     : [
                 'weatherly@nyu.edu',
                 'lyndsay@nyu.edu',
             ],
-            'rism' : [
+            'rism'     : [
                 'weatherly@nyu.edu',
                 'megan@nyu.edu',
             ],
-            'tamwag' : [
+            'tamwag'   : [
                 'weatherly@nyu.edu',
                 'megan@nyu.edu',
             ],
         },
         // https://jira.nyu.edu/jira/browse/FADESIGN-63
-        users : [
+        users               : [
             'brad@nyu.edu',
             'francesca@nyu.edu',
             'larry@nyhistory.org',
