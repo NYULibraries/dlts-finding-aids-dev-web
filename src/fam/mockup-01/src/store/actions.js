@@ -5,7 +5,7 @@ export default {
     setCurrentUser( { commit }, user ) {
         commit( 'setCurrentUser', user );
     },
-    setHelpModal( { commit }, HelpModal ) {
-        commit( 'setHelpModal', HelpModal );
+    setHelpModal( { commit }, helpModal ) {
+        commit( 'setHelpModal', helpModal );
     },
 };
