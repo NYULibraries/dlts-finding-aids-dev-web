@@ -26,6 +26,7 @@ module.exports = {
     ],
     rules         : {
         'comma-dangle'                            : ['error', 'always-multiline'],
+        'computed-property-spacing'               : ['error', 'always'],
         // allow async-await
         'generator-star-spacing'                  : 'off',
         indent                                  : ['warn', 4],
