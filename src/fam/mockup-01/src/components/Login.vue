@@ -88,6 +88,7 @@ export default {
             [
                 'currentRepositories',
                 'currentUser',
+                'repositoryArchivists',
                 'users',
             ],
         ),
@@ -122,11 +123,26 @@ finally logging in with a valid username/password.</p>
 
             this.showSpinner = false;
 
+            this.setCurrentUser( this.username );
+            this.setCurrentRepositories( this.getRepositoriesForUser( this.username ) );
+
             if ( this.users.includes( this.username ) && this.password === 'password' ) {
-                alert( 'User ' + this.username + ' has signed in.' );
+                alert( 'User ' + this.username + ' has access to these repositories: ' +
+                       this.getRepositoriesForUser( this.username ).join( ', ' ) );
             } else {
                 this.feedback = 'Invalid username and password combination';
             }
+        },
+        getRepositoriesForUser( user ) {
+            const repositoriesForUser = [];
+
+            Object.keys( this.repositoryArchivists ).forEach( repository => {
+                if ( this.repositoryArchivists[ repository ].includes( user ) ) {
+                    repositoriesForUser.push( repository );
+                }
+            } );
+
+            return repositoriesForUser;
         },
         ...mapActions(
             [
