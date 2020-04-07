@@ -1,5 +1,5 @@
 export default {
-    setCurrentRepositories( { commit }, respositories ) {
+    setCurrentRepositories( { commit }, repositories ) {
         commit( 'setCurrentRepositories', repositories );
     },
     setCurrentUser( { commit }, user ) {
