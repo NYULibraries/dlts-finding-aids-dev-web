@@ -8,13 +8,15 @@ const state = function () {
             content : '',
             title   : '',
         },
-        users            : [
-            'admin@nyu.edu',
-            'abu-dhabi-archivist@nyu.edu',
-            'acm-archivist@nyu.edu',
-            'bhs-archivist@brooklynhistory.org',
-            'nyhs-archivist@nyhistory.org',
-            'poly-archivist@nyhistory.org',
+        // https://jira.nyu.edu/jira/browse/FADESIGN-63
+        users : [
+            'brad@nyu.edu',
+            'francesca@nyu.edu',
+            'larry@nyhistory.org',
+            'lyndsay@nyu.edu',
+            'maggie@brooklynhistory.org',
+            'megan@nyu.edu',
+            'weatherly@nyu.edu',
         ],
     };
 };
