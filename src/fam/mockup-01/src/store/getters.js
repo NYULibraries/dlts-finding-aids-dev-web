@@ -1,7 +1,7 @@
 export default {
-    currentRepositories : state => state.currentRepositories,
-    currentUser         : state => state.currentUser,
-    helpModal           : state => state.helpModal,
-    repositories        : state => state.repositories,
-    users               : state => state.users,
+    currentRepositories  : state => state.currentRepositories,
+    currentUser          : state => state.currentUser,
+    helpModal            : state => state.helpModal,
+    repositoryArchivists : state => state.repositoryArchivists,
+    users                : state => state.users,
 };

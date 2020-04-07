@@ -10,7 +10,7 @@ const state = function () {
             content : '',
             title   : '',
         },
-        repositories        : {
+        repositoryArchivists : {
             akkasah  : [
                 'weatherly@nyu.edu',
                 'brad@nyu.edu',
