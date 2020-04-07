@@ -112,19 +112,19 @@ finally logging in with a valid username/password.</p>
         );
     },
     methods : {
-        clickSignIn() {
+        async clickSignIn() {
             this.feedback = '';
             this.showSpinner = true;
 
-            sleep( 300 ).then( () => {
-                this.showSpinner = false;
+            await sleep( 300 );
 
-                if ( this.users.includes( this.username ) && this.password === 'password' ) {
-                    alert( 'User ' + this.username + ' has signed in.' );
-                } else {
-                    this.feedback = 'Invalid username and password combination';
-                }
-            } );
+            this.showSpinner = false;
+
+            if ( this.users.includes( this.username ) && this.password === 'password' ) {
+                alert( 'User ' + this.username + ' has signed in.' );
+            } else {
+                this.feedback = 'Invalid username and password combination';
+            }
         },
         ...mapActions(
             [
