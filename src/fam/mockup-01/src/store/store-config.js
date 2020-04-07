@@ -4,6 +4,8 @@ import mutations from './mutations';
 
 const state = function () {
     return {
+        currentRepositories : [],
+        currentUser : '',
         helpModal : {
             content : '',
             title   : '',
