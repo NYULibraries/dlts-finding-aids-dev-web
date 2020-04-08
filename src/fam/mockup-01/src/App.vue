@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-        <router-view />
+        <router-view id="router-view" />
 
         <b-modal
             id="help-modal"
@@ -65,6 +65,7 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  height : 900px;
   text-align: center;
   color: #2c3e50;
 }
@@ -80,5 +81,9 @@ export default {
 
 #nav a.router-link-exact-active {
   color: #42b983;
+}
+
+#router-view {
+    height : 100%;
 }
 </style>
