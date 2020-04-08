@@ -14,7 +14,10 @@
                 is-nav
             >
                 <b-navbar-nav v-if="showNavigationMenu">
-                    <b-nav-item :to="{ name: 'home' }">
+                    <b-nav-item
+                        :to="{ name: 'home' }"
+                        exact
+                    >
                         Home
                     </b-nav-item>
                     <b-nav-item :to="{ name: 'create' }">
