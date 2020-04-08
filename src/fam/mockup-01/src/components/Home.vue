@@ -54,9 +54,22 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
-    name  : 'Home',
-    props : {
+    name     : 'Home',
+    props    : {},
+    computed : {
+        ...mapGetters(
+            [
+                'currentUser',
+            ],
+        ),
+    },
+    mounted() {
+        if ( ! this.currentUser ) {
+            this.$router.push( { name : 'login' } );
+        }
     },
 };
 </script>
