@@ -3,6 +3,7 @@
         id="main-container"
         class="main-container h-100"
     >
+        <Navbar :show-navigation-menu="false" />
         <b-row
             id="welcome-row"
             align-v="center"
@@ -56,8 +57,13 @@
 <script>
 import { mapGetters } from 'vuex';
 
+import Navbar from './Navbar.vue';
+
 export default {
-    name     : 'Home',
+    name       : 'Home',
+    components : {
+        Navbar,
+    },
     props    : {},
     computed : {
         ...mapGetters(
