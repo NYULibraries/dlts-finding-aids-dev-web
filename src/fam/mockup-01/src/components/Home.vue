@@ -10,7 +10,7 @@
         >
             <b-col>
                 <h1>
-                    Welcome to the FAM
+                    Welcome to the FAM (Finding Aids Manager)
                 </h1>
             </b-col>
         </b-row>
