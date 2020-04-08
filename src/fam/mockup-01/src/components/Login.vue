@@ -86,7 +86,6 @@ export default {
     computed : {
         ...mapGetters(
             [
-                'currentRepositories',
                 'currentUser',
                 'repositoryArchivists',
                 'users',
