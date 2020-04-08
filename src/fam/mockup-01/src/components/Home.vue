@@ -60,7 +60,7 @@
 <script>
 import { mapGetters } from 'vuex';
 
-import Navbar from './Navbar.vue';
+import Navbar from './Navbar';
 
 export default {
     name       : 'Home',
