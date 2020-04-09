@@ -69,6 +69,7 @@
                         id="submit-button"
                         class="button"
                         variant="success"
+                        :disabled="disabled"
                     >
                         Submit
                     </b-button>
@@ -90,9 +91,10 @@ export default {
     },
     data() {
         return {
-            file    : null,
-            state   : null,
-            results : null,
+            disabled : true,
+            file     : null,
+            state    : null,
+            results  : null,
         };
     },
     computed : {
@@ -114,6 +116,7 @@ export default {
             this.results = `Uploading EAD file ${ this.file.name }...\n`;
             await this.$sleep( 5000 );
             this.results += 'Upload complete.\n';
+            this.disabled = false;
         },
     },
     mounted() {
