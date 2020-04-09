@@ -5,7 +5,7 @@
             type="light"
             variant="light"
         >
-            <b-navbar-brand href="#">
+            <b-navbar-brand href="#/">
                 FAM
             </b-navbar-brand>
 
@@ -13,7 +13,7 @@
                 id="nav-collapse"
                 is-nav
             >
-                <b-navbar-nav v-if="showNavigationMenu">
+                <b-navbar-nav>
                     <b-nav-item
                         :to="{ name: 'home' }"
                         exact
@@ -53,13 +53,6 @@
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
-    props : {
-        showNavigationMenu : {
-            type     : Boolean,
-            required : false,
-            default  : true,
-        },
-    },
     computed : {
         ...mapGetters(
             [
