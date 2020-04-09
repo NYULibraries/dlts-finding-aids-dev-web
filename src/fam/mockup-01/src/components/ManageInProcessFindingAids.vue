@@ -1,7 +1,15 @@
 <template>
     <div>
-        <navbar :show-navigation-menu="true" />
-        <h2>ManageInProcessFindingAids component</h2>
+        <b-container
+            id="main-container"
+            class="main-container h-100"
+        >
+            <navbar />
+
+            <h1 id="header">
+                Manage in-process finding aids
+            </h1>
+        </b-container>
     </div>
 </template>
 
@@ -24,18 +32,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
+    #header {
+        margin-top : 3%;
+    }
 </style>
