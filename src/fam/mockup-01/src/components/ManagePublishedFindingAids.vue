@@ -1,14 +1,18 @@
 <template>
     <div>
-        <h1>Finding Aids Manager - Interactive Mockup #1</h1>
-
+        <navbar :show-navigation-menu="true" />
         <h2>ManagePublishedFindingAids component</h2>
     </div>
 </template>
 
 <script>
+import Navbar from './Navbar';
+
 export default {
-    name  : 'ManagePublishedFindingAids',
+    name       : 'ManagePublishedFindingAids',
+    components : {
+        Navbar,
+    },
     props : {
         msg : {
             type     : String,
