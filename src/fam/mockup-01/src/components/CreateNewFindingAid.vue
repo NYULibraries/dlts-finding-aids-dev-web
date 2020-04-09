@@ -17,8 +17,16 @@
             >
                 <b-col
                     id="upload-col"
+                    cols="6"
                 >
-                    Upload
+                    <!-- Styled -->
+                    <b-form-file
+                        v-model="file"
+                        :state="state"
+                        accept=".xml"
+                        placeholder="Choose an EAD file or drop it here..."
+                        drop-placeholder="Drop file here..."
+                    />
                 </b-col>
             </b-row>
 
@@ -31,11 +39,12 @@
                     id="results-col"
                 >
                     <b-form-textarea
-                        id="textarea"
+                        id="results-textarea"
                         v-model="results"
                         placeholder="Waiting for upload of EAD file..."
                         rows="20"
                         readonly
+                        plaintext
                     />
                 </b-col>
             </b-row>
@@ -79,15 +88,11 @@ export default {
     components : {
         Navbar,
     },
-    props : {
-        msg : {
-            type     : String,
-            default  : null,
-        },
-    },
     data() {
         return {
-            results : '',
+            file    : null,
+            state   : null,
+            results : null,
         };
     },
     computed : {
@@ -96,6 +101,20 @@ export default {
                 'currentUser',
             ],
         ),
+    },
+    watch : {
+        async file() {
+            if ( ! this.file.name.endsWith( '.xml' ) ) {
+                this.results = 'The uploaded EAD file must have a .xml extension.';
+                this.state = false;
+                return;
+            }
+
+            this.state = true;
+            this.results = `Uploading EAD file ${ this.file.name }...\n`;
+            await this.$sleep( 5000 );
+            this.results += 'Upload complete.\n';
+        },
     },
     mounted() {
         if ( ! this.currentUser ) {
@@ -115,15 +134,20 @@ export default {
     height : 500px;
 }
 
+#results-textarea {
+    border : solid black 1px;
+    padding : 1%;
+}
+
+#upload-row {
+    padding : 2%;
+}
+
 .button {
-    margin : 5px;
+    margin : 1%;
 }
 
 .row {
-    padding : 5px;
-}
-
-div {
-    border : solid black 1px;
+    padding : 1%;
 }
 </style>
