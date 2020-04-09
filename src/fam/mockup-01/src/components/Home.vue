@@ -3,7 +3,7 @@
         id="main-container"
         class="main-container h-100"
     >
-        <Navbar />
+        <navbar />
         <b-row
             id="welcome-row"
             align-v="center"
