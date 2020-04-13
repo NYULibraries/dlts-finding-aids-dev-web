@@ -84,6 +84,8 @@ import { mapGetters } from 'vuex';
 
 import Navbar from './Navbar';
 
+let parser;
+
 export default {
     name       : 'CreateNewFindingAid',
     components : {
@@ -114,19 +116,76 @@ export default {
 
             this.state = true;
             this.results = `Uploading EAD file ${ this.file.name }...\n`;
-            await this.$sleep( 5000 );
+            // await this.$sleep( 5000 );
             this.results += 'Upload complete.\n';
 
             const ead = await this.$readFileAsTextSync( this.file );
-            this.results += ead;
 
-            this.disabled = false;
+            this.processEAD( ead );
         },
     },
     mounted() {
         if ( ! this.currentUser ) {
             this.$router.push( { name : 'login' } );
         }
+
+        parser = new DOMParser();
+    },
+    methods : {
+        getEADElementValue( eadDoc, elementName ) {
+            const element = eadDoc.getElementsByTagName( elementName )[ 0 ];
+
+            let elementValue;
+            if ( element ) {
+                elementValue = element.textContent.trim();
+
+                if ( ! elementValue ) {
+                    throw new Error( `Required element <${ elementName }> is empty.` );
+                }
+
+                return elementValue;
+            } else {
+                throw new Error( `Required element <${ elementName }> not found.` );
+            }
+        },
+        processEAD( ead ) {
+            let abort = false;
+            const uploadedFindingAid = {};
+
+            const eadDoc = parser.parseFromString( ead, 'application/xml' );
+
+            const parserErrorCount = eadDoc.documentElement
+                .getElementsByTagName( 'parsererror' ).length;
+
+            if ( parserErrorCount > 0 ) {
+                this.results += 'The XML in this file is not valid.  Please check it ' +
+                                'using an XML validator.';
+                return;
+            }
+
+            const requiredEADElements = [ 'eadid', 'repository', 'title' ];
+            requiredEADElements.forEach( elementName => {
+                try {
+                    uploadedFindingAid[ elementName ] = this.getEADElementValue( eadDoc, elementName );
+                } catch( e ) {
+                    this.results += `${ e }\n`;
+
+                    abort = true;
+                }
+            } );
+
+            if ( abort ) {
+                this.results += 'Aborting upload.';
+
+                this.state = false;
+
+                return;
+            }
+
+            uploadedFindingAid.uploadTimestamp = new Date().toLocaleString( 'en-US', { timeZone : 'America/New_York' } );
+
+            this.results += JSON.stringify( uploadedFindingAid, null, '    ' );
+        },
     },
 };
 </script>
