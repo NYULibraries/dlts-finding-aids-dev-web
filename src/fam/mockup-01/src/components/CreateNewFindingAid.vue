@@ -137,6 +137,7 @@ export default {
             this.file = null;
             this.results = null;
             this.state = true;
+            this.submitDisabled = true;
         },
         getEADElementValue( eadDoc, elementName ) {
             const element = eadDoc.getElementsByTagName( elementName )[ 0 ];
@@ -185,12 +186,16 @@ export default {
 
                 this.state = false;
 
+                this.submitDisabled = true;
+
                 return;
             }
 
             uploadedFindingAid.uploadTimestamp = new Date().toLocaleString( 'en-US', { timeZone : 'America/New_York' } );
 
             this.results += JSON.stringify( uploadedFindingAid, null, '    ' );
+
+            this.submitDisabled = false;
         },
     },
 };
