@@ -183,9 +183,7 @@ export default {
 
             if ( abort ) {
                 this.results += 'Aborting upload.';
-
                 this.state = false;
-
                 this.submitDisabled = true;
 
                 return;
