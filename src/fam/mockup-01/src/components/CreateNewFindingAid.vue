@@ -62,6 +62,7 @@
                         id="cancel-button"
                         class="button"
                         variant="dark"
+                        @click="cancel"
                     >
                         Cancel
                     </b-button>
@@ -132,6 +133,11 @@ export default {
         parser = new DOMParser();
     },
     methods : {
+        cancel() {
+            this.file = null;
+            this.results = null;
+            this.state = true;
+        },
         getEADElementValue( eadDoc, elementName ) {
             const element = eadDoc.getElementsByTagName( elementName )[ 0 ];
 
