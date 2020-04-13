@@ -25,6 +25,7 @@ module.exports = {
         'vue',
     ],
     rules         : {
+        'array-bracket-spacing'                   : ['error', 'always'],
         'comma-dangle'                            : ['error', 'always-multiline'],
         'computed-property-spacing'               : ['error', 'always'],
         // allow async-await
