@@ -116,6 +116,10 @@ export default {
             this.results = `Uploading EAD file ${ this.file.name }...\n`;
             await this.$sleep( 5000 );
             this.results += 'Upload complete.\n';
+
+            const ead = await this.$readFileAsTextSync( this.file );
+            this.results += ead;
+
             this.disabled = false;
         },
     },
