@@ -70,7 +70,7 @@
                         id="submit-button"
                         class="button"
                         variant="success"
-                        :disabled="disabled"
+                        :disabled="submitDisabled"
                     >
                         Submit
                     </b-button>
@@ -94,10 +94,10 @@ export default {
     },
     data() {
         return {
-            disabled : true,
-            file     : null,
-            state    : null,
-            results  : null,
+            submitDisabled : true,
+            file           : null,
+            state          : null,
+            results        : null,
         };
     },
     computed : {
