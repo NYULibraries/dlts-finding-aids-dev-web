@@ -58,14 +58,14 @@
                             v-model="filterOn"
                             class="mt-1"
                         >
-                            <b-form-checkbox value="name">
-                                Name
+                            <b-form-checkbox value="title">
+                                Title
                             </b-form-checkbox>
-                            <b-form-checkbox value="age">
-                                Age
+                            <b-form-checkbox value="repository">
+                                Repository
                             </b-form-checkbox>
-                            <b-form-checkbox value="isActive">
-                                Active
+                            <b-form-checkbox value="datetime">
+                                Datetime
                             </b-form-checkbox>
                         </b-form-checkbox-group>
                     </b-form-group>
@@ -127,8 +127,16 @@
                 :sort-direction="sortDirection"
                 @filtered="onFiltered"
             >
-                <template v-slot:cell(name)="row">
-                    {{ row.value.first }} {{ row.value.last }}
+                <template v-slot:cell(repository)="row">
+                    {{ row.value }}
+                </template>
+
+                <template v-slot:cell(title)="row">
+                    {{ row.value }}
+                </template>
+
+                <template v-slot:cell(datetime)="row">
+                    {{ row.value }}
                 </template>
 
                 <template v-slot:cell(actions)="row">
@@ -193,36 +201,40 @@ export default {
                     key           : 'repository',
                     label         : 'Repository',
                     sortable      : true,
-                    sortDirection : 'desc',
+                    sortDirection : 'asc',
+                    class         : 'text-left',
                 },
                 {
-                    key      : 'title',
-                    label    : 'Title',
-                    sortable : true,
-                    class    : 'text-center',
+                    key           : 'title',
+                    label         : 'Title',
+                    sortable      : true,
+                    sortDirection : 'asc',
+                    class         : 'text-left text-wrap',
                 },
                 {
                     key               : 'datetime',
                     label             : 'Datetime',
                     formatter         : ( datetime ) => {
-                        moment( datetime ).format( 'MM/DD/YYYY h:mm a' );
+                        return moment( datetime * 1000 ).format( 'M/D/YYYY h:mm a' );
                     },
                     sortable          : true,
-                    sortByFormatted   : true,
+                    sortDirection     : 'desc',
                     filterByFormatted : true,
+                    class             : 'text-left text-nowrap',
                 },
                 {
                     key   : 'actions',
                     label : 'Actions',
+                    class : 'text-left text-nowrap',
                 },
             ],
             totalRows     : 1,
             currentPage   : 1,
-            perPage       : 5,
+            perPage       : 10,
             pageOptions   : [ 10, 25, 50, 100 ],
-            sortBy        : '',
-            sortDesc      : false,
-            sortDirection : 'asc',
+            sortBy        : 'datetime',
+            sortDesc      : true,
+            sortDirection : 'desc',
             filter        : null,
             filterOn      : [],
             infoModal     : {
@@ -242,7 +254,13 @@ export default {
                 Object.keys( findingAids ).forEach( id => {
                     const findingAid = findingAids[ id ];
 
-                    items.push( [ repository, findingAid.title, findingAid.datetime ] );
+                    items.push(
+                        {
+                            repository,
+                            title    : findingAid.title,
+                            datetime : findingAid.datetime,
+                        },
+                    );
                 } );
             } );
 
