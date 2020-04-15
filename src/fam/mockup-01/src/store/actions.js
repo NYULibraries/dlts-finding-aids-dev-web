@@ -8,4 +8,7 @@ export default {
     setHelpModal( { commit }, helpModal ) {
         commit( 'setHelpModal', helpModal );
     },
+    unpublishFindingAid( { commit }, findingAid ) {
+        commit( 'unpublishFindingAid', findingAid );
+    },
 };

@@ -2,6 +2,8 @@ import actions from './actions';
 import getters from './getters';
 import mutations from './mutations';
 
+import publishedFindingAids from './published-finding-aids';
+
 const state = function () {
     return {
         currentRepositories : [],
@@ -52,8 +54,9 @@ const state = function () {
                 'megan@nyu.edu',
             ],
         },
+        publishedFindingAids : publishedFindingAids,
         // https://jira.nyu.edu/jira/browse/FADESIGN-63
-        users               : [
+        users                : [
             'brad@nyu.edu',
             'francesca@nyu.edu',
             'larry@nyhistory.org',
