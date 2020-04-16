@@ -142,13 +142,6 @@
                 <template v-slot:cell(actions)="row">
                     <b-button
                         size="sm"
-                        class="mr-1"
-                        @click="info(row.item, row.index, $event.target)"
-                    >
-                        Info modal
-                    </b-button>
-                    <b-button
-                        size="sm"
                         @click="row.toggleDetails"
                     >
                         {{ row.detailsShowing ? 'Hide' : 'Show' }} Details
@@ -168,16 +161,6 @@
                     </b-card>
                 </template>
             </b-table>
-
-            <!-- Info modal -->
-            <b-modal
-                :id="infoModal.id"
-                :title="infoModal.title"
-                ok-only
-                @hide="resetInfoModal"
-            >
-                <pre>{{ infoModal.content }}</pre>
-            </b-modal>
         </b-container>
     </div>
 </template>
@@ -244,11 +227,6 @@ export default {
             sortDirection : 'desc',
             filter        : null,
             filterOn      : [],
-            infoModal     : {
-                id      : 'info-modal',
-                title   : '',
-                content : '',
-            },
         };
     },
     computed   : {
@@ -290,15 +268,6 @@ export default {
         }
     },
     methods    : {
-        info( item, index, button ) {
-            this.infoModal.title = `Row index: ${ index }`;
-            this.infoModal.content = JSON.stringify( item, null, 2 );
-            this.$root.$emit( 'bv::show::modal', this.infoModal.id, button );
-        },
-        resetInfoModal() {
-            this.infoModal.title = '';
-            this.infoModal.content = '';
-        },
         onFiltered( filteredItems ) {
             // Trigger pagination to update the number of buttons/pages due to filtering
             this.totalRows = filteredItems.length;
