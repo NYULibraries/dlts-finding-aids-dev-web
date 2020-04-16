@@ -3,6 +3,6 @@ export default {
     currentUser          : state => state.currentUser,
     helpModal            : state => state.helpModal,
     publishedFindingAids : state => state.publishedFindingAids,
-    repositoryArchivists : state => state.repositoryArchivists,
+    repositories         : state => state.repositories,
     users                : state => state.users,
 };

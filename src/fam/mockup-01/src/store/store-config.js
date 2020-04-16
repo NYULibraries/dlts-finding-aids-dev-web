@@ -7,52 +7,82 @@ import publishedFindingAids from './published-finding-aids';
 const state = function () {
     return {
         currentRepositories : [],
-        currentUser         : '',
+        currentUser         : 'weatherly@nyu.edu',
         helpModal           : {
             content : '',
             title   : '',
         },
-        repositoryArchivists : {
-            akkasah  : [
-                'weatherly@nyu.edu',
-                'brad@nyu.edu',
-            ],
-            archives : [
-                'weatherly@nyu.edu',
-                'megan@nyu.edu',
-            ],
-            bhs      : [
-                'weatherly@nyu.edu',
-                'maggie@brooklynhistory.org',
-            ],
-            fales    : [
-                'weatherly@nyu.edu',
-                'megan@nyu.edu',
-            ],
-            lapietra : [
-                'weatherly@nyu.edu',
-                'francesca@nyu.edu',
-            ],
-            nyhs     : [
-                'weatherly@nyu.edu',
-                'larry@nyhistory.org',
-            ],
-            nyuad    : [
-                'weatherly@nyu.edu',
-                'brad@nyu.edu',
-            ],
-            poly     : [
-                'weatherly@nyu.edu',
-                'lyndsay@nyu.edu',
-            ],
-            rism     : [
-                'weatherly@nyu.edu',
-                'megan@nyu.edu',
-            ],
-            tamwag   : [
-                'weatherly@nyu.edu',
-                'megan@nyu.edu',
-            ],
+        repositories : {
+            akkasah  : {
+                archivists : [
+                    'weatherly@nyu.edu',
+                    'brad@nyu.edu',
+                ],
+                organization : 'NYU',
+            },
+            archives : {
+                archivists : [
+                    'weatherly@nyu.edu',
+                    'megan@nyu.edu',
+                ],
+                organization : 'NYU',
+            },
+            bhs      : {
+                archivists : [
+                    'weatherly@nyu.edu',
+                    'maggie@brooklynhistory.org',
+                ],
+                organization : 'BHS',
+            },
+            fales    : {
+                archivists : [
+                    'weatherly@nyu.edu',
+                    'megan@nyu.edu',
+                ],
+                organization : 'NYU',
+            },
+            lapietra : {
+                archivists : [
+                    'weatherly@nyu.edu',
+                    'francesca@nyu.edu',
+                ],
+                organization : 'NYU',
+            },
+            nyhs     : {
+                archivists : [
+                    'weatherly@nyu.edu',
+                    'larry@nyhistory.org',
+                ],
+                organization : 'NYHS',
+            },
+            nyuad    : {
+                archivists : [
+                    'weatherly@nyu.edu',
+                    'brad@nyu.edu',
+                ],
+                organization : 'NYUAD',
+            },
+            poly     : {
+                archivists : [
+                    'weatherly@nyu.edu',
+                    'lyndsay@nyu.edu',
+                ],
+                organization : 'NYU',
+            },
+            rism     : {
+                archivists : [
+                    'weatherly@nyu.edu',
+                    'megan@nyu.edu',
+                ],
+                organization : 'NYU',
+            },
+            tamwag   : {
+                archivists : [
+                    'weatherly@nyu.edu',
+                    'megan@nyu.edu',
+                ],
+                organization : 'NYU',
+            },
         },
         publishedFindingAids : publishedFindingAids,
         // https://jira.nyu.edu/jira/browse/FADESIGN-63

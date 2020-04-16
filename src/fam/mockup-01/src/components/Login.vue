@@ -87,7 +87,7 @@ export default {
         ...mapGetters(
             [
                 'currentUser',
-                'repositoryArchivists',
+                'repositories',
                 'users',
             ],
         ),
@@ -134,8 +134,8 @@ finally logging in with a valid username/password.</p>
         getRepositoriesForUser( user ) {
             const repositoriesForUser = [];
 
-            Object.keys( this.repositoryArchivists ).forEach( repository => {
-                if ( this.repositoryArchivists[ repository ].includes( user ) ) {
+            Object.keys( this.repositories ).forEach( repository => {
+                if ( this.repositories[ repository ].archivists.includes( user ) ) {
                     repositoriesForUser.push( repository );
                 }
             } );
