@@ -60,7 +60,7 @@ const state = function () {
                     'weatherly@nyu.edu',
                     'brad@nyu.edu',
                 ],
-                organization : 'NYUAD',
+                organization : 'NYU',
             },
             poly     : {
                 archivists : [
