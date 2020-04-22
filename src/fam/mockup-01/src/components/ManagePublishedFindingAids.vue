@@ -127,18 +127,6 @@
                 :sort-direction="sortDirection"
                 @filtered="onFiltered"
             >
-                <template v-slot:cell(repository)="row">
-                    {{ row.value }}
-                </template>
-
-                <template v-slot:cell(title)="row">
-                    {{ row.value }}
-                </template>
-
-                <template v-slot:cell(datetime)="row">
-                    {{ row.value }}
-                </template>
-
                 <template v-slot:cell(actions)="row">
                     <b-button
                         size="sm"
