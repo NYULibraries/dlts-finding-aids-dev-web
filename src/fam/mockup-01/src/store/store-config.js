@@ -12,12 +12,14 @@ const state = function () {
             content : '',
             title   : '',
         },
+        // https://jira.nyu.edu/jira/browse/FADESIGN-65
         repositories : {
             akkasah  : {
                 archivists : [
                     'weatherly@nyu.edu',
                     'brad@nyu.edu',
                 ],
+                name         : 'Akkasah Center for Photography at NYU Abu Dhabi',
                 organization : 'NYU',
             },
             archives : {
@@ -25,6 +27,7 @@ const state = function () {
                     'weatherly@nyu.edu',
                     'megan@nyu.edu',
                 ],
+                name         : 'New York University Archives',
                 organization : 'NYU',
             },
             bhs      : {
@@ -32,6 +35,7 @@ const state = function () {
                     'weatherly@nyu.edu',
                     'maggie@brooklynhistory.org',
                 ],
+                name         : 'Brooklyn Historical Society',
                 organization : 'BHS',
             },
             fales    : {
@@ -39,6 +43,7 @@ const state = function () {
                     'weatherly@nyu.edu',
                     'megan@nyu.edu',
                 ],
+                name         : 'Fales Library & Special Collections',
                 organization : 'NYU',
             },
             lapietra : {
@@ -46,6 +51,7 @@ const state = function () {
                     'weatherly@nyu.edu',
                     'francesca@nyu.edu',
                 ],
+                name         : 'La Pietra',
                 organization : 'NYU',
             },
             nyhs     : {
@@ -53,6 +59,7 @@ const state = function () {
                     'weatherly@nyu.edu',
                     'larry@nyhistory.org',
                 ],
+                name         : 'New-York Historical Society',
                 organization : 'NYHS',
             },
             nyuad    : {
@@ -60,6 +67,7 @@ const state = function () {
                     'weatherly@nyu.edu',
                     'brad@nyu.edu',
                 ],
+                name         : 'NYU Abu Dhabi Archives and Special Collections',
                 organization : 'NYU',
             },
             poly     : {
@@ -67,6 +75,7 @@ const state = function () {
                     'weatherly@nyu.edu',
                     'lyndsay@nyu.edu',
                 ],
+                name         : 'Poly Archives at Bern Dibner Library of Science and Technology',
                 organization : 'NYU',
             },
             rism     : {
@@ -74,6 +83,7 @@ const state = function () {
                     'weatherly@nyu.edu',
                     'megan@nyu.edu',
                 ],
+                name         : 'Research Institute for the Study of Man',
                 organization : 'NYU',
             },
             tamwag   : {
@@ -81,6 +91,7 @@ const state = function () {
                     'weatherly@nyu.edu',
                     'megan@nyu.edu',
                 ],
+                name         : 'Tamiment Library & Robert F. Wagner Labor Archives',
                 organization : 'NYU',
             },
         },

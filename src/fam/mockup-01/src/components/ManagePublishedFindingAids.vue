@@ -229,7 +229,7 @@ export default {
 
                     items.push(
                         {
-                            repository,
+                            repository   : `${ this.repositories[ repository ].name } (${ repository })`,
                             id           : id,
                             title        : findingAid.title,
                             datetime     : findingAid.datetime,
