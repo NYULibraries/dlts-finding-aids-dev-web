@@ -169,13 +169,6 @@ export default {
         return {
             fields : [
                 {
-                    key           : 'organization',
-                    label         : 'Organization',
-                    sortable      : true,
-                    sortDirection : 'asc',
-                    class         : 'text-left',
-                },
-                {
                     key           : 'repository',
                     label         : 'Repository',
                     sortable      : true,
@@ -236,7 +229,6 @@ export default {
 
                     items.push(
                         {
-                            organization : this.repositories[ repository ].organization,
                             repository,
                             id           : id,
                             title        : findingAid.title,
