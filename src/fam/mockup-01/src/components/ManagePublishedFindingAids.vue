@@ -183,6 +183,13 @@ export default {
                     class         : 'text-left',
                 },
                 {
+                    key           : 'id',
+                    label         : 'ID',
+                    sortable      : true,
+                    sortDirection : 'asc',
+                    class         : 'text-left',
+                },
+                {
                     key           : 'title',
                     label         : 'Title',
                     sortable      : true,
@@ -231,6 +238,7 @@ export default {
                         {
                             organization : this.repositories[ repository ].organization,
                             repository,
+                            id           : id,
                             title        : findingAid.title,
                             datetime     : findingAid.datetime,
                         },
