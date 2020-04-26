@@ -16,60 +16,25 @@
                     class="my-1"
                 >
                     <b-form-group
-                        label="Filter"
+                        label="Filter by repository"
                         label-cols-sm="3"
                         label-align-sm="right"
                         label-size="sm"
                         label-for="filterInput"
                         class="mb-0"
                     >
-                        <b-input-group size="sm">
-                            <b-form-input
-                                id="filterInput"
-                                v-model="filter"
-                                type="search"
-                                placeholder="Type to Search"
-                            />
-                            <b-input-group-append>
-                                <b-button
-                                    :disabled="!filter"
-                                    @click="filter = ''"
-                                >
-                                    Clear
-                                </b-button>
-                            </b-input-group-append>
-                        </b-input-group>
+                        <b-form-select
+                            v-model="filter"
+                            :options="repositoryFilterOptions"
+                        />
                     </b-form-group>
                 </b-col>
 
+                <!-- This used to contain filterOn checkboxes.  Keep the column around for later. -->
                 <b-col
                     lg="6"
                     class="my-1"
-                >
-                    <b-form-group
-                        label="Filter On"
-                        label-cols-sm="3"
-                        label-align-sm="right"
-                        label-size="sm"
-                        description="Leave all unchecked to filter on all data"
-                        class="mb-0"
-                    >
-                        <b-form-checkbox-group
-                            v-model="filterOn"
-                            class="mt-1"
-                        >
-                            <b-form-checkbox value="title">
-                                Title
-                            </b-form-checkbox>
-                            <b-form-checkbox value="repository">
-                                Repository
-                            </b-form-checkbox>
-                            <b-form-checkbox value="datetime">
-                                Datetime
-                            </b-form-checkbox>
-                        </b-form-checkbox-group>
-                    </b-form-group>
-                </b-col>
+                />
 
                 <b-col
                     sm="5"
@@ -214,12 +179,29 @@ export default {
             sortDesc      : true,
             sortDirection : 'desc',
             filter        : null,
-            filterOn      : [],
+            filterOn      : [ 'repository' ],
         };
     },
     computed   : {
         items() {
             return this.getItems();
+        },
+        repositoryFilterOptions() {
+            const options = this.currentRepositories.map( repository => {
+                return {
+                    value : repository,
+                    text  : repository,
+                };
+            } );
+
+            options.unshift(
+                {
+                    value : null,
+                    text  : '- do not filter -',
+                },
+            );
+
+            return options;
         },
         ...mapGetters(
             [
