@@ -206,7 +206,7 @@ export default {
                     class : 'text-left text-nowrap',
                 },
             ],
-            totalRows     : 1,
+            totalRows     : 0,
             currentPage   : 1,
             perPage       : 10,
             pageOptions   : [ 10, 25, 50, 100 ],
@@ -254,6 +254,8 @@ export default {
         if ( ! this.currentUser ) {
             this.$router.push( { name : 'login' } );
         }
+
+        this.totalRows = this.items.length;
     },
     methods    : {
         onFiltered( filteredItems ) {
