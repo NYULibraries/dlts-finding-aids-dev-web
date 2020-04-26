@@ -34,7 +34,9 @@
                 <b-col
                     lg="6"
                     class="my-1"
-                />
+                >
+                    Total number finding aids: {{ totalRows.toLocaleString() }}
+                </b-col>
 
                 <b-col
                     sm="5"
