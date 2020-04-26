@@ -7,7 +7,7 @@ import publishedFindingAids from './published-finding-aids';
 const state = function () {
     return {
         currentRepositories : [],
-        currentUser         : 'weatherly@nyu.edu',
+        currentUser         : '',
         helpModal           : {
             content : '',
             title   : '',
