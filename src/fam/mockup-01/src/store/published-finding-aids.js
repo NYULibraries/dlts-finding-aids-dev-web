@@ -2475,7 +2475,7 @@ export default {
         },
         'arc_176_this_week_clubwomens_world' : {
             'datetime' : 1569338131,
-            'title'    : '                 This Week and                  The Clubwomen\'s World magazine collection ARC.176',
+            'title'    : 'This Week and                  The Clubwomen\'s World magazine collection ARC.176',
         },
         'arc_177_brooklyn_real_estate_board' : {
             'datetime' : 1569338131,
@@ -2491,7 +2491,7 @@ export default {
         },
         'arc_180_bqe_magazine' : {
             'datetime' : 1569338131,
-            'title'    : '                 BQE Magazine collection ARC.180',
+            'title'    : 'BQE Magazine collection ARC.180',
         },
         'arc_181_cadman_plaza_complex' : {
             'datetime' : 1569338131,
@@ -2499,7 +2499,7 @@ export default {
         },
         'arc_182_new_brooklyn_magazine' : {
             'datetime' : 1569338131,
-            'title'    : '                 New Brooklyn magazine collection ARC.182',
+            'title'    : 'New Brooklyn magazine collection ARC.182',
         },
         'arc_183_flatbush_chamber_commerce' : {
             'datetime' : 1569338131,
@@ -2667,11 +2667,11 @@ export default {
         },
         'arc_227_glimpses_of_brooklyn' : {
             'datetime' : 1569338131,
-            'title'    : '                 Glimpses of Brooklyn viewbooks ARC.227',
+            'title'    : 'Glimpses of Brooklyn viewbooks ARC.227',
         },
         'arc_228_views_of_brooklyn' : {
             'datetime' : 1569338131,
-            'title'    : '                 Views of Brooklyn viewbooks ARC.228',
+            'title'    : 'Views of Brooklyn viewbooks ARC.228',
         },
         'arc_229_furman_typescripts' : {
             'datetime' : 1569338131,
@@ -2683,7 +2683,7 @@ export default {
         },
         'arc_231_views_of_coney_island' : {
             'datetime' : 1569338131,
-            'title'    : '                 Views of Coney Island viewbooks ARC.231',
+            'title'    : 'Views of Coney Island viewbooks ARC.231',
         },
         'arc_232_albertype_company' : {
             'datetime' : 1569338131,
@@ -2755,7 +2755,7 @@ export default {
         },
         'arc_249_brooklyn_eagle' : {
             'datetime' : 1569338131,
-            'title'    : '                 Brooklyn Eagle profiles of Brooklyn\'s six original towns ARC.249',
+            'title'    : 'Brooklyn Eagle profiles of Brooklyn\'s six original towns ARC.249',
         },
         'arc_250_1922_account_book' : {
             'datetime' : 1569338131,
@@ -2795,7 +2795,7 @@ export default {
         },
         'arc_259_brooklyn_daily_eagle' : {
             'datetime' : 1569338131,
-            'title'    : '                 Brooklyn Daily Eagle issues on the Brooklyn centennial ARC.259',
+            'title'    : 'Brooklyn Daily Eagle issues on the Brooklyn centennial ARC.259',
         },
         'arc_260_cadman' : {
             'datetime' : 1569338131,
@@ -2915,7 +2915,7 @@ export default {
         },
         'arc_301_battle_of_li_maps' : {
             'datetime' : 1569338131,
-            'title'    : '                 The Battle of Long Island: A Bird\'s Eye View exhibition maps and drawings ARC.301',
+            'title'    : 'The Battle of Long Island: A Bird\'s Eye View exhibition maps and drawings ARC.301',
         },
         'arc_302_bhs_building_drawings' : {
             'datetime' : 1569338131,
@@ -4267,7 +4267,7 @@ export default {
         },
         'arms_1977_257_brooklyn_eagle_postcards' : {
             'datetime' : 1569338131,
-            'title'    : '                 Brooklyn Daily Eagle postcard albums 1977.257',
+            'title'    : 'Brooklyn Daily Eagle postcard albums 1977.257',
         },
         'arms_1977_259_brooklyn_bridge' : {
             'datetime' : 1569338131,
@@ -4959,7 +4959,7 @@ export default {
         },
         'arms_1977_587_pocket_almanac' : {
             'datetime' : 1569338131,
-            'title'    : '                 American Ladies and Gentlemen\'s Pocket Almanac and Elegent Belles Lettres 1977.587',
+            'title'    : 'American Ladies and Gentlemen\'s Pocket Almanac and Elegent Belles Lettres 1977.587',
         },
         'arms_1977_592_101_cavalry_regiment' : {
             'datetime' : 1569338131,
@@ -5567,7 +5567,7 @@ export default {
         },
         'arms_1978_184_south_side_signal' : {
             'datetime' : 1569338131,
-            'title'    : '                 South Side Signal vital records 1978.184',
+            'title'    : 'South Side Signal vital records 1978.184',
         },
         'arms_1978_185_southold_register_book' : {
             'datetime' : 1569338131,
@@ -5703,7 +5703,7 @@ export default {
         },
         'arms_1980_019_red_owl' : {
             'datetime' : 1569338131,
-            'title'    : '                 The Red Owl: A Legend of the Montauks manuscript 1980.019',
+            'title'    : 'The Red Owl: A Legend of the Montauks manuscript 1980.019',
         },
         'arms_1980_021_chittenden' : {
             'datetime' : 1569338131,
@@ -5799,7 +5799,7 @@ export default {
         },
         'arms_1985_013_new_york_woman' : {
             'datetime' : 1569338131,
-            'title'    : '                 The New York Woman  magazine collection 1985.013',
+            'title'    : 'The New York Woman  magazine collection 1985.013',
         },
         'arms_1985_015_hallock' : {
             'datetime' : 1569338131,
@@ -5815,7 +5815,7 @@ export default {
         },
         'arms_1985_018_daily_eagle' : {
             'datetime' : 1569338131,
-            'title'    : '                 Brooklyn Daily Eagle issue announcing the opening of the Brooklyn Bridge 1985.018',
+            'title'    : 'Brooklyn Daily Eagle issue announcing the opening of the Brooklyn Bridge 1985.018',
         },
         'arms_1985_019_marshall' : {
             'datetime' : 1569338131,
@@ -5939,7 +5939,7 @@ export default {
         },
         'arms_1985_060_new_york_mercury' : {
             'datetime' : 1569338131,
-            'title'    : '                 New-York Mercury issue 1985.060',
+            'title'    : 'New-York Mercury issue 1985.060',
         },
         'arms_1985_064_washington_avenue_baptist_church' : {
             'datetime' : 1569338131,
@@ -6083,7 +6083,7 @@ export default {
         },
         'arms_1985_475_draft_riots' : {
             'datetime' : 1569338131,
-            'title'    : '                 New York Daily Tribune page on the New York City draft riots 1985.475',
+            'title'    : 'New York Daily Tribune page on the New York City draft riots 1985.475',
         },
         'arms_1986_001_abbott' : {
             'datetime' : 1569338131,
@@ -6539,7 +6539,7 @@ export default {
         },
         'arms_1992_001_brooklyn_bridge_teleplay' : {
             'datetime' : 1569338131,
-            'title'    : '                 Brooklyn Bridge teleplay 1992.001',
+            'title'    : 'Brooklyn Bridge teleplay 1992.001',
         },
         'arms_1992_002_brooklyn_bridge_anniversary' : {
             'datetime' : 1569338131,
@@ -6563,7 +6563,7 @@ export default {
         },
         'arms_1992_012_pizza_slice_typescript' : {
             'datetime' : 1569338131,
-            'title'    : '                 Pizza by the Slice typescript 1992.012',
+            'title'    : 'Pizza by the Slice typescript 1992.012',
         },
         'arms_1992_013_lefrak' : {
             'datetime' : 1569338131,
@@ -6707,7 +6707,7 @@ export default {
         },
         'arms_1995_009_brooklyns_us' : {
             'datetime' : 1569338131,
-            'title'    : '                 Brooklyns in the U.S. 1995.009',
+            'title'    : 'Brooklyns in the U.S. 1995.009',
         },
         'arms_1995_011_portrait_boy_bicycle' : {
             'datetime' : 1569338131,
@@ -6823,7 +6823,7 @@ export default {
         },
         'arms_2004_021_stiles_kings_county' : {
             'datetime' : 1569338131,
-            'title'    : '                 The Civil, Political, Professional and Ecclesiastical History and Commercial and Industrial Record of the County of Kings and the City of Brooklyn, N.Y. from 1683 to 1884 by Henry R. Stiles 2004.021',
+            'title'    : 'The Civil, Political, Professional and Ecclesiastical History and Commercial and Industrial Record of the County of Kings and the City of Brooklyn, N.Y. from 1683 to 1884 by Henry R. Stiles 2004.021',
         },
         'arms_2004_026_104_willow_street' : {
             'datetime' : 1569338131,
@@ -6959,7 +6959,7 @@ export default {
         },
         'arms_2007_041_brooklyn' : {
             'datetime' : 1569338131,
-            'title'    : '                 Real Brooklyn, a day in our lives photographs 2007.041',
+            'title'    : 'Real Brooklyn, a day in our lives photographs 2007.041',
         },
         'arms_2007_042_blackout' : {
             'datetime' : 1569338131,
@@ -7315,7 +7315,7 @@ export default {
         },
         'v1974_020_views_new_york' : {
             'datetime' : 1569338131,
-            'title'    : '                 Views of New York viewbook V1974.020',
+            'title'    : 'Views of New York viewbook V1974.020',
         },
         'v1974_021_teale' : {
             'datetime' : 1569338131,
@@ -7323,7 +7323,7 @@ export default {
         },
         'v1974_023_art_work_brooklyn' : {
             'datetime' : 1569338131,
-            'title'    : '                 Art Work of Brooklyn, New York volume V1974.023',
+            'title'    : 'Art Work of Brooklyn, New York volume V1974.023',
         },
         'v1974_024_weindorf' : {
             'datetime' : 1569338131,
@@ -7451,7 +7451,7 @@ export default {
         },
         'v1982_009_brooklyn_usa' : {
             'datetime' : 1569338131,
-            'title'    : '                 Brooklyn U.S.A. View-Master images V1982.009',
+            'title'    : 'Brooklyn U.S.A. View-Master images V1982.009',
         },
         'v1984_001_brooklyn_slides' : {
             'datetime' : 1569338131,
@@ -7475,11 +7475,11 @@ export default {
         },
         'v1986_004_aerial_views_brooklyn_long_island' : {
             'datetime' : 1569338131,
-            'title'    : '                 Aerial Views of Brooklyn and Long Island photograph album V1986.004',
+            'title'    : 'Aerial Views of Brooklyn and Long Island photograph album V1986.004',
         },
         'v1986_005_new_york_brooklyn_bridge_brooklyn_city' : {
             'datetime' : 1569338131,
-            'title'    : '                 New York &amp; Brooklyn Bridge and Brooklyn City viewbook V1986.005',
+            'title'    : 'New York &amp; Brooklyn Bridge and Brooklyn City viewbook V1986.005',
         },
         'v1986_009_murdock_new_york_houses' : {
             'datetime' : 1569338131,
@@ -7495,11 +7495,11 @@ export default {
         },
         'v1986_018_brooklyn_photographs_in_black' : {
             'datetime' : 1569338131,
-            'title'    : '                 Brooklyn: Photographs in Black viewbook V1986.018',
+            'title'    : 'Brooklyn: Photographs in Black viewbook V1986.018',
         },
         'v1986_019_brooklyn_garden_flatbush' : {
             'datetime' : 1569338131,
-            'title'    : '                 Brooklyn\'s Garden: Views of Picturesque Flatbush viewbook V1986.019',
+            'title'    : 'Brooklyn\'s Garden: Views of Picturesque Flatbush viewbook V1986.019',
         },
         'v1986_021_artist_renderings_brooklyn_nyc' : {
             'datetime' : 1569338131,
@@ -7507,43 +7507,43 @@ export default {
         },
         'v1986_022_coney_island' : {
             'datetime' : 1569338131,
-            'title'    : '                 History of Coney Island: Lists and Photographs of Main Attractions viewbook V1986.022',
+            'title'    : 'History of Coney Island: Lists and Photographs of Main Attractions viewbook V1986.022',
         },
         'v1986_023_coney_island_brighton_manhattan' : {
             'datetime' : 1569338131,
-            'title'    : '                 Souvenir of Coney Island, Brighton and Manhattan beaches viewbook V1986.023',
+            'title'    : 'Souvenir of Coney Island, Brighton and Manhattan beaches viewbook V1986.023',
         },
         'v1986_026_new_coney_island' : {
             'datetime' : 1569338131,
-            'title'    : '                 Glimpses of the New Coney Island viewbook V1986.026',
+            'title'    : 'Glimpses of the New Coney Island viewbook V1986.026',
         },
         'v1986_027_coney_island' : {
             'datetime' : 1569338131,
-            'title'    : '                 Staley\'s Views of Coney Island viewbook V1986.027',
+            'title'    : 'Staley\'s Views of Coney Island viewbook V1986.027',
         },
         'v1986_028_new_york_album' : {
             'datetime' : 1569338131,
-            'title'    : '                 New York Album viewbook V1986.028',
+            'title'    : 'New York Album viewbook V1986.028',
         },
         'v1986_035_illustrated_long_island' : {
             'datetime' : 1569338131,
-            'title'    : '                 Illustrated Long Island viewbook V1986.035',
+            'title'    : 'Illustrated Long Island viewbook V1986.035',
         },
         'v1986_037_ships_of_our_navy' : {
             'datetime' : 1569338131,
-            'title'    : '                 Ships of Our Navy viewbook V1986.037',
+            'title'    : 'Ships of Our Navy viewbook V1986.037',
         },
         'v1986_038_panorama_nyc_brooklyn_vicinity' : {
             'datetime' : 1569338131,
-            'title'    : '                 Panorama of New York, Brooklyn, and Vicinity viewbook V1986.038',
+            'title'    : 'Panorama of New York, Brooklyn, and Vicinity viewbook V1986.038',
         },
         'v1986_057_souvenir_moriches_1898' : {
             'datetime' : 1569338131,
-            'title'    : '                 Souvenir of Moriches, 1898 viewbook V1986.057',
+            'title'    : 'Souvenir of Moriches, 1898 viewbook V1986.057',
         },
         'v1986_059_souvenir_babylon_fire_island' : {
             'datetime' : 1569338131,
-            'title'    : '                 Souvenir of Babylon and Fire Island viewbook V1986.059',
+            'title'    : 'Souvenir of Babylon and Fire Island viewbook V1986.059',
         },
         'v1986_242_hammond' : {
             'datetime' : 1569338131,
@@ -7951,7 +7951,7 @@ export default {
         },
         'v1992_003' : {
             'datetime' : 1569338131,
-            'title'    : '                 Walking Race: Heel and Toe Artists Hoof it to Coney Island and two other films V1992.003',
+            'title'    : 'Walking Race: Heel and Toe Artists Hoof it to Coney Island and two other films V1992.003',
         },
         'v1992_006_ps_139_portraits' : {
             'datetime' : 1569338131,
@@ -10583,7 +10583,7 @@ export default {
         },
         'landmarks' : {
             'datetime' : 1569338134,
-            'title'    : '                 The Landmarks of New York Photograph Collection PR 310',
+            'title'    : 'The Landmarks of New York Photograph Collection PR 310',
         },
         'lantern' : {
             'datetime' : 1569338134,
@@ -10735,7 +10735,7 @@ export default {
         },
         'messages_president_elect' : {
             'datetime' : 1569338134,
-            'title'    : '                 Messages for the President-Elect collection MS 3027',
+            'title'    : 'Messages for the President-Elect collection MS 3027',
         },
         'millstein' : {
             'datetime' : 1569338134,
@@ -10943,7 +10943,7 @@ export default {
         },
         'ms2958_9848_wright_farrer' : {
             'datetime' : 1584478911,
-            'title'    : 'Old New York: A new look: The first series of etchings by Henry Farrer (1844-1903) AHMC - Wright, David G. ',
+            'title'    : 'Old New York: A new look: The first series of etchings by Henry Farrer (1844-1903) AHMC - Wright, David G.',
         },
         'ms297_isaac_hicks' : {
             'datetime' : 1569338134,
@@ -11803,7 +11803,7 @@ export default {
         },
         'reginald_marsh' : {
             'datetime' : 1569338134,
-            'title'    : '                 Reginald Marsh: Thirty Etchings and Engravings PR 341',
+            'title'    : 'Reginald Marsh: Thirty Etchings and Engravings PR 341',
         },
         'relyea' : {
             'datetime' : 1569338134,
@@ -12035,7 +12035,7 @@ export default {
         },
         'subway_therapy' : {
             'datetime' : 1569338134,
-            'title'    : '                 Subway Therapy collection MS 3025',
+            'title'    : 'Subway Therapy collection MS 3025',
         },
         'sydow' : {
             'datetime' : 1569338134,
@@ -13031,7 +13031,7 @@ export default {
         },
         'ALBA.216-ead' : {
             'datetime' : 1569338135,
-            'title'    : '                 The Good Fight: the Abraham Lincoln Brigade in the Spanish Civil War: Production Materials ALBA.216',
+            'title'    : 'The Good Fight: the Abraham Lincoln Brigade in the Spanish Civil War: Production Materials ALBA.216',
         },
         'ALBA.217-ead' : {
             'datetime' : 1569338135,
@@ -13223,7 +13223,7 @@ export default {
         },
         'ALBA.AUDIO.216-ead' : {
             'datetime' : 1569338135,
-            'title'    : '                 The Good Fight: The Abraham Lincoln Brigade in the Spanish Civil War: Audiotapes ALBA.AUDIO.216',
+            'title'    : 'The Good Fight: The Abraham Lincoln Brigade in the Spanish Civil War: Audiotapes ALBA.AUDIO.216',
         },
         'ALBA.GRAPHICS.004-ead' : {
             'datetime' : 1569338135,
@@ -13811,7 +13811,7 @@ export default {
         },
         'TAM.144-ead' : {
             'datetime' : 1569338136,
-            'title'    : '                 PM: FBI Files TAM.144',
+            'title'    : 'PM: FBI Files TAM.144',
         },
         'TAM.152-ead' : {
             'datetime' : 1569338136,
@@ -14031,7 +14031,7 @@ export default {
         },
         'TAM.271-ead' : {
             'datetime' : 1569338136,
-            'title'    : '                 New Leader Records TAM.271',
+            'title'    : 'New Leader Records TAM.271',
         },
         'TAM.273-ead' : {
             'datetime' : 1569338136,
@@ -18619,7 +18619,7 @@ export default {
         },
         'tam_504' : {
             'datetime' : 1569338138,
-            'title'    : '                 Tamiment Library Web Archive (Labor and the Left): Anarchism TAM.504',
+            'title'    : 'Tamiment Library Web Archive (Labor and the Left): Anarchism TAM.504',
         },
         'tam_509' : {
             'datetime' : 1569338138,
