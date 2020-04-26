@@ -15,19 +15,7 @@
                     lg="6"
                     class="my-1"
                 >
-                    <b-form-group
-                        label="Filter by repository"
-                        label-cols-sm="3"
-                        label-align-sm="right"
-                        label-size="sm"
-                        label-for="filterInput"
-                        class="mb-0"
-                    >
-                        <b-form-select
-                            v-model="filter"
-                            :options="repositoryFilterOptions"
-                        />
-                    </b-form-group>
+                    [[ HOLD THIS SPACE ]]
                 </b-col>
 
                 <!-- This used to contain filterOn checkboxes.  Keep the column around for later. -->
@@ -94,6 +82,23 @@
                 :sort-direction="sortDirection"
                 @filtered="onFiltered"
             >
+                <template v-slot:head(repository)="data">
+                    <b-form-group
+                        :label="data.label"
+                        label-cols-sm="3"
+                        label-align-sm="right"
+                        label-size="sm"
+                        label-for="filterInput"
+                        class="mb-0"
+                    >
+                        <b-form-select
+                            v-model="filter"
+                            :options="repositoryFilterOptions"
+                            size="sm"
+                        />
+                    </b-form-group>
+                </template>
+
                 <template v-slot:cell(actions)="row">
                     <b-button
                         size="sm"
