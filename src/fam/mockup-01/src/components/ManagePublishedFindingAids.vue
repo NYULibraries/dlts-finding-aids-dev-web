@@ -204,7 +204,7 @@ export default {
             options.unshift(
                 {
                     value : null,
-                    text  : '- do not filter -',
+                    text  : 'All',
                 },
             );
 
