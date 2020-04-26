@@ -219,6 +219,27 @@ export default {
     },
     computed   : {
         items() {
+            return this.getItems();
+        },
+        ...mapGetters(
+            [
+                'currentRepositories',
+                'currentUser',
+                'publishedFindingAids',
+                'repositories',
+            ],
+        ),
+    },
+    watch      : {},
+    mounted() {
+        if ( ! this.currentUser ) {
+            this.$router.push( { name : 'login' } );
+        }
+
+        this.totalRows = this.items.length;
+    },
+    methods    : {
+        getItems() {
             const items = [];
 
             Object.keys( this.publishedFindingAids ).forEach( repository => {
@@ -240,24 +261,6 @@ export default {
 
             return items;
         },
-        ...mapGetters(
-            [
-                'currentRepositories',
-                'currentUser',
-                'publishedFindingAids',
-                'repositories',
-            ],
-        ),
-    },
-    watch      : {},
-    mounted() {
-        if ( ! this.currentUser ) {
-            this.$router.push( { name : 'login' } );
-        }
-
-        this.totalRows = this.items.length;
-    },
-    methods    : {
         onFiltered( filteredItems ) {
             // Trigger pagination to update the number of buttons/pages due to filtering
             this.totalRows = filteredItems.length;
