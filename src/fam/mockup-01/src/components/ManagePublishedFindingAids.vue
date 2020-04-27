@@ -78,6 +78,7 @@
                 :current-page="currentPage"
                 :per-page="perPage"
                 :filter="filter"
+                :filter-function="customFilter"
                 :filter-included-fields="filterOn"
                 :sort-by.sync="sortBy"
                 :sort-desc.sync="sortDesc"
@@ -258,6 +259,11 @@ export default {
         this.totalRows = this.items.length;
     },
     methods    : {
+        customFilter( row, filterProp ) {
+            console.log( row, filterProp );
+
+            return false;
+        },
         getItems() {
             const items = [];
 
