@@ -68,6 +68,8 @@
 
             <!-- Main table element -->
             <b-table
+                bordered
+                striped
                 show-empty
                 small
                 stacked="md"
