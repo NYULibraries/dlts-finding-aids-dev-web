@@ -264,25 +264,4 @@ export default {
     #header {
         margin-top : 3%;
     }
-
-    #results-col {
-        height : 500px;
-    }
-
-    #results-textarea {
-        border  : solid black 1px;
-        padding : 1%;
-    }
-
-    #upload-row {
-        padding : 2%;
-    }
-
-    .button {
-        margin : 1%;
-    }
-
-    .row {
-        padding : 1%;
-    }
 </style>
