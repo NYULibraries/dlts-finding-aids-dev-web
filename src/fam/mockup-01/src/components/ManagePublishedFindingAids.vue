@@ -101,6 +101,34 @@
                     </b-form-group>
                 </template>
 
+                <template v-slot:head(title)="data">
+                    <b-form-group
+                        :label="data.label"
+                        label-cols="auto"
+                        label-align-sm="left"
+                        label-for="titleSearch"
+                        class="mb-0"
+                    >
+                        <b-input-group size="sm">
+                            <b-form-input
+                                id="titleFilter"
+                                v-model="filter"
+                                debounce="500"
+                                type="search"
+                                placeholder="Type to Search"
+                            />
+                            <b-input-group-append>
+                                <b-button
+                                    :disabled="!filter"
+                                    @click="filter = ''"
+                                >
+                                    Clear
+                                </b-button>
+                            </b-input-group-append>
+                        </b-input-group>
+                    </b-form-group>
+                </template>
+
                 <template v-slot:cell(actions)="row">
                     <b-button
                         size="sm"
@@ -188,7 +216,7 @@ export default {
             sortDesc      : true,
             sortDirection : 'desc',
             filter        : null,
-            filterOn      : [ 'repository' ],
+            filterOn      : [ 'title' ],
         };
     },
     computed   : {
