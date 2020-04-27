@@ -87,13 +87,13 @@
                 <template v-slot:head(repository)="data">
                     <b-form-group
                         :label="data.label"
-                        label-cols-sm="3"
-                        label-align-sm="right"
-                        label-size="sm"
-                        label-for="filterInput"
+                        label-cols="auto"
+                        label-align-sm="left"
+                        label-for="repositorySelect"
                         class="mb-0"
                     >
                         <b-form-select
+                            id="repositorySelect"
                             v-model="filter"
                             :options="repositoryFilterOptions"
                             size="sm"
