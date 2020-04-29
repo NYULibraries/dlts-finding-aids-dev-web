@@ -10,28 +10,28 @@
                 Manage published finding aids
             </h1>
 
-            <b-row>
+            <b-row id="controls-row">
                 <b-col
                     class="my-1 text-left"
+                    cols="6"
                 >
                     {{ totalRows.toLocaleString() }} finding aids found
                 </b-col>
 
                 <b-col
-                    class="my-1"
+                    class="my-1 text-right"
+                    cols="2"
                 >
                     <b-form-group
+                        id="per-page-form-group"
                         label="Per page"
-                        label-cols-sm="6"
-                        label-cols-md="4"
-                        label-cols-lg="3"
-                        label-align-sm="right"
+                        label-align="right"
+                        label-cols="6"
                         label-size="sm"
                         label-for="per-page-select"
                         class="mb-0"
                     >
                         <b-form-select
-                            id="per-page-select"
                             v-model="perPage"
                             size="sm"
                             :options="pageOptions"
@@ -313,7 +313,12 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+    #controls-row {
+        margin-bottom : 1%;
+    }
+
     #header {
+        margin-bottom : 3%;
         margin-top : 3%;
     }
 </style>
