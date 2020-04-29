@@ -12,23 +12,12 @@
 
             <b-row>
                 <b-col
-                    lg="6"
-                    class="my-1"
+                    class="my-1 text-left"
                 >
-                    [[ HOLD THIS SPACE ]]
-                </b-col>
-
-                <!-- This used to contain filterOn checkboxes.  Keep the column around for later. -->
-                <b-col
-                    lg="6"
-                    class="my-1"
-                >
-                    Total number finding aids: {{ totalRows.toLocaleString() }}
+                    {{ totalRows.toLocaleString() }} finding aids found
                 </b-col>
 
                 <b-col
-                    sm="5"
-                    md="6"
                     class="my-1"
                 >
                     <b-form-group
@@ -51,8 +40,6 @@
                 </b-col>
 
                 <b-col
-                    sm="7"
-                    md="6"
                     class="my-1"
                 >
                     <b-pagination
