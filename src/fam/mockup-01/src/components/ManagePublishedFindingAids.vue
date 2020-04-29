@@ -117,14 +117,6 @@
                                 type="search"
                                 placeholder="Type to Search"
                             />
-                            <b-input-group-append>
-                                <b-button
-                                    :disabled="!filter"
-                                    @click="filter = ''"
-                                >
-                                    Clear
-                                </b-button>
-                            </b-input-group-append>
                         </b-input-group>
                     </b-form-group>
                 </template>
