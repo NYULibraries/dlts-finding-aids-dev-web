@@ -27,7 +27,7 @@
                         label-cols-lg="3"
                         label-align-sm="right"
                         label-size="sm"
-                        label-for="perPageSelect"
+                        label-for="per-page-select"
                         class="mb-0"
                     >
                         <b-form-select
