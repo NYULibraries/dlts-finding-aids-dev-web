@@ -134,7 +134,6 @@
                                 v-model="filter.title"
                                 debounce="500"
                                 type="search"
-                                placeholder="Type to Search"
                             />
                         </b-input-group>
                     </b-form-group>
