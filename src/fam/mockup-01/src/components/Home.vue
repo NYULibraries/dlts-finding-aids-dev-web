@@ -58,7 +58,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 
 import Navbar from './Navbar';
 
@@ -79,6 +79,20 @@ export default {
         if ( ! this.currentUser ) {
             this.$router.push( { name : 'login' } );
         }
+
+        this.setHelpModal(
+            {
+                content : 'TODO',
+                title   : 'Home screen',
+            },
+        );
+    },
+    methods : {
+        ...mapActions(
+            [
+                'setHelpModal',
+            ],
+        ),
     },
 };
 </script>

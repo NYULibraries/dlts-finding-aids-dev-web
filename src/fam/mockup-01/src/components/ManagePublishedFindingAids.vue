@@ -165,7 +165,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 
 import moment from 'moment';
 
@@ -268,6 +268,13 @@ export default {
         }
 
         this.totalRows = this.items.length;
+
+        this.setHelpModal(
+            {
+                content : 'TODO',
+                title   : 'Manage Published Finding Aids screen',
+            },
+        );
     },
     methods    : {
         customFilter( row, filterProp ) {
@@ -308,6 +315,11 @@ export default {
             this.totalRows = filteredItems.length;
             this.currentPage = 1;
         },
+        ...mapActions(
+            [
+                'setHelpModal',
+            ],
+        ),
     },
 };
 </script>

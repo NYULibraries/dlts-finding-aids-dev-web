@@ -81,7 +81,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 
 import Navbar from './Navbar';
 
@@ -131,6 +131,13 @@ export default {
         }
 
         parser = new DOMParser();
+
+        this.setHelpModal(
+            {
+                content : 'TODO',
+                title   : 'Create New Finding Aid screen',
+            },
+        );
     },
     methods : {
         cancel() {
@@ -195,6 +202,11 @@ export default {
 
             this.submitDisabled = false;
         },
+        ...mapActions(
+            [
+                'setHelpModal',
+            ],
+        ),
     },
 };
 </script>

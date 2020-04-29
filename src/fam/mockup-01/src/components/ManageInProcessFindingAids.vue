@@ -14,6 +14,8 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+
 import Navbar from './Navbar';
 
 export default {
@@ -26,6 +28,21 @@ export default {
             type     : String,
             default  : null,
         },
+    },
+    mounted() {
+        this.setHelpModal(
+            {
+                content : 'TODO',
+                title   : 'Manage In-Process Finding Aids screen',
+            },
+        );
+    },
+    methods : {
+        ...mapActions(
+            [
+                'setHelpModal',
+            ],
+        ),
     },
 };
 </script>
