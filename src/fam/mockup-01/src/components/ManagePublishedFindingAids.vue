@@ -31,7 +31,7 @@
                         class="mb-0"
                     >
                         <b-form-select
-                            id="perPageSelect"
+                            id="per-page-select"
                             v-model="perPage"
                             size="sm"
                             :options="pageOptions"
@@ -75,11 +75,11 @@
                         :label="data.label"
                         label-cols="auto"
                         label-align-sm="left"
-                        label-for="repositorySelect"
+                        label-for="repository-select"
                         class="mb-0"
                     >
                         <b-form-select
-                            id="repositorySelect"
+                            id="repository-select"
                             v-model="filter.repository"
                             :options="repositoryFilterOptions"
                             size="sm"
@@ -92,12 +92,12 @@
                         :label="data.label"
                         label-cols="auto"
                         label-align-sm="left"
-                        label-for="idSearch"
+                        label-for="id-search"
                         class="mb-0"
                     >
                         <b-input-group size="sm">
                             <b-form-input
-                                id="idSearch"
+                                id="id-search"
                                 v-model="filter.id"
                                 debounce="500"
                                 type="search"
@@ -111,12 +111,12 @@
                         :label="data.label"
                         label-cols="auto"
                         label-align-sm="left"
-                        label-for="titleSearch"
+                        label-for="title-filter"
                         class="mb-0"
                     >
                         <b-input-group size="sm">
                             <b-form-input
-                                id="titleFilter"
+                                id="title-filter"
                                 v-model="filter.title"
                                 debounce="500"
                                 type="search"
