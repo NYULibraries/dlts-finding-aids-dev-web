@@ -79,7 +79,6 @@
                 :per-page="perPage"
                 :filter="filter"
                 :filter-function="customFilter"
-                :filter-included-fields="filterOn"
                 :sort-by.sync="sortBy"
                 :sort-desc.sync="sortDesc"
                 :sort-direction="sortDirection"
@@ -95,7 +94,7 @@
                     >
                         <b-form-select
                             id="repositorySelect"
-                            v-model="filter"
+                            v-model="filter.repository"
                             :options="repositoryFilterOptions"
                             size="sm"
                         />
@@ -113,7 +112,7 @@
                         <b-input-group size="sm">
                             <b-form-input
                                 id="titleFilter"
-                                v-model="filter"
+                                v-model="filter.title"
                                 debounce="500"
                                 type="search"
                                 placeholder="Type to Search"
@@ -216,7 +215,10 @@ export default {
             sortBy        : 'datetime',
             sortDesc      : true,
             sortDirection : 'desc',
-            filter        : null,
+            filter        : {
+                repository : null,
+                title      : null,
+            },
             filterOn      : [ 'title' ],
         };
     },
@@ -260,9 +262,15 @@ export default {
     },
     methods    : {
         customFilter( row, filterProp ) {
-            console.log( row, filterProp );
+            for ( const filter in filterProp ) {
+                const filterValue = filterProp[ filter ];
 
-            return false;
+                if ( filterValue && ! row[ filter ].toLowerCase().includes( filterProp[ filter ] ) ) {
+                    return false;
+                }
+            }
+
+            return true;
         },
         getItems() {
             const items = [];
