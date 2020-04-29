@@ -80,7 +80,6 @@
                 :filter="filter"
                 :filter-function="customFilter"
                 :sort-by.sync="sortBy"
-                :sort-desc.sync="sortDesc"
                 :sort-direction="sortDirection"
                 @filtered="onFiltered"
             >
