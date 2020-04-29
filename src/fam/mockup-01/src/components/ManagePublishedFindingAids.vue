@@ -221,9 +221,8 @@ export default {
             currentPage   : 1,
             perPage       : 10,
             pageOptions   : [ 10, 25, 50, 100 ],
-            sortBy        : 'datetime',
-            sortDesc      : true,
-            sortDirection : 'desc',
+            sortBy        : 'repository',
+            sortDirection : 'asc',
             filter        : {
                 id         : null,
                 repository : null,
