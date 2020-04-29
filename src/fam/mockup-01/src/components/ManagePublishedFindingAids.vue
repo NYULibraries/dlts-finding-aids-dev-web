@@ -75,11 +75,11 @@
                         :label="data.label"
                         label-cols="auto"
                         label-align-sm="left"
-                        label-for="repository-select"
+                        label-for="repository-filter"
                         class="mb-0"
                     >
                         <b-form-select
-                            id="repository-select"
+                            id="repository-filter"
                             v-model="filter.repository"
                             :options="repositoryFilterOptions"
                             size="sm"
@@ -92,12 +92,12 @@
                         :label="data.label"
                         label-cols="auto"
                         label-align-sm="left"
-                        label-for="id-search"
+                        label-for="id-filter"
                         class="mb-0"
                     >
                         <b-input-group size="sm">
                             <b-form-input
-                                id="id-search"
+                                id="id-filter"
                                 v-model="filter.id"
                                 debounce="500"
                                 type="search"
