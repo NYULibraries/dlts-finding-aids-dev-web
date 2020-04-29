@@ -101,6 +101,25 @@
                     </b-form-group>
                 </template>
 
+                <template v-slot:head(id)="data">
+                    <b-form-group
+                        :label="data.label"
+                        label-cols="auto"
+                        label-align-sm="left"
+                        label-for="idSearch"
+                        class="mb-0"
+                    >
+                        <b-input-group size="sm">
+                            <b-form-input
+                                id="idSearch"
+                                v-model="filter.id"
+                                debounce="500"
+                                type="search"
+                            />
+                        </b-input-group>
+                    </b-form-group>
+                </template>
+
                 <template v-slot:head(title)="data">
                     <b-form-group
                         :label="data.label"
@@ -208,6 +227,7 @@ export default {
             sortDesc      : true,
             sortDirection : 'desc',
             filter        : {
+                id         : null,
                 repository : null,
                 title      : null,
             },
