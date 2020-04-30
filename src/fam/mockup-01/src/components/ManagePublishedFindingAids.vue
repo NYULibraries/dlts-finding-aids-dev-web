@@ -163,7 +163,7 @@
                         <b-button
                             class="action-button"
                             :data-id="row.item.id"
-                            :data-repository="row.item.repository"
+                            :data-repository-code="row.item.repositoryCode"
                             variant="danger"
                             @click="clickUnpublishFindingAid"
                         >
@@ -173,6 +173,54 @@
                 </template>
             </b-table>
         </b-container>
+
+        <b-modal
+            id="confirm-unpublish-modal"
+            header-text-variant="danger"
+            size="lg"
+            centered
+            title="Confirm deletion"
+            ok-title="Delete"
+            ok-variant="danger"
+            @cancel="cancelUnpublishFindingAid"
+            @ok="unpublishFindingAid"
+        >
+            <p>Are you sure you wish to unpublish {{ unpublish.repositoryCode }}/{{ unpublish.id }}?</p>
+            <p>This will delete the following:</p>
+            <p></p>
+            <ul>
+                <li>
+                    Finding aid: http://dlib.nyu.edu/findingaids/html/{{ unpublish.repositoryCode }}/{{ unpublish.id }}/
+                </li>
+                <li>
+                    Public EAD file: http://dlib.nyu.edu/findingaids/ead/{{ unpublish.repositoryCode }}/{{ unpublish.id }}.xml
+                </li>
+                <li>
+                    Search data: https://specialcollections.library.nyu.edu/search/
+                </li>
+                <li>
+                    Github EAD file: https://github.com/NYULibraries/findingaids_eads/blob/master/{{ unpublish.repositoryCode }}/{{ unpublish.id }}.xml
+                </li>
+            </ul>
+        </b-modal>
+
+        <b-modal
+            id="queuing-unpublish-modal"
+            centered
+            no-close-on-esc
+            no-close-on-backdrop
+            hide-footer
+            hide-header-close
+            title="Queueing for deletion..."
+        >
+            <b-row>
+                <b-col />
+                <b-col align="center">
+                    <b-spinner />
+                </b-col>
+                <b-col />
+            </b-row>
+        </b-modal>
     </div>
 </template>
 
@@ -241,6 +289,10 @@ export default {
                 title      : null,
             },
             filterOn      : [ 'title' ],
+            unpublish     : {
+                id             : null,
+                repositoryCode : null,
+            },
         };
     },
     computed   : {
@@ -289,12 +341,33 @@ export default {
         );
     },
     methods    : {
+        cancelUnpublishFindingAid() {
+            this.unpublish.id = null;
+            this.unpublish.repositoryCode = null;
+        },
         clickUnpublishFindingAid( event ) {
-            const id = event.currentTarget.dataset.id;
-            const repository = event.currentTarget.dataset.repository
-                .match( /\(([a-z]+)\)$/ )[ 1 ];
+            this.unpublish.id = event.currentTarget.dataset.id;
+            this.unpublish.repositoryCode = event.currentTarget.dataset.repositoryCode;
 
-            alert( `Unpublish ${ repository }/${ id }` );
+            this.$bvModal.show( 'confirm-unpublish-modal' );
+        },
+        async unpublishFindingAid() {
+            this.$bvModal.show( 'queuing-unpublish-modal' );
+
+            await this.$sleep( 1000 );
+
+            this.$bvModal.hide( 'queuing-unpublish-modal' );
+
+            const message =
+                'The Github EAD file has been queued for deletion.' +
+                ' The finding aid, public EAD file, and search data will' +
+                ' be deleted after the Github repo change has been made.' +
+                ' The full unpublish process should be completed in [X time].';
+
+            this.$bvModal.msgBoxOk( message, {
+                centered : true,
+                title    : 'Deletion has been queued',
+            } );
         },
         customFilter( row, filterProp ) {
             for ( const filter in filterProp ) {
