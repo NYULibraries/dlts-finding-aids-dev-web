@@ -143,16 +143,34 @@
                 </template>
 
                 <template v-slot:row-details="row">
-                    <b-card>
-                        <ul>
-                            <li
-                                v-for="(value, key) in row.item"
-                                :key="key"
-                            >
-                                {{ key }}: {{ value }}
-                            </li>
-                        </ul>
-                    </b-card>
+                    <div>
+                        <b-button
+                            :data-id="row.item.id"
+                            :data-repository="row.item.repository"
+                            variant="primary"
+                            @click="clickViewFindingAid"
+                        >
+                            View finding aid
+                        </b-button>
+
+                        <b-button
+                            :data-id="row.item.id"
+                            :data-repository="row.item.repository"
+                            variant="primary"
+                            @click="clickViewEADFile"
+                        >
+                            View EAD file
+                        </b-button>
+
+                        <b-button
+                            :data-id="row.item.id"
+                            :data-repository="row.item.repository"
+                            variant="danger"
+                            @click="clickUnpublishFindingAid"
+                        >
+                            Unpublish finding aid
+                        </b-button>
+                    </div>
                 </template>
             </b-table>
         </b-container>
@@ -272,6 +290,29 @@ export default {
         );
     },
     methods    : {
+        clickViewEADFile( event ) {
+            const id = event.currentTarget.dataset.id;
+            const repository = event.currentTarget.dataset.repository
+                .match( /\(([a-z]+)\)$/ )[ 1 ];
+            const url = `[TODO: URL for ${ repository }/${ id }]`;
+
+            alert( `View EAD ${ url }` );
+        },
+        clickViewFindingAid( event ) {
+            const id = event.currentTarget.dataset.id;
+            const repository = event.currentTarget.dataset.repository
+                .match( /\(([a-z]+)\)$/ )[ 1 ];
+            const url = `http://dlib.nyu.edu/findingaids/html/${ repository }/${ id }/`;
+
+            alert( `View ${ url }` );
+        },
+        clickUnpublishFindingAid( event ) {
+            const id = event.currentTarget.dataset.id;
+            const repository = event.currentTarget.dataset.repository
+                .match( /\(([a-z]+)\)$/ )[ 1 ];
+
+            alert( `Unpublish ${ repository }/${ id }` );
+        },
         customFilter( row, filterProp ) {
             for ( const filter in filterProp ) {
                 const filterValue = filterProp[ filter ];
