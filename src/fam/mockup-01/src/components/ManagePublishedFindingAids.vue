@@ -355,6 +355,9 @@ export default {
 
             this.$bvModal.show( 'confirm-unpublish-modal' );
         },
+        refreshTableItems() {
+            this.items = this.getItems();
+        },
         async queueUnpublishFindingAid() {
             this.$bvModal.show( 'queuing-unpublish-modal' );
 
@@ -362,16 +365,32 @@ export default {
 
             this.$bvModal.hide( 'queuing-unpublish-modal' );
 
+            this.unpublishFindingAid(
+                {
+                    id         : this.unpublish.id,
+                    repository : this.unpublish.repositoryCode,
+                },
+            );
+
+            this.clearUnpublish();
+
             const message =
                 'The Github EAD file has been queued for deletion.' +
                 ' The finding aid, public EAD file, and search data will' +
                 ' be deleted after the Github repo change has been made.' +
                 ' The full unpublish process should be completed in [X time].';
 
+            const that = this;
             this.$bvModal.msgBoxOk( message, {
                 centered : true,
                 title    : 'Deletion has been queued',
-            } );
+            } ).then(
+                function () {
+                    that.refreshTableItems();
+
+                    that.$refs.table.refresh();
+                },
+            );
         },
         customFilter( row, filterProp ) {
             for ( const filter in filterProp ) {
@@ -415,6 +434,7 @@ export default {
         ...mapActions(
             [
                 'setHelpModal',
+                'unpublishFindingAid',
             ],
         ),
     },
