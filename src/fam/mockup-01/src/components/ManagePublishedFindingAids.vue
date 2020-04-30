@@ -183,7 +183,7 @@
             ok-title="Delete"
             ok-variant="danger"
             @cancel="cancelUnpublishFindingAid"
-            @ok="unpublishFindingAid"
+            @ok="queueUnpublishFindingAid"
         >
             <p>Are you sure you wish to unpublish {{ unpublish.repositoryCode }}/{{ unpublish.id }}?</p>
             <p>This will delete the following:</p>
@@ -351,7 +351,7 @@ export default {
 
             this.$bvModal.show( 'confirm-unpublish-modal' );
         },
-        async unpublishFindingAid() {
+        async queueUnpublishFindingAid() {
             this.$bvModal.show( 'queuing-unpublish-modal' );
 
             await this.$sleep( 1000 );
