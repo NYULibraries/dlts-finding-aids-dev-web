@@ -377,7 +377,7 @@ export default {
             const message =
                 'The Github EAD file has been queued for deletion.' +
                 ' The finding aid, public EAD file, and search data will' +
-                ' be deleted after the Github repo change has been made.' +
+                ' be deleted after the Github change has been made.' +
                 ' The full unpublish process should be completed in [X time].';
 
             const that = this;
