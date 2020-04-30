@@ -100,7 +100,7 @@ export default {
             {
                 content : `
 <p>Each FAM user is granted permissions to a specific group of repositories.
-This interactive mockup comes with these fictitious, generic users, wall of whom
+This interactive mockup comes with these fictitious, generic users, all of whom
 have a password of "password":</p>
 <ul>
 ${ userList }
