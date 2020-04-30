@@ -146,18 +146,16 @@
                     <div>
                         <b-button
                             class="action-button"
-                            :data-id="row.item.id"
-                            :data-repository="row.item.repository"
-                            @click="clickViewFindingAid"
+                            :href="'http://dlib.nyu.edu/findingaids/html/' + row.item.repository.match( /\(([a-z]+)\)/ )[ 1 ] + '/' + row.item.id + '/'"
+                            target="_blank"
                         >
                             View finding aid
                         </b-button>
 
                         <b-button
                             class="action-button"
-                            :data-id="row.item.id"
-                            :data-repository="row.item.repository"
-                            @click="clickViewEADFile"
+                            :href="'http://dlib.nyu.edu/findingaids/ead/' + row.item.repository.match( /\(([a-z]+)\)/ )[ 1 ] + '/' + row.item.id + '/'"
+                            target="_blank"
                         >
                             View EAD file
                         </b-button>
@@ -291,22 +289,6 @@ export default {
         );
     },
     methods    : {
-        clickViewEADFile( event ) {
-            const id = event.currentTarget.dataset.id;
-            const repository = event.currentTarget.dataset.repository
-                .match( /\(([a-z]+)\)$/ )[ 1 ];
-            const url = `[TODO: URL for ${ repository }/${ id }]`;
-
-            alert( `View EAD ${ url }` );
-        },
-        clickViewFindingAid( event ) {
-            const id = event.currentTarget.dataset.id;
-            const repository = event.currentTarget.dataset.repository
-                .match( /\(([a-z]+)\)$/ )[ 1 ];
-            const url = `http://dlib.nyu.edu/findingaids/html/${ repository }/${ id }/`;
-
-            alert( `View ${ url }` );
-        },
         clickUnpublishFindingAid( event ) {
             const id = event.currentTarget.dataset.id;
             const repository = event.currentTarget.dataset.repository
