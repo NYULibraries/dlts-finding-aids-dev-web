@@ -55,6 +55,7 @@
 
             <!-- Main table element -->
             <b-table
+                ref="table"
                 bordered
                 striped
                 show-empty
@@ -277,6 +278,7 @@ export default {
                     class : 'text-left text-nowrap',
                 },
             ],
+            items         : null,
             totalRows     : 0,
             currentPage   : 1,
             perPage       : 10,
@@ -296,9 +298,6 @@ export default {
         };
     },
     computed   : {
-        items() {
-            return this.getItems();
-        },
         repositoryFilterOptions() {
             const options = this.currentRepositories.map( repository => {
                 return {
@@ -330,6 +329,8 @@ export default {
         if ( ! this.currentUser ) {
             this.$router.push( { name : 'login' } );
         }
+
+        this.refreshTableItems();
 
         this.totalRows = this.items.length;
 
