@@ -146,7 +146,7 @@
                     <div>
                         <b-button
                             class="action-button"
-                            :href="'http://dlib.nyu.edu/findingaids/html/' + row.item.repository.match( /\(([a-z]+)\)/ )[ 1 ] + '/' + row.item.id + '/'"
+                            :href="`http://dlib.nyu.edu/findingaids/html/${ row.item.repositoryCode }/${ row.item.id }/`"
                             target="_blank"
                         >
                             View finding aid
@@ -154,7 +154,7 @@
 
                         <b-button
                             class="action-button"
-                            :href="'http://dlib.nyu.edu/findingaids/ead/' + row.item.repository.match( /\(([a-z]+)\)/ )[ 1 ] + '/' + row.item.id + '/'"
+                            :href="`http://dlib.nyu.edu/findingaids/ead/${ row.item.repositoryCode }/${ row.item.id }.xml`"
                             target="_blank"
                         >
                             View EAD file
@@ -310,18 +310,19 @@ export default {
         getItems() {
             const items = [];
 
-            Object.keys( this.publishedFindingAids ).forEach( repository => {
-                const findingAids = this.publishedFindingAids[ repository ];
+            Object.keys( this.publishedFindingAids ).forEach( repositoryCode => {
+                const findingAids = this.publishedFindingAids[ repositoryCode ];
 
                 Object.keys( findingAids ).forEach( id => {
                     const findingAid = findingAids[ id ];
 
                     items.push(
                         {
-                            repository   : `${ this.repositories[ repository ].name } (${ repository })`,
-                            id           : id,
-                            title        : findingAid.title,
-                            datetime     : findingAid.datetime,
+                            repository     : `${ this.repositories[ repositoryCode ].name } ( ${ repositoryCode } )`,
+                            repositoryCode : repositoryCode,
+                            id             : id,
+                            title          : findingAid.title,
+                            datetime       : findingAid.datetime,
                         },
                     );
                 } );
