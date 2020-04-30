@@ -407,21 +407,23 @@ export default {
             const items = [];
 
             Object.keys( this.publishedFindingAids ).forEach( repositoryCode => {
-                const findingAids = this.publishedFindingAids[ repositoryCode ];
+                if ( this.currentRepositories.includes( repositoryCode ) ) {
+                    const findingAids = this.publishedFindingAids[ repositoryCode ];
 
-                Object.keys( findingAids ).forEach( id => {
-                    const findingAid = findingAids[ id ];
+                    Object.keys( findingAids ).forEach( id => {
+                        const findingAid = findingAids[ id ];
 
-                    items.push(
-                        {
-                            repository     : `${ this.repositories[ repositoryCode ].name } ( ${ repositoryCode } )`,
-                            repositoryCode : repositoryCode,
-                            id             : id,
-                            title          : findingAid.title,
-                            datetime       : findingAid.datetime,
-                        },
-                    );
-                } );
+                        items.push(
+                            {
+                                repository     : `${ this.repositories[ repositoryCode ].name } ( ${ repositoryCode } )`,
+                                repositoryCode : repositoryCode,
+                                id             : id,
+                                title          : findingAid.title,
+                                datetime       : findingAid.datetime,
+                            },
+                        );
+                    } );
+                }
             } );
 
             return items;
