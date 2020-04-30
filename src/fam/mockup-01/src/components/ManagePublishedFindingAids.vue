@@ -145,24 +145,25 @@
                 <template v-slot:row-details="row">
                     <div>
                         <b-button
+                            class="action-button"
                             :data-id="row.item.id"
                             :data-repository="row.item.repository"
-                            variant="primary"
                             @click="clickViewFindingAid"
                         >
                             View finding aid
                         </b-button>
 
                         <b-button
+                            class="action-button"
                             :data-id="row.item.id"
                             :data-repository="row.item.repository"
-                            variant="primary"
                             @click="clickViewEADFile"
                         >
                             View EAD file
                         </b-button>
 
                         <b-button
+                            class="action-button"
                             :data-id="row.item.id"
                             :data-repository="row.item.repository"
                             variant="danger"
@@ -362,6 +363,13 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+    .action-button {
+        margin-bottom : 2%;
+        margin-left   : 2%;
+        margin-right  : 2%;
+        margin-top    : 2%;
+    }
+
     #controls-row {
         margin-bottom : 1%;
     }
