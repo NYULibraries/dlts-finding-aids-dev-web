@@ -342,6 +342,9 @@ export default {
     },
     methods    : {
         cancelUnpublishFindingAid() {
+            this.clearUnpublish();
+        },
+        clearUnpublish() {
             this.unpublish.id = null;
             this.unpublish.repositoryCode = null;
         },
