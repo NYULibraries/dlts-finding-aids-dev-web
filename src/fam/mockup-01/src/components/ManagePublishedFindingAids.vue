@@ -126,16 +126,20 @@
                 </template>
 
                 <template v-slot:cell(actions)="row">
-                    <b-icon
-                        v-if="row.detailsShowing"
-                        icon="caret-down-fill"
-                        @click="row.toggleDetails"
-                    />
-                    <b-icon
-                        v-else
-                        icon="caret-left-fill"
-                        @click="row.toggleDetails"
-                    />
+                    <span
+                        class="h1"
+                    >
+                        <b-icon
+                            v-if="row.detailsShowing"
+                            icon="caret-down-fill"
+                            @click="row.toggleDetails"
+                        />
+                        <b-icon
+                            v-else
+                            icon="caret-left-fill"
+                            @click="row.toggleDetails"
+                        />
+                    </span>
                 </template>
 
                 <template v-slot:row-details="row">
