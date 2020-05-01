@@ -310,10 +310,12 @@ export default {
     },
     computed   : {
         repositoryFilterOptions() {
-            const options = this.currentRepositories.map( repository => {
+            const options = this.currentRepositories.map( repositoryCode => {
                 return {
-                    value : repository,
-                    text  : repository,
+                    // Filter matches against repository, which has repositoryCode
+                    // in parentheses at the end.
+                    value : `(${ repositoryCode })`,
+                    text  : repositoryCode,
                 };
             } );
 
