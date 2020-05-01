@@ -2,6 +2,7 @@ import actions from './actions';
 import getters from './getters';
 import mutations from './mutations';
 
+import inProcessFindingAids from './in-process-finding-aids';
 import publishedFindingAids from './published-finding-aids';
 
 const state = function () {
@@ -12,8 +13,9 @@ const state = function () {
             content : '',
             title   : '',
         },
+        inProcessFindingAids : inProcessFindingAids,
         // https://jira.nyu.edu/jira/browse/FADESIGN-65
-        repositories : {
+        repositories         : {
             akkasah  : {
                 archivists : [
                     'weatherly@nyu.edu',
