@@ -426,7 +426,7 @@ export default {
 
                         items.push(
                             {
-                                repository     : `${ this.repositories[ repositoryCode ].name } ( ${ repositoryCode } )`,
+                                repository     : `${ this.repositories[ repositoryCode ].name } (${ repositoryCode })`,
                                 repositoryCode : repositoryCode,
                                 id             : id,
                                 title          : findingAid.title,
