@@ -192,7 +192,7 @@
             ok-title="Delete"
             ok-variant="danger"
             @cancel="cancelInProcessFindingAid"
-            @ok="deleteInProcessFindingAid"
+            @ok="confirmDeleteInProcessFindingAid"
         >
             <p>
                 Are you sure you wish to delete preview finding aid {{ deletion.repositoryCode }}/{{ deletion.id }}?
@@ -384,8 +384,9 @@ export default {
         refreshTableItems() {
             this.items = this.getItems();
         },
-        async deleteInProcessFindingAid() {
-            this.$bvModal.show( 'queuing-deletion-modal' );
+        // Originally this was deleteInProcessFindingAid, which conflicts with
+        // Vuex action of the same name.
+        async confirmDeleteInProcessFindingAid() {
 
             await this.$sleep( 1000 );
 
