@@ -10,7 +10,7 @@
             >
                 <b-col>
                     <h1>
-                        Preview for {{ previewType }} {{ $route.params.id }}
+                        Preview for {{ previewType }} {{ $route.params.repositoryCode }}/{{ $route.params.id }}
                     </h1>
                 </b-col>
             </b-row>
