@@ -403,15 +403,12 @@ export default {
             this.clearInProcess();
 
             const message =
-                'The Github EAD file has been queued for deletion.' +
-                ' The finding aid, public EAD file, and search data will' +
-                ' be deleted after the Github change has been made.' +
-                ' The full deletion process should be completed in [X time].';
+                'The in-process finding aid has been deleted.';
 
             const that = this;
             this.$bvModal.msgBoxOk( message, {
                 centered : true,
-                title    : 'Deletion has been queued',
+                title    : 'Deletion completed',
             } ).then(
                 function () {
                     that.refreshTableItems();
