@@ -1,9 +1,9 @@
 export default {
-    currentRepositories  : state => state.currentRepositories,
-    currentUser          : state => state.currentUser,
-    helpModal            : state => state.helpModal,
-    inProcessFindingAids : state => state.inProcessFindingAids,
-    publishedFindingAids : state => state.publishedFindingAids,
-    repositories         : state => state.repositories,
-    users                : state => state.users,
+    currentRepositoryCodes : state => state.currentRepositoryCodes,
+    currentUser            : state => state.currentUser,
+    helpModal              : state => state.helpModal,
+    inProcessFindingAids   : state => state.inProcessFindingAids,
+    publishedFindingAids   : state => state.publishedFindingAids,
+    repositories           : state => state.repositories,
+    users                  : state => state.users,
 };

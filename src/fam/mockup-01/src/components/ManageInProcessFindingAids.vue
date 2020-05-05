@@ -309,7 +309,7 @@ export default {
             return this.previewToDeleteFullURL( 'finding-aid' );
         },
         repositoryFilterOptions() {
-            const options = this.currentRepositories.map( repositoryCode => {
+            const options = this.currentRepositoryCodes.map( repositoryCode => {
                 return {
                     // Filter matches against repository, which has repositoryCode
                     // in parentheses at the end.
@@ -329,7 +329,7 @@ export default {
         },
         ...mapGetters(
             [
-                'currentRepositories',
+                'currentRepositoryCodes',
                 'currentUser',
                 'inProcessFindingAids',
                 'repositories',
@@ -432,7 +432,7 @@ export default {
             const items = [];
 
             Object.keys( this.inProcessFindingAids ).forEach( repositoryCode => {
-                if ( this.currentRepositories.includes( repositoryCode ) ) {
+                if ( this.currentRepositoryCodes.includes( repositoryCode ) ) {
                     const findingAids = this.inProcessFindingAids[ repositoryCode ];
 
                     Object.keys( findingAids ).forEach( id => {

@@ -299,7 +299,7 @@ export default {
     },
     computed   : {
         repositoryFilterOptions() {
-            const options = this.currentRepositories.map( repositoryCode => {
+            const options = this.currentRepositoryCodes.map( repositoryCode => {
                 return {
                     // Filter matches against repository, which has repositoryCode
                     // in parentheses at the end.
@@ -319,7 +319,7 @@ export default {
         },
         ...mapGetters(
             [
-                'currentRepositories',
+                'currentRepositoryCodes',
                 'currentUser',
                 'publishedFindingAids',
                 'repositories',
@@ -409,7 +409,7 @@ export default {
             const items = [];
 
             Object.keys( this.publishedFindingAids ).forEach( repositoryCode => {
-                if ( this.currentRepositories.includes( repositoryCode ) ) {
+                if ( this.currentRepositoryCodes.includes( repositoryCode ) ) {
                     const findingAids = this.publishedFindingAids[ repositoryCode ];
 
                     Object.keys( findingAids ).forEach( id => {

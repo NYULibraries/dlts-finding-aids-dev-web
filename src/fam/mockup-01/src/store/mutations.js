@@ -8,8 +8,9 @@ export default {
     deleteInProcessFindingAid( state, findingAid ) {
         delete state.inProcessFindingAids[ findingAid.repository ][ findingAid.id ];
     },
-    setCurrentRepositories( state, repositories ) {
-        state.currentRepositories = repositories;
+    setCurrentRepositoryCodes( state, repositoryCodes ) {
+        state.currentRepositoryCodes = repositoryCodes;
+    },
     },
     setCurrentUser( state, user ) {
         state.currentUser = user;

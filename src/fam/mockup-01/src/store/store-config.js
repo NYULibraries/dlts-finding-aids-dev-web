@@ -7,15 +7,15 @@ import publishedFindingAids from './published-finding-aids';
 
 const state = function () {
     return {
-        currentRepositories : [],
-        currentUser         : '',
-        helpModal           : {
+        currentRepositoryCodes : [],
+        currentUser            : '',
+        helpModal              : {
             content : '',
             title   : '',
         },
-        inProcessFindingAids : inProcessFindingAids,
+        inProcessFindingAids   : inProcessFindingAids,
         // https://jira.nyu.edu/jira/browse/FADESIGN-65
-        repositories         : {
+        repositories           : {
             akkasah  : {
                 archivists : [
                     'weatherly@nyu.edu',

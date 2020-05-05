@@ -5,8 +5,9 @@ export default {
     deleteInProcessFindingAid( { commit }, findingAid ) {
         commit( 'deleteInProcessFindingAid', findingAid );
     },
-    setCurrentRepositories( { commit }, repositories ) {
-        commit( 'setCurrentRepositories', repositories );
+    setCurrentRepositoryCodes( { commit }, repositoryCodes ) {
+        commit( 'setCurrentRepositoryCodes', repositoryCodes );
+    },
     },
     setCurrentUser( { commit }, user ) {
         commit( 'setCurrentUser', user );

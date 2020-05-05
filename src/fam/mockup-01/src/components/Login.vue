@@ -123,7 +123,7 @@ finally logging in with a valid username/password.</p>
             this.showSpinner = false;
 
             this.setCurrentUser( this.username );
-            this.setCurrentRepositories( this.getRepositoriesForUser( this.username ) );
+            this.setCurrentRepositoryCodes( this.getRepositoryCodesForUser( this.username ) );
 
             if ( this.users.includes( this.username ) && this.password === 'password' ) {
                 this.$router.push( { name : 'home' } );
@@ -131,20 +131,20 @@ finally logging in with a valid username/password.</p>
                 this.feedback = 'Invalid username and password combination';
             }
         },
-        getRepositoriesForUser( user ) {
-            const repositoriesForUser = [];
+        getRepositoryCodesForUser( user ) {
+            const repositoryCodesForUser = [];
 
             Object.keys( this.repositories ).forEach( repository => {
                 if ( this.repositories[ repository ].archivists.includes( user ) ) {
-                    repositoriesForUser.push( repository );
+                    repositoryCodesForUser.push( repository );
                 }
             } );
 
-            return repositoriesForUser;
+            return repositoryCodesForUser;
         },
         ...mapActions(
             [
-                'setCurrentRepositories',
+                'setCurrentRepositoryCodes',
                 'setCurrentUser',
                 'setHelpModal',
             ],
