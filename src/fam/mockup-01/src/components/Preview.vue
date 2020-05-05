@@ -10,7 +10,8 @@
             >
                 <b-col>
                     <h1>
-                        Preview for {{ previewType }} {{ $route.params.repositoryCode }}/{{ $route.params.id }}
+                        Here you will see the preview for {{ previewType }} {{ $route.params.repositoryCode }}/{{ $route.params.id }}.
+                        It may be at a different URL than what is used here in this mockup.
                     </h1>
                 </b-col>
             </b-row>
