@@ -1,6 +1,9 @@
 export default {
     addInProcessFindingAid( state, findingAid ) {
-        state.inProcessFindingAids[ findingAid.repository ][ findingAid.id ] = findingAid;
+        state.inProcessFindingAids[ findingAid.repository ][ findingAid.id ] = {
+            datetime : findingAid.datetime,
+            title    : findingAid.title,
+        };
     },
     deleteInProcessFindingAid( state, findingAid ) {
         delete state.inProcessFindingAids[ findingAid.repository ][ findingAid.id ];

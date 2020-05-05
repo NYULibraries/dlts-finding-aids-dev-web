@@ -196,14 +196,23 @@ export default {
                 return;
             }
 
-            uploadedFindingAid.uploadTimestamp = new Date().toLocaleString( 'en-US', { timeZone : 'America/New_York' } );
+            const newInProcessFindingAid = {
+                datetime   : Math.round( ( new Date() ).getTime() / 1000 ),
+                id         : uploadedFindingAid.eadid,
+                repository : uploadedFindingAid.repository,
+                title      : uploadedFindingAid.title,
+            };
+
+            this.addInProcessFindingAid( newInProcessFindingAid );
 
             this.results += JSON.stringify( uploadedFindingAid, null, '    ' );
+            this.results += JSON.stringify( newInProcessFindingAid, null, '    ' );
 
             this.submitDisabled = false;
         },
         ...mapActions(
             [
+                'addInProcessFindingAid',
                 'setHelpModal',
             ],
         ),
