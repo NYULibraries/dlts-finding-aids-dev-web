@@ -94,10 +94,11 @@ export default {
     },
     data() {
         return {
-            submitDisabled : true,
-            file           : null,
-            state          : null,
-            results        : null,
+            submitDisabled            : true,
+            file                      : null,
+            recognizedRepositoryNames : null,
+            state                     : null,
+            results                   : null,
         };
     },
     computed : {
@@ -105,6 +106,7 @@ export default {
             [
                 'currentUser',
                 'currentRepositoryNames',
+                'repositories',
             ],
         ),
     },
@@ -132,6 +134,8 @@ export default {
         }
 
         parser = new DOMParser();
+
+        this.recognizedRepositoryNames = this.getRecognizedRepositoryNames();
 
         this.setHelpModal(
             {
@@ -163,6 +167,11 @@ export default {
                 throw new Error( `Required element <${ elementName }> not found.` );
             }
         },
+        getRecognizedRepositoryNames() {
+            return Object.keys( this.repositories ).map( repositoryCode => {
+                return this.repositories[ repositoryCode ].name;
+            } );
+        },
         processEAD( ead ) {
             let abort = false;
             const uploadedFindingAid = {};
@@ -189,9 +198,20 @@ export default {
                 }
             } );
 
-            if ( ! this.currentRepositoryNames.includes( uploadedFindingAid.repository ) ) {
-                this.results += `User ${ this.currentUser } is not currently authorized` +
-                                ` to create a finding aid for repository "${ uploadedFindingAid.repository }".\n`;
+            if ( this.getRecognizedRepositoryNames().includes( uploadedFindingAid.repository ) ) {
+                if ( ! this.currentRepositoryNames.includes( uploadedFindingAid.repository ) ) {
+                    this.results += `User ${ this.currentUser } is not currently authorized` +
+                                    ` to create a finding aid for repository "${ uploadedFindingAid.repository }".\n`;
+
+                    abort = true;
+                }
+            } else {
+                this.results += `Element <repository> contains unknown repository name "${ uploadedFindingAid.repository }".
+The repository name must match a value from this list:
+
+${ this.recognizedRepositoryNames.join( '\n' ) }
+
+`;
 
                 abort = true;
             }
