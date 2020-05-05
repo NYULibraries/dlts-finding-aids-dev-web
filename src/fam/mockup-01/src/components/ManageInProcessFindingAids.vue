@@ -176,7 +176,7 @@
                             variant="danger"
                             @click="clickDeleteInProcessFindingAid"
                         >
-                            Delete finding aid previews
+                            Delete in-process finding aid
                         </b-button>
                     </div>
                 </template>
