@@ -31,7 +31,7 @@ const routes = [
         component : LoginView,
     },
     {
-        path      : '/preview/:type/:id',
+        path      : '/preview/:type/:repositoryCode/:id',
         name      : 'preview',
         component : PreviewView,
     },
