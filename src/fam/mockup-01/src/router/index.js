@@ -3,6 +3,7 @@ import VueRouter from 'vue-router';
 import HomeView from '../views/HomeView.vue';
 import CreateNewFindingAidView from '../views/CreateNewFindingAidView.vue';
 import LoginView from '../views/LoginView';
+import PreviewView from '../views/PreviewView';
 import ManageInProcessFindingAidsView from '../views/ManageInProcessFindingAids.vue';
 import ManagePublishedFindingAidsView from '../views/ManagePublishedFindingAids.vue';
 
@@ -28,6 +29,11 @@ const routes = [
         path      : '/login',
         name      : 'login',
         component : LoginView,
+    },
+    {
+        path      : '/preview/:type/:id',
+        name      : 'preview',
+        component : PreviewView,
     },
     {
         path      : '/published',
