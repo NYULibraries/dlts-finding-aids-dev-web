@@ -11,6 +11,8 @@ export default {
     setCurrentRepositoryCodes( state, repositoryCodes ) {
         state.currentRepositoryCodes = repositoryCodes;
     },
+    setCurrentRepositoryNames( state, repositoryNames ) {
+        state.currentRepositoryNames = repositoryNames;
     },
     setCurrentUser( state, user ) {
         state.currentUser = user;

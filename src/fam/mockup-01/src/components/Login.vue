@@ -124,6 +124,7 @@ finally logging in with a valid username/password.</p>
 
             this.setCurrentUser( this.username );
             this.setCurrentRepositoryCodes( this.getRepositoryCodesForUser( this.username ) );
+            this.setCurrentRepositoryNames( this.getRepositoryNamesForUser( this.username ) );
 
             if ( this.users.includes( this.username ) && this.password === 'password' ) {
                 this.$router.push( { name : 'home' } );
@@ -142,9 +143,22 @@ finally logging in with a valid username/password.</p>
 
             return repositoryCodesForUser;
         },
+        getRepositoryNamesForUser( user ) {
+            const repositoryNamesForUser = [];
+
+            Object.keys( this.repositories ).forEach( repositoryCode => {
+                const repository = this.repositories[ repositoryCode ];
+                if ( repository.archivists.includes( user ) ) {
+                    repositoryNamesForUser.push( repository.name );
+                }
+            } );
+
+            return repositoryNamesForUser;
+        },
         ...mapActions(
             [
                 'setCurrentRepositoryCodes',
+                'setCurrentRepositoryNames',
                 'setCurrentUser',
                 'setHelpModal',
             ],

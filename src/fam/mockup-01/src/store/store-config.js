@@ -8,6 +8,7 @@ import publishedFindingAids from './published-finding-aids';
 const state = function () {
     return {
         currentRepositoryCodes : [],
+        currentRepositoryNames : [],
         currentUser            : '',
         helpModal              : {
             content : '',

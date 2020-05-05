@@ -1,5 +1,6 @@
 export default {
     currentRepositoryCodes : state => state.currentRepositoryCodes,
+    currentRepositoryNames : state => state.currentRepositoryNames,
     currentUser            : state => state.currentUser,
     helpModal              : state => state.helpModal,
     inProcessFindingAids   : state => state.inProcessFindingAids,

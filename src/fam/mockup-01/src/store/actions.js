@@ -8,6 +8,8 @@ export default {
     setCurrentRepositoryCodes( { commit }, repositoryCodes ) {
         commit( 'setCurrentRepositoryCodes', repositoryCodes );
     },
+    setCurrentRepositoryNames( { commit }, repositories ) {
+        commit( 'setCurrentRepositoryNames', repositories );
     },
     setCurrentUser( { commit }, user ) {
         commit( 'setCurrentUser', user );
