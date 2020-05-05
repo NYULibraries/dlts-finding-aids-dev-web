@@ -210,13 +210,13 @@
         </b-modal>
 
         <b-modal
-            id="queuing-delete-modal"
+            id="deletion-in-progress-modal"
             centered
             no-close-on-esc
             no-close-on-backdrop
             hide-footer
             hide-header-close
-            title="Queueing for deletion..."
+            title="Deleting in-process finding aid..."
         >
             <b-row>
                 <b-col />
@@ -387,10 +387,11 @@ export default {
         // Originally this was deleteInProcessFindingAid, which conflicts with
         // Vuex action of the same name.
         async confirmDeleteInProcessFindingAid() {
+            this.$bvModal.show( 'deletion-in-progress-modal' );
 
             await this.$sleep( 1000 );
 
-            this.$bvModal.hide( 'queuing-deletion-modal' );
+            this.$bvModal.hide( 'deletion-in-progress-modal' );
 
             this.deleteInProcessFindingAid(
                 {
