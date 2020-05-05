@@ -147,7 +147,7 @@
                     <div>
                         <b-button
                             class="action-button"
-                            :href="`http://dlib.nyu.edu/findingaids/html/${ row.item.repositoryCode }/${ row.item.id }/`"
+                            :to="{ name : 'preview', params : { type : 'finding-aid', repositoryCode : row.item.repositoryCode, id : row.item.id } }"
                             target="_blank"
                         >
                             View finding aid preview
@@ -155,7 +155,7 @@
 
                         <b-button
                             class="action-button"
-                            :href="`http://dlib.nyu.edu/findingaids/ead/${ row.item.repositoryCode }/${ row.item.id }.xml`"
+                            :to="{ name : 'preview', params : { type : 'ead', repositoryCode : row.item.repositoryCode, id : row.item.id } }"
                             target="_blank"
                         >
                             View EAD file preview
