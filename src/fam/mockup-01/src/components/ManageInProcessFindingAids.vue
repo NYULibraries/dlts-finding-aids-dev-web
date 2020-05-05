@@ -195,23 +195,16 @@
             @ok="deleteInProcessFindingAid"
         >
             <p>
-                Are you sure you wish to delete {{ deletion.repositoryCode }}/{{ deletion.id }}?
+                Are you sure you wish to delete preview finding aid {{ deletion.repositoryCode }}/{{ deletion.id }}?
             </p>
             <p>This will delete the following:</p>
             <p></p>
             <ul>
                 <li>
-                    Finding aid: http://dlib.nyu.edu/findingaids/html/{{ deletion.repositoryCode }}/{{ deletion.id }}/
+                    Preview finding aid: {{ previewFindingAidToDeleteFullURL }}
                 </li>
                 <li>
-                    Public EAD file: http://dlib.nyu.edu/findingaids/ead/{{ deletion.repositoryCode }}/{{ deletion.id }}.xml
-                </li>
-                <li>
-                    Search data: https://specialcollections.library.nyu.edu/search/
-                </li>
-                <li>
-                    Github EAD file:
-                    https://github.com/NYULibraries/findingaids_eads/blob/master/{{ deletion.repositoryCode }}/{{ deletion.id }}.xml
+                    Public EAD file: {{ previewEADFileToDeleteFullURL }}
                 </li>
             </ul>
         </b-modal>
@@ -309,6 +302,12 @@ export default {
         };
     },
     computed   : {
+        previewEADFileToDeleteFullURL() {
+            return this.previewToDeleteFullURL( 'ead' );
+        },
+        previewFindingAidToDeleteFullURL() {
+            return this.previewToDeleteFullURL( 'finding-aid' );
+        },
         repositoryFilterOptions() {
             const options = this.currentRepositories.map( repositoryCode => {
                 return {
@@ -367,6 +366,20 @@ export default {
             this.deletion.repositoryCode = event.currentTarget.dataset.repositoryCode;
 
             this.$bvModal.show( 'confirm-deletion-modal' );
+        },
+        previewToDeleteFullURL( type ) {
+            return window.location.href.replace( '/#/in-process', '' ) +
+                   '/' +
+                   this.$router.resolve(
+                       {
+                           name   : 'preview',
+                           params : {
+                               type           : type,
+                               repositoryCode : this.deletion.repositoryCode,
+                               id             : this.deletion.id,
+                           },
+                       },
+                   ).href;
         },
         refreshTableItems() {
             this.items = this.getItems();
