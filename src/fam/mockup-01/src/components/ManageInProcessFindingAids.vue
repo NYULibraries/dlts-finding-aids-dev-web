@@ -184,7 +184,7 @@
         </b-container>
 
         <b-modal
-            id="confirm-delete-modal"
+            id="confirm-deletion-modal"
             header-text-variant="danger"
             size="lg"
             centered
