@@ -104,6 +104,7 @@ export default {
         ...mapGetters(
             [
                 'currentUser',
+                'currentRepositoryNames',
             ],
         ),
     },
@@ -187,6 +188,13 @@ export default {
                     abort = true;
                 }
             } );
+
+            if ( ! this.currentRepositoryNames.includes( uploadedFindingAid.repository ) ) {
+                this.results += `User ${ this.currentUser } is not currently authorized` +
+                                ` to create a finding aid for repository "${ uploadedFindingAid.repository }".\n`;
+
+                abort = true;
+            }
 
             if ( abort ) {
                 this.results += 'Aborting upload.';
