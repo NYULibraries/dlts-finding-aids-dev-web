@@ -41,10 +41,8 @@ export default {
         ),
     },
     mounted() {
-        if ( ! this.currentUser ) {
-            this.$router.push( { name : 'login' } );
-        }
-
+        // Not doing currentUser check and routing to Login if no logged
+        // in user because Preview will always be opened in new tab.
         this.setHelpModal(
             {
                 content : 'TODO',
