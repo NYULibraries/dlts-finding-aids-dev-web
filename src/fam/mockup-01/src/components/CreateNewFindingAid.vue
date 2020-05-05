@@ -217,7 +217,7 @@ ${ this.recognizedRepositoryNames.join( '\n' ) }
             }
 
             if ( abort ) {
-                this.results += 'Aborting upload.';
+                this.results += 'Aborting creation of new finding aid.';
                 this.state = false;
                 this.submitDisabled = true;
 
