@@ -216,6 +216,13 @@ ${ this.recognizedRepositoryNames.join( '\n' ) }
                 abort = true;
             }
 
+            const eadidErrors = this.validateEADID( uploadedFindingAid.eadid );
+            if ( eadidErrors.length > 0 ) {
+                this.results += eadidErrors.join( '\n' ) + '\n';
+
+                abort = true;
+            }
+
             if ( abort ) {
                 this.results += 'Aborting creation of new finding aid.';
                 this.state = false;
@@ -237,6 +244,36 @@ ${ this.recognizedRepositoryNames.join( '\n' ) }
             this.results += JSON.stringify( newInProcessFindingAid, null, '    ' );
 
             this.submitDisabled = false;
+        },
+        validateEADID( eadid ) {
+            const errors = [];
+
+            const tokens = eadid.split( '_' );
+            if ( tokens.length < 2 || tokens.length > 8 ) {
+                errors.push( `<eadid> value "${ eadid }" has the wrong number of parts.
+There must be between 2 to 8 parts joined by underscores.` );
+            }
+
+            const allowedCharactersRegex = /[^a-z0-9]/g;
+            const disallowedCharactersFoundObject = {};
+            tokens.forEach( token => {
+                const matches = [ ...token.matchAll( allowedCharactersRegex ) ];
+
+                if ( matches.length > 0 ) {
+                    matches.forEach( match => {
+                        disallowedCharactersFoundObject[ match ] = true;
+                    } );
+                }
+            } );
+
+            const disallowedCharactersFound = Object.keys( disallowedCharactersFoundObject );
+            if ( disallowedCharactersFound ) {
+                errors.push( '<eadid> value "' + eadid + '" parts contain the ' +
+                             'following disallowed characters: ' +
+                              disallowedCharactersFound.sort().join( ', ' ) );
+            }
+
+            return errors;
         },
         ...mapActions(
             [
