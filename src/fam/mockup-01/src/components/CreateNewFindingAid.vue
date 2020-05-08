@@ -71,6 +71,7 @@
                         class="button"
                         variant="success"
                         :disabled="submitDisabled"
+                        @click="submit"
                     >
                         Submit
                     </b-button>
@@ -95,6 +96,7 @@ export default {
     data() {
         return {
             file                      : null,
+            inProcessFindingAid       : null,
             recognizedRepositoryNames : null,
             results                   : null,
             state                     : null,
@@ -246,19 +248,24 @@ ${ this.recognizedRepositoryNames.join( '\n' ) }
                 return;
             }
 
-            const newInProcessFindingAid = {
+            this.newInProcessFindingAid = {
                 datetime   : Math.round( ( new Date() ).getTime() / 1000 ),
                 id         : uploadedFindingAid.eadid,
                 repository : this.getRepositoryCodeForRepository( uploadedFindingAid.repository ),
                 title      : uploadedFindingAid.title,
             };
 
-            this.addInProcessFindingAid( newInProcessFindingAid );
-
-            this.results += JSON.stringify( uploadedFindingAid, null, '    ' );
-            this.results += JSON.stringify( newInProcessFindingAid, null, '    ' );
+            this.results += 'EAD file has been validated.\nReady to submit:\n' +
+                            JSON.stringify( uploadedFindingAid, null, '    ' ) +
+                            '\n';
 
             this.submitDisabled = false;
+        },
+        submit() {
+            this.addInProcessFindingAid( this.newInProcessFindingAid );
+
+            this.results += 'New in-process finding aid created:\n' +
+                            JSON.stringify( this.newInProcessFindingAid, null, '    ' ) + '\n';
         },
         validateEADID( eadid ) {
             const errors = [];
