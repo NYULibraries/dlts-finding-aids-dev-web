@@ -218,6 +218,9 @@ ${ this.recognizedRepositoryNames.join( '\n' ) }
 
             const eadidErrors = this.validateEADID( uploadedFindingAid.eadid );
             if ( eadidErrors.length > 0 ) {
+                this.results += `<eadid> value "${ uploadedFindingAid.eadid }" does ` +
+                    'not conform to the Finding Aids specification.\n';
+
                 this.results += eadidErrors.join( '\n' ) + '\n';
 
                 abort = true;
@@ -250,8 +253,7 @@ ${ this.recognizedRepositoryNames.join( '\n' ) }
 
             const tokens = eadid.split( '_' );
             if ( tokens.length < 2 || tokens.length > 8 ) {
-                errors.push( `<eadid> value "${ eadid }" has the wrong number of parts.
-There must be between 2 to 8 parts joined by underscores.` );
+                errors.push( 'There must be between 2 to 8 character groups joined by underscores.' );
             }
 
             const allowedCharactersRegex = /[^a-z0-9]/g;
@@ -267,10 +269,9 @@ There must be between 2 to 8 parts joined by underscores.` );
             } );
 
             const disallowedCharactersFound = Object.keys( disallowedCharactersFoundObject );
-                errors.push( '<eadid> value "' + eadid + '" parts contain the ' +
             if ( disallowedCharactersFound.length > 0 ) {
-                             'following disallowed characters: ' +
-                              disallowedCharactersFound.sort().join( ', ' ) );
+                errors.push( 'The following characters are not allowed in character groups: ' +
+                             disallowedCharactersFound.sort().join( ', ' ) );
             }
 
             return errors;
