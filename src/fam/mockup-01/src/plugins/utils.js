@@ -10,7 +10,7 @@ async function readFileAsTextSync( file ) {
 
 function sleep( milliseconds ) {
     return new Promise( resolve => setTimeout( resolve, milliseconds ) );
-};
+}
 
 export default {
     install( Vue, options ) {
