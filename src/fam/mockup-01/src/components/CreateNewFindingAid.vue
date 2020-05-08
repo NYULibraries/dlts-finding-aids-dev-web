@@ -249,7 +249,7 @@ ${ this.recognizedRepositoryNames.join( '\n' ) }
             const newInProcessFindingAid = {
                 datetime   : Math.round( ( new Date() ).getTime() / 1000 ),
                 id         : uploadedFindingAid.eadid,
-                repository : uploadedFindingAid.repository,
+                repository : this.getRepositoryCodeForRepository( uploadedFindingAid.repository ),
                 title      : uploadedFindingAid.title,
             };
 
