@@ -94,11 +94,11 @@ export default {
     },
     data() {
         return {
-            submitDisabled            : true,
             file                      : null,
             recognizedRepositoryNames : null,
-            state                     : null,
             results                   : null,
+            state                     : null,
+            submitDisabled            : true,
         };
     },
     computed : {
