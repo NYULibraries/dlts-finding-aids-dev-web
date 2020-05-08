@@ -227,7 +227,7 @@ ${ this.recognizedRepositoryNames.join( '\n' ) }
             }
 
             if ( abort ) {
-                this.results += 'Aborting creation of new finding aid.';
+                this.results += 'Please make the necessary corrections and re-upload the EAD file.';
                 this.state = false;
                 this.submitDisabled = true;
 
