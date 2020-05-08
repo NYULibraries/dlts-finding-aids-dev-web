@@ -172,6 +172,18 @@ export default {
                 return this.repositories[ repositoryCode ].name;
             } );
         },
+        getRepositoryCodeForRepository( repositoryName ) {
+            var that = this,
+                repositoryCode;
+
+            Object.keys( this.repositories ).forEach( code => {
+                if ( that.repositories[ code ].name === repositoryName ) {
+                    repositoryCode = code;
+                }
+            } );
+
+            return repositoryCode;
+        },
         processEAD( ead ) {
             let abort = false;
             const uploadedFindingAid = {};
