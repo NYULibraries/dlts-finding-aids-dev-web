@@ -267,8 +267,8 @@ There must be between 2 to 8 parts joined by underscores.` );
             } );
 
             const disallowedCharactersFound = Object.keys( disallowedCharactersFoundObject );
-            if ( disallowedCharactersFound ) {
                 errors.push( '<eadid> value "' + eadid + '" parts contain the ' +
+            if ( disallowedCharactersFound.length > 0 ) {
                              'following disallowed characters: ' +
                               disallowedCharactersFound.sort().join( ', ' ) );
             }
