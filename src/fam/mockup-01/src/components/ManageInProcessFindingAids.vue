@@ -164,7 +164,7 @@
                         <b-button
                             class="action-button"
                             :href="`http://dlib.nyu.edu/findingaids/ead/${ row.item.repositoryCode }/${ row.item.id }.xml`"
-                            target="_blank"
+                            @click="clickPublishInProcessFindingAid"
                         >
                             Publish finding aid
                         </b-button>
@@ -299,6 +299,10 @@ export default {
                 id             : null,
                 repositoryCode : null,
             },
+            publish : {
+                id             : null,
+                repositoryCode : null,
+            },
         };
     },
     computed   : {
@@ -366,6 +370,12 @@ export default {
             this.deletion.repositoryCode = event.currentTarget.dataset.repositoryCode;
 
             this.$bvModal.show( 'confirm-deletion-modal' );
+        },
+        clickPublishInProcessFindingAid( event ) {
+            this.publish.id = event.currentTarget.dataset.id;
+            this.publish.repositoryCode = event.currentTarget.dataset.repositoryCode;
+
+            this.$bvModal.show( 'confirm-publish-modal' );
         },
         previewToDeleteFullURL( type ) {
             return window.location.href.replace( '/#/in-process', '' ) +
