@@ -163,7 +163,6 @@
 
                         <b-button
                             class="action-button"
-                            :href="`http://dlib.nyu.edu/findingaids/ead/${ row.item.repositoryCode }/${ row.item.id }.xml`"
                             @click="clickPublishInProcessFindingAid"
                         >
                             Publish finding aid
