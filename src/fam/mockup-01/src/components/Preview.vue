@@ -11,7 +11,7 @@
                 <b-col>
                     <h1>
                         Here you will see the preview for {{ previewType }} {{ $route.params.repositoryCode }}/{{ $route.params.id }}.
-                        It may be at a different URL than what is used here in this mockup.
+                        It might be at a different URL than what is used here in this mockup.
                     </h1>
                 </b-col>
             </b-row>
