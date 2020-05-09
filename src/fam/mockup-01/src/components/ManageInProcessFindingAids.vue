@@ -203,7 +203,7 @@
                     Preview finding aid: {{ previewFindingAidToDeleteFullURL }}
                 </li>
                 <li>
-                    Public EAD file: {{ previewEADFileToDeleteFullURL }}
+                    Preview EAD file: {{ previewEADFileToDeleteFullURL }}
                 </li>
             </ul>
         </b-modal>
