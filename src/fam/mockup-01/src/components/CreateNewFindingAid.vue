@@ -270,6 +270,8 @@ ${ this.recognizedRepositoryNames.join( '\n' ) }
 
             this.results += 'New in-process finding aid created:\n' +
                             JSON.stringify( this.newInProcessFindingAid, null, '    ' ) + '\n';
+
+            this.submitDisabled = true;
         },
         validateEADID( eadid ) {
             const errors = [];
