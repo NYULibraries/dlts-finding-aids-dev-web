@@ -8,6 +8,12 @@ export default {
     deleteInProcessFindingAid( state, findingAid ) {
         delete state.inProcessFindingAids[ findingAid.repository ][ findingAid.id ];
     },
+    publishInProcessFindingAid( state, findingAid ) {
+        state.publishedFindingAids[ findingAid.repository ][ findingAid.id ] = {
+            datetime : findingAid.datetime,
+            title    : findingAid.title,
+        };
+    },
     setCurrentRepositoryCodes( state, repositoryCodes ) {
         state.currentRepositoryCodes = repositoryCodes;
     },

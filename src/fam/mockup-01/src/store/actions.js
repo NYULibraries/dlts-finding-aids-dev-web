@@ -5,6 +5,9 @@ export default {
     deleteInProcessFindingAid( { commit }, findingAid ) {
         commit( 'deleteInProcessFindingAid', findingAid );
     },
+    publishInProcessFindingAid( { commit }, findingAid ) {
+        commit( 'publishInProcessFindingAid', findingAid );
+    },
     setCurrentRepositoryCodes( { commit }, repositoryCodes ) {
         commit( 'setCurrentRepositoryCodes', repositoryCodes );
     },
