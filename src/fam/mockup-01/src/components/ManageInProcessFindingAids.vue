@@ -235,23 +235,32 @@
             ok-title="Publish"
             ok-variant="danger"
             @cancel="cancelPublishInProcessFindingAid"
-            @ok="confirmPublishInProcessFindingAid"
+            @ok="queuePublishInProcessFindingAid"
         >
-            <p>Are you sure you wish to publish in-process finding aid {{ publish.repositoryCode }}/{{ publish.id }}?</p>
-            <p>This will publish data to the following location, overwriting whatever might already be there:</p>
+            <p>
+                Are you sure you wish to publish in-process finding aid {{
+                publication.repositoryCode }}/{{ publication.id }}?
+            </p>
+            <p>
+                This will publish data to the following location, overwriting whatever might already be there:
+            </p>
             <p></p>
             <ul>
                 <li>
-                    Finding aid: http://dlib.nyu.edu/findingaids/html/{{ publish.repositoryCode }}/{{ publish.id }}/
+                    Finding aid: http://dlib.nyu.edu/findingaids/html/{{
+                    publication.repositoryCode }}/{{ publication.id }}/
                 </li>
                 <li>
-                    Public EAD file: http://dlib.nyu.edu/findingaids/ead/{{ publish.repositoryCode }}/{{ publish.id }}.xml
+                    Public EAD file: http://dlib.nyu.edu/findingaids/ead/{{
+                    publication.repositoryCode }}/{{ publication.id }}.xml
                 </li>
                 <li>
                     Search data: https://specialcollections.library.nyu.edu/search/
                 </li>
                 <li>
-                    Github EAD file: https://github.com/NYULibraries/findingaids_eads/blob/master/{{ publish.repositoryCode }}/{{ publish.id }}.xml
+                    Github EAD file:
+                    https://github.com/NYULibraries/findingaids_eads/blob/master/{{
+                    publication.repositoryCode }}/{{ publication.id }}.xml
                 </li>
             </ul>
         </b-modal>
