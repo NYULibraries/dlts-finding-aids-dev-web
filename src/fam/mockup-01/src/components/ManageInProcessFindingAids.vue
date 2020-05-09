@@ -242,7 +242,7 @@
                 publication.repositoryCode }}/{{ publication.id }}?
             </p>
             <p>
-                This will publish data to the following location, overwriting whatever might already be there:
+                This will publish data to the following locations, overwriting whatever might already be there:
             </p>
             <p></p>
             <ul>
