@@ -163,6 +163,9 @@
 
                         <b-button
                             class="action-button"
+                            :data-id="row.item.id"
+                            :data-repository-code="row.item.repositoryCode"
+                            :data-title="row.item.title"
                             @click="clickPublishInProcessFindingAid"
                         >
                             Publish finding aid
@@ -238,8 +241,8 @@
             @ok="queuePublishInProcessFindingAid"
         >
             <p>
-                Are you sure you wish to publish in-process finding aid {{
-                publication.repositoryCode }}/{{ publication.id }}?
+                Are you sure you wish to publish in-process finding aid
+                {{ publication.repositoryCode }}/{{ publication.id }}?
             </p>
             <p>
                 This will publish data to the following locations, overwriting whatever might already be there:
@@ -247,22 +250,39 @@
             <p></p>
             <ul>
                 <li>
-                    Finding aid: http://dlib.nyu.edu/findingaids/html/{{
-                    publication.repositoryCode }}/{{ publication.id }}/
+                    Finding aid:
+                    http://dlib.nyu.edu/findingaids/html/{{ publication.repositoryCode }}/{{ publication.id }}/
                 </li>
                 <li>
-                    Public EAD file: http://dlib.nyu.edu/findingaids/ead/{{
-                    publication.repositoryCode }}/{{ publication.id }}.xml
+                    Public EAD file:
+                    http://dlib.nyu.edu/findingaids/ead/{{ publication.repositoryCode }}/{{ publication.id }}.xml
                 </li>
                 <li>
                     Search data: https://specialcollections.library.nyu.edu/search/
                 </li>
                 <li>
                     Github EAD file:
-                    https://github.com/NYULibraries/findingaids_eads/blob/master/{{
-                    publication.repositoryCode }}/{{ publication.id }}.xml
+                    https://github.com/NYULibraries/findingaids_eads/blob/master/{{ publication.repositoryCode }}/{{ publication.id }}.xml
                 </li>
             </ul>
+        </b-modal>
+
+        <b-modal
+            id="queuing-publish-modal"
+            centered
+            no-close-on-esc
+            no-close-on-backdrop
+            hide-footer
+            hide-header-close
+            title="Queueing for publication..."
+        >
+            <b-row>
+                <b-col />
+                <b-col align="center">
+                    <b-spinner />
+                </b-col>
+                <b-col />
+            </b-row>
         </b-modal>
     </div>
 </template>
@@ -474,6 +494,49 @@ export default {
                 },
             );
         },
+        async queuePublishInProcessFindingAid() {
+            this.$bvModal.show( 'queuing-publish-modal' );
+
+            await this.$sleep( 1000 );
+
+            this.$bvModal.hide( 'queuing-publish-modal' );
+
+            this.publishInProcessFindingAid(
+                {
+                    datetime   : Math.round( ( new Date() ).getTime() / 1000 ),
+                    id         : this.publication.id,
+                    repository : this.publication.repositoryCode,
+                    title      : this.publication.title,
+                },
+            );
+
+            this.deleteInProcessFindingAid(
+                {
+                    id         : this.publication.id,
+                    repository : this.publication.repositoryCode,
+                },
+            );
+
+            this.clearPublishInProcess();
+
+            const message =
+                'The finding aid has been queued for publication.' +
+                ' The finding aid, public EAD file, and search data will' +
+                ' be published after the Github change has been made.' +
+                ' The full publication process should be completed in [X time].';
+
+            const that = this;
+            this.$bvModal.msgBoxOk( message, {
+                centered : true,
+                title    : 'Publication has been queued',
+            } ).then(
+                function () {
+                    that.refreshTableItems();
+
+                    that.$refs.table.refresh();
+                },
+            );
+        },
         customFilter( row, filterProp ) {
             for ( const filter in filterProp ) {
                 const filterValue = filterProp[ filter ];
@@ -520,6 +583,7 @@ export default {
                 'setHelpModal',
                 'addInProcessFindingAid',
                 'deleteInProcessFindingAid',
+                'publishInProcessFindingAid',
             ],
         ),
     },
