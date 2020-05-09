@@ -477,7 +477,7 @@ export default {
                 },
             );
 
-            this.clearInProcess();
+            this.clearDeleteInProcess();
 
             const message =
                 'The in-process finding aid has been deleted.';
