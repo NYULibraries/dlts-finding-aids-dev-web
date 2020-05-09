@@ -400,6 +400,8 @@ export default {
         cancelDeleteInProcessFindingAid() {
             this.clearDeleteInProcess();
         },
+        cancelPublishInProcessFindingAid() {
+            this.clearPublishInProcess();
         },
         clearDeleteInProcess() {
             this.deletion.id = null;
