@@ -197,7 +197,7 @@
             @ok="confirmDeleteInProcessFindingAid"
         >
             <p>
-                Are you sure you wish to delete preview finding aid {{ deletion.repositoryCode }}/{{ deletion.id }}?
+                Are you sure you wish to delete preview finding aid {{ findingAidToDelete.repositoryCode }}/{{ findingAidToDelete.id }}?
             </p>
             <p>This will delete the following:</p>
             <p></p>
@@ -242,7 +242,7 @@
         >
             <p>
                 Are you sure you wish to publish in-process finding aid
-                {{ publication.repositoryCode }}/{{ publication.id }}?
+                {{ findingAidToPublish.repositoryCode }}/{{ findingAidToPublish.id }}?
             </p>
             <p>
                 This will publish data to the following locations, overwriting whatever might already be there:
@@ -251,18 +251,18 @@
             <ul>
                 <li>
                     Finding aid:
-                    http://dlib.nyu.edu/findingaids/html/{{ publication.repositoryCode }}/{{ publication.id }}/
+                    http://dlib.nyu.edu/findingaids/html/{{ findingAidToPublish.repositoryCode }}/{{ findingAidToPublish.id }}/
                 </li>
                 <li>
                     Public EAD file:
-                    http://dlib.nyu.edu/findingaids/ead/{{ publication.repositoryCode }}/{{ publication.id }}.xml
+                    http://dlib.nyu.edu/findingaids/ead/{{ findingAidToPublish.repositoryCode }}/{{ findingAidToPublish.id }}.xml
                 </li>
                 <li>
                     Search data: https://specialcollections.library.nyu.edu/search/
                 </li>
                 <li>
                     Github EAD file:
-                    https://github.com/NYULibraries/findingaids_eads/blob/master/{{ publication.repositoryCode }}/{{ publication.id }}.xml
+                    https://github.com/NYULibraries/findingaids_eads/blob/master/{{ findingAidToPublish.repositoryCode }}/{{ findingAidToPublish.id }}.xml
                 </li>
             </ul>
         </b-modal>
@@ -352,12 +352,12 @@ export default {
                 repository : null,
                 title      : null,
             },
-            filterOn      : [ 'title' ],
-            deletion : {
+            filterOn           : [ 'title' ],
+            findingAidToDelete : {
                 id             : null,
                 repositoryCode : null,
             },
-            publication : {
+            findingAidToPublish : {
                 id             : null,
                 repositoryCode : null,
                 title          : null,
@@ -424,23 +424,23 @@ export default {
             this.clearPublishInProcess();
         },
         clearDeleteInProcess() {
-            this.deletion.id = null;
-            this.deletion.repositoryCode = null;
+            this.findingAidToDelete.id = null;
+            this.findingAidToDelete.repositoryCode = null;
         },
         clearPublishInProcess() {
-            this.publication.id = null;
-            this.publication.repositoryCode = null;
+            this.findingAidToPublish.id = null;
+            this.findingAidToPublish.repositoryCode = null;
         },
         clickDeleteInProcessFindingAid( event ) {
-            this.deletion.id = event.currentTarget.dataset.id;
-            this.deletion.repositoryCode = event.currentTarget.dataset.repositoryCode;
+            this.findingAidToDelete.id = event.currentTarget.dataset.id;
+            this.findingAidToDelete.repositoryCode = event.currentTarget.dataset.repositoryCode;
 
             this.$bvModal.show( 'confirm-deletion-modal' );
         },
         clickPublishInProcessFindingAid( event ) {
-            this.publication.id = event.currentTarget.dataset.id;
-            this.publication.repositoryCode = event.currentTarget.dataset.repositoryCode;
-            this.publication.title = event.currentTarget.dataset.title;
+            this.findingAidToPublish.id = event.currentTarget.dataset.id;
+            this.findingAidToPublish.repositoryCode = event.currentTarget.dataset.repositoryCode;
+            this.findingAidToPublish.title = event.currentTarget.dataset.title;
 
             this.$bvModal.show( 'confirm-publish-modal' );
         },
@@ -452,8 +452,8 @@ export default {
                            name   : 'preview',
                            params : {
                                type           : type,
-                               repositoryCode : this.deletion.repositoryCode,
-                               id             : this.deletion.id,
+                               repositoryCode : this.findingAidToDelete.repositoryCode,
+                               id             : this.findingAidToDelete.id,
                            },
                        },
                    ).href;
@@ -472,8 +472,8 @@ export default {
 
             this.deleteInProcessFindingAid(
                 {
-                    id         : this.deletion.id,
-                    repository : this.deletion.repositoryCode,
+                    id         : this.findingAidToDelete.id,
+                    repository : this.findingAidToDelete.repositoryCode,
                 },
             );
 
@@ -504,16 +504,16 @@ export default {
             this.publishInProcessFindingAid(
                 {
                     datetime   : Math.round( ( new Date() ).getTime() / 1000 ),
-                    id         : this.publication.id,
-                    repository : this.publication.repositoryCode,
-                    title      : this.publication.title,
+                    id         : this.findingAidToPublish.id,
+                    repository : this.findingAidToPublish.repositoryCode,
+                    title      : this.findingAidToPublish.title,
                 },
             );
 
             this.deleteInProcessFindingAid(
                 {
-                    id         : this.publication.id,
-                    repository : this.publication.repositoryCode,
+                    id         : this.findingAidToPublish.id,
+                    repository : this.findingAidToPublish.repositoryCode,
                 },
             );
 
