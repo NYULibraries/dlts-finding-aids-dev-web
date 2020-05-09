@@ -191,7 +191,7 @@
             title="Confirm deletion"
             ok-title="Delete"
             ok-variant="danger"
-            @cancel="cancelInProcessFindingAid"
+            @cancel="cancelDeleteInProcessFindingAid"
             @ok="confirmDeleteInProcessFindingAid"
         >
             <p>
@@ -358,10 +358,11 @@ export default {
         );
     },
     methods    : {
-        cancelInProcessFindingAid() {
-            this.clearInProcess();
+        cancelDeleteInProcessFindingAid() {
+            this.clearDeleteInProcess();
         },
-        clearInProcess() {
+        },
+        clearDeleteInProcess() {
             this.deletion.id = null;
             this.deletion.repositoryCode = null;
         },
