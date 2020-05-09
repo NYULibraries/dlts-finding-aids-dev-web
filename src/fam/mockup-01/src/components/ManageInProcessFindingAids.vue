@@ -329,9 +329,10 @@ export default {
                 id             : null,
                 repositoryCode : null,
             },
-            publish : {
+            publication : {
                 id             : null,
                 repositoryCode : null,
+                title          : null,
             },
         };
     },
@@ -396,6 +397,10 @@ export default {
             this.deletion.id = null;
             this.deletion.repositoryCode = null;
         },
+        clearPublishInProcess() {
+            this.publication.id = null;
+            this.publication.repositoryCode = null;
+        },
         clickDeleteInProcessFindingAid( event ) {
             this.deletion.id = event.currentTarget.dataset.id;
             this.deletion.repositoryCode = event.currentTarget.dataset.repositoryCode;
@@ -403,8 +408,9 @@ export default {
             this.$bvModal.show( 'confirm-deletion-modal' );
         },
         clickPublishInProcessFindingAid( event ) {
-            this.publish.id = event.currentTarget.dataset.id;
-            this.publish.repositoryCode = event.currentTarget.dataset.repositoryCode;
+            this.publication.id = event.currentTarget.dataset.id;
+            this.publication.repositoryCode = event.currentTarget.dataset.repositoryCode;
+            this.publication.title = event.currentTarget.dataset.title;
 
             this.$bvModal.show( 'confirm-publish-modal' );
         },
