@@ -226,6 +226,36 @@
                 <b-col />
             </b-row>
         </b-modal>
+
+        <b-modal
+            id="confirm-publish-modal"
+            header-text-variant="danger"
+            size="lg"
+            centered
+            title="Confirm publish"
+            ok-title="Publish"
+            ok-variant="danger"
+            @cancel="cancelPublishInProcessFindingAid"
+            @ok="confirmPublishInProcessFindingAid"
+        >
+            <p>Are you sure you wish to publish in-process finding aid {{ publish.repositoryCode }}/{{ publish.id }}?</p>
+            <p>This will publish data to the following location, overwriting whatever might already be there:</p>
+            <p></p>
+            <ul>
+                <li>
+                    Finding aid: http://dlib.nyu.edu/findingaids/html/{{ publish.repositoryCode }}/{{ publish.id }}/
+                </li>
+                <li>
+                    Public EAD file: http://dlib.nyu.edu/findingaids/ead/{{ publish.repositoryCode }}/{{ publish.id }}.xml
+                </li>
+                <li>
+                    Search data: https://specialcollections.library.nyu.edu/search/
+                </li>
+                <li>
+                    Github EAD file: https://github.com/NYULibraries/findingaids_eads/blob/master/{{ publish.repositoryCode }}/{{ publish.id }}.xml
+                </li>
+            </ul>
+        </b-modal>
     </div>
 </template>
 
