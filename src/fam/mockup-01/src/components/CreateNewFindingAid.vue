@@ -122,7 +122,7 @@ export default {
 
             this.state = true;
             this.results = `Uploading EAD file ${ this.file.name }...\n`;
-            // await this.$sleep( 5000 );
+            await this.$sleep( 5000 );
             this.results += 'Upload complete.\n';
 
             const ead = await this.$readFileAsTextSync( this.file );
@@ -261,7 +261,11 @@ ${ this.recognizedRepositoryNames.join( '\n' ) }
 
             this.submitDisabled = false;
         },
-        submit() {
+        async submit() {
+            this.results += 'Creating in-process finding aid...\n';
+
+            await this.$sleep( 5000 );
+
             this.addInProcessFindingAid( this.newInProcessFindingAid );
 
             this.results += 'New in-process finding aid created:\n' +
