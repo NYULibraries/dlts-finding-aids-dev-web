@@ -176,6 +176,35 @@
         </b-container>
 
         <b-modal
+            id="load-table-items-modal"
+            size="lg"
+            centered
+            title="Refresh table with latest Github repo files metadata"
+        >
+            <b-row>
+                <b-col>
+                    <div id="load-table-items-modal-progress-message">
+                        <div
+                            v-for="loadingRepositoryCode in loadingRepositoryCodes"
+                            :key="loadingRepositoryCode"
+                        >
+                            Fetching latest EAD files snapshot for {{ loadingRepositoryCode }} <b-spinner />
+                        </div>
+                        <br>
+                        <ul>
+                            <li
+                                v-for="loadedRepositoryCode in loadedRepositoryCodes"
+                                :key="loadedRepositoryCode"
+                            >
+                                {{ loadedRepositoryCode }}: done
+                            </li>
+                        </ul>
+                    </div>
+                </b-col>
+            </b-row>
+        </b-modal>
+
+        <b-modal
             id="confirm-unpublish-modal"
             header-text-variant="danger"
             size="lg"
@@ -291,7 +320,8 @@ export default {
                 repositoryCode : null,
             },
             items                  : null,
-            loadingProgressMessage : '',
+            loadedRepositoryCodes  : [],
+            loadingRepositoryCodes : [],
             pageOptions            : [ 10, 25, 50, 100 ],
             perPage                : 10,
             sortBy                 : 'repository',
@@ -395,16 +425,6 @@ export default {
 
             return items;
         },
-        getTotalLoadTimeForCurrentRepositories() {
-            var totalLoadTime = 0;
-
-            const that = this;
-            this.currentRepositoryCodes.forEach( repositoryCode => {
-                totalLoadTime += that.repositories[ repositoryCode ].loadTime;
-            } );
-
-            return totalLoadTime;
-        },
         onFiltered( filteredItems ) {
             // Trigger pagination to update the number of buttons/pages due to filtering
             this.totalRows = filteredItems.length;
@@ -445,9 +465,23 @@ export default {
             );
         },
         async refreshTableItems() {
-            const totalLoadTime = this.getTotalLoadTimeForCurrentRepositories();
+            this.$bvModal.show( 'load-table-items-modal' );
 
-            await this.$sleep( totalLoadTime );
+            const numCurrentRepositoryCodes = this.currentRepositoryCodes.length;
+            for ( let i = 0; i < numCurrentRepositoryCodes; i++ ) {
+                const repositoryCode = this.currentRepositoryCodes[ i ];
+
+                this.loadingRepositoryCodes.push( repositoryCode );
+
+                await this.$sleep( this.repositories[ repositoryCode ].loadTime );
+
+                this.loadingRepositoryCodes.splice(
+                    this.loadingRepositoryCodes.indexOf( repositoryCode ),
+                    1,
+                );
+
+                this.loadedRepositoryCodes.push( repositoryCode );
+            }
 
             this.items = this.getItems();
         },

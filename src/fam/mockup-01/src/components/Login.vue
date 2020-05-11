@@ -141,7 +141,7 @@ finally logging in with a valid username/password.</p>
                 }
             } );
 
-            return repositoryCodesForUser;
+            return repositoryCodesForUser.sort();
         },
         getRepositoryNamesForUser( user ) {
             const repositoryNamesForUser = [];
@@ -153,7 +153,7 @@ finally logging in with a valid username/password.</p>
                 }
             } );
 
-            return repositoryNamesForUser;
+            return repositoryNamesForUser.sort();
         },
         ...mapActions(
             [
