@@ -358,43 +358,6 @@ export default {
 
             this.$bvModal.show( 'confirm-unpublish-modal' );
         },
-        refreshTableItems() {
-            this.items = this.getItems();
-        },
-        async queueUnpublishFindingAid() {
-            this.$bvModal.show( 'queuing-unpublish-modal' );
-
-            await this.$sleep( 1000 );
-
-            this.$bvModal.hide( 'queuing-unpublish-modal' );
-
-            this.unpublishFindingAid(
-                {
-                    id         : this.findinaAidToUnpublish.id,
-                    repository : this.findinaAidToUnpublish.repositoryCode,
-                },
-            );
-
-            this.clearUnpublish();
-
-            const message =
-                'The Github EAD file has been queued for deletion.' +
-                ' The finding aid, public EAD file, and search data will' +
-                ' be deleted after the Github change has been made.' +
-                ' The full unpublish process should be completed in [X time].';
-
-            const that = this;
-            this.$bvModal.msgBoxOk( message, {
-                centered : true,
-                title    : 'Deletion has been queued',
-            } ).then(
-                function () {
-                    that.refreshTableItems();
-
-                    that.$refs.table.refresh();
-                },
-            );
-        },
         customFilter( row, filterProp ) {
             for ( const filter in filterProp ) {
                 const filterValue = filterProp[ filter ];
@@ -431,10 +394,61 @@ export default {
 
             return items;
         },
+        getTotalLoadTimeForCurrentRepositories() {
+            var totalLoadTime = 0;
+
+            const that = this;
+            this.currentRepositoryCodes.forEach( repositoryCode => {
+                totalLoadTime += that.repositories[ repositoryCode ].loadTime;
+            } );
+
+            return totalLoadTime;
+        },
         onFiltered( filteredItems ) {
             // Trigger pagination to update the number of buttons/pages due to filtering
             this.totalRows = filteredItems.length;
             this.currentPage = 1;
+        },
+        async queueUnpublishFindingAid() {
+            this.$bvModal.show( 'queuing-unpublish-modal' );
+
+            await this.$sleep( 1000 );
+
+            this.$bvModal.hide( 'queuing-unpublish-modal' );
+
+            this.unpublishFindingAid(
+                {
+                    id         : this.findinaAidToUnpublish.id,
+                    repository : this.findinaAidToUnpublish.repositoryCode,
+                },
+            );
+
+            this.clearUnpublish();
+
+            const message =
+                'The Github EAD file has been queued for deletion.' +
+                ' The finding aid, public EAD file, and search data will' +
+                ' be deleted after the Github change has been made.' +
+                ' The full unpublish process should be completed in [X time].';
+
+            const that = this;
+            this.$bvModal.msgBoxOk( message, {
+                centered : true,
+                title    : 'Deletion has been queued',
+            } ).then(
+                function () {
+                    that.refreshTableItems();
+
+                    that.$refs.table.refresh();
+                },
+            );
+        },
+        async refreshTableItems() {
+            const totalLoadTime = this.getTotalLoadTimeForCurrentRepositories();
+
+            await this.$sleep( totalLoadTime );
+
+            this.items = this.getItems();
         },
         ...mapActions(
             [
