@@ -240,8 +240,8 @@ export default {
     },
     data() {
         return {
-            currentPage   : 1,
-            fields : [
+            currentPage            : 1,
+            fields                 : [
                 {
                     key           : 'repository',
                     label         : 'Repository',
@@ -280,23 +280,23 @@ export default {
                     class : 'text-left text-nowrap',
                 },
             ],
-            filter        : {
+            filter                 : {
                 id         : null,
                 repository : null,
                 title      : null,
             },
-            filterOn              : [ 'title' ],
-            findingAidToUnpublish : {
+            filterOn               : [ 'title' ],
+            findingAidToUnpublish  : {
                 id             : null,
                 repositoryCode : null,
             },
-            items         : null,
+            items                  : null,
             loadingProgressMessage : '',
-            pageOptions   : [ 10, 25, 50, 100 ],
-            perPage       : 10,
-            sortBy        : 'repository',
-            sortDirection : 'asc',
-            totalRows     : 0,
+            pageOptions            : [ 10, 25, 50, 100 ],
+            perPage                : 10,
+            sortBy                 : 'repository',
+            sortDirection          : 'asc',
+            totalRows              : 0,
         };
     },
     computed   : {
