@@ -186,22 +186,22 @@
             @cancel="cancelUnpublishFindingAid"
             @ok="queueUnpublishFindingAid"
         >
-            <p>Are you sure you wish to unpublish {{ findinaAidToUnpublish.repositoryCode }}/{{ findinaAidToUnpublish.id }}?</p>
+            <p>Are you sure you wish to unpublish {{ findingAidToUnpublish.repositoryCode }}/{{ findingAidToUnpublish.id }}?</p>
             <p>This will delete the following:</p>
             <p></p>
             <ul>
                 <li>
-                    Finding aid: http://dlib.nyu.edu/findingaids/html/{{ findinaAidToUnpublish.repositoryCode }}/{{ findinaAidToUnpublish.id }}/
+                    Finding aid: http://dlib.nyu.edu/findingaids/html/{{ findingAidToUnpublish.repositoryCode }}/{{ findingAidToUnpublish.id }}/
                 </li>
                 <li>
-                    Public EAD file: http://dlib.nyu.edu/findingaids/ead/{{ findinaAidToUnpublish.repositoryCode }}/{{ findinaAidToUnpublish.id }}.xml
+                    Public EAD file: http://dlib.nyu.edu/findingaids/ead/{{ findingAidToUnpublish.repositoryCode }}/{{ findingAidToUnpublish.id }}.xml
                 </li>
                 <li>
                     Search data: https://specialcollections.library.nyu.edu/search/
                 </li>
                 <li>
                     Github EAD file:
-                    https://github.com/NYULibraries/findingaids_eads/blob/master/{{ findinaAidToUnpublish.repositoryCode }}/{{ findinaAidToUnpublish.id }}.xml
+                    https://github.com/NYULibraries/findingaids_eads/blob/master/{{ findingAidToUnpublish.repositoryCode }}/{{ findingAidToUnpublish.id }}.xml
                 </li>
             </ul>
         </b-modal>
@@ -286,7 +286,7 @@ export default {
                 title      : null,
             },
             filterOn              : [ 'title' ],
-            findinaAidToUnpublish : {
+            findingAidToUnpublish : {
                 id             : null,
                 repositoryCode : null,
             },
@@ -349,12 +349,12 @@ export default {
             this.clearUnpublish();
         },
         clearUnpublish() {
-            this.findinaAidToUnpublish.id = null;
-            this.findinaAidToUnpublish.repositoryCode = null;
+            this.findingAidToUnpublish.id = null;
+            this.findingAidToUnpublish.repositoryCode = null;
         },
         clickUnpublishFindingAid( event ) {
-            this.findinaAidToUnpublish.id = event.currentTarget.dataset.id;
-            this.findinaAidToUnpublish.repositoryCode = event.currentTarget.dataset.repositoryCode;
+            this.findingAidToUnpublish.id = event.currentTarget.dataset.id;
+            this.findingAidToUnpublish.repositoryCode = event.currentTarget.dataset.repositoryCode;
 
             this.$bvModal.show( 'confirm-unpublish-modal' );
         },
@@ -418,8 +418,8 @@ export default {
 
             this.unpublishFindingAid(
                 {
-                    id         : this.findinaAidToUnpublish.id,
-                    repository : this.findinaAidToUnpublish.repositoryCode,
+                    id         : this.findingAidToUnpublish.id,
+                    repository : this.findingAidToUnpublish.repositoryCode,
                 },
             );
 
