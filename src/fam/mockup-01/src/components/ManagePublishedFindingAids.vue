@@ -291,6 +291,7 @@ export default {
                 repositoryCode : null,
             },
             items         : null,
+            loadingProgressMessage : '',
             pageOptions   : [ 10, 25, 50, 100 ],
             perPage       : 10,
             sortBy        : 'repository',
