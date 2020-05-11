@@ -18,7 +18,7 @@ const state = function () {
         // https://jira.nyu.edu/jira/browse/FADESIGN-65
         repositories           : {
             akkasah  : {
-                archivists : [
+                archivists   : [
                     'weatherly@nyu.edu',
                     'brad@nyu.edu',
                 ],
@@ -27,7 +27,7 @@ const state = function () {
                 loadTime     : 2820,
             },
             archives : {
-                archivists : [
+                archivists   : [
                     'weatherly@nyu.edu',
                     'megan@nyu.edu',
                 ],
@@ -36,7 +36,7 @@ const state = function () {
                 loadTime     : 4180,
             },
             bhs      : {
-                archivists : [
+                archivists   : [
                     'weatherly@nyu.edu',
                     'maggie@brooklynhistory.org',
                 ],
@@ -45,7 +45,7 @@ const state = function () {
                 loadTime     : 2560,
             },
             fales    : {
-                archivists : [
+                archivists   : [
                     'weatherly@nyu.edu',
                     'megan@nyu.edu',
                 ],
@@ -54,7 +54,7 @@ const state = function () {
                 loadTime     : 9890,
             },
             lapietra : {
-                archivists : [
+                archivists   : [
                     'weatherly@nyu.edu',
                     'francesca@nyu.edu',
                 ],
@@ -63,7 +63,7 @@ const state = function () {
                 loadTime     : 530,
             },
             nyhs     : {
-                archivists : [
+                archivists   : [
                     'weatherly@nyu.edu',
                     'larry@nyhistory.org',
                 ],
@@ -72,7 +72,7 @@ const state = function () {
                 loadTime     : 6090,
             },
             nyuad    : {
-                archivists : [
+                archivists   : [
                     'weatherly@nyu.edu',
                     'brad@nyu.edu',
                 ],
@@ -81,7 +81,7 @@ const state = function () {
                 loadTime     : 120,
             },
             poly     : {
-                archivists : [
+                archivists   : [
                     'weatherly@nyu.edu',
                     'lyndsay@nyu.edu',
                 ],
@@ -90,7 +90,7 @@ const state = function () {
                 loadTime     : 490,
             },
             rism     : {
-                archivists : [
+                archivists   : [
                     'weatherly@nyu.edu',
                     'megan@nyu.edu',
                 ],
@@ -99,7 +99,7 @@ const state = function () {
                 loadTime     : 530,
             },
             tamwag   : {
-                archivists : [
+                archivists   : [
                     'weatherly@nyu.edu',
                     'megan@nyu.edu',
                 ],
@@ -108,9 +108,9 @@ const state = function () {
                 loadTime     : 14830,
             },
         },
-        publishedFindingAids : publishedFindingAids,
+        publishedFindingAids   : publishedFindingAids,
         // https://jira.nyu.edu/jira/browse/FADESIGN-63
-        users                : [
+        users                  : [
             'brad@nyu.edu',
             'francesca@nyu.edu',
             'larry@nyhistory.org',
