@@ -240,6 +240,7 @@ export default {
     },
     data() {
         return {
+            currentPage   : 1,
             fields : [
                 {
                     key           : 'repository',
@@ -279,13 +280,6 @@ export default {
                     class : 'text-left text-nowrap',
                 },
             ],
-            items         : null,
-            totalRows     : 0,
-            currentPage   : 1,
-            perPage       : 10,
-            pageOptions   : [ 10, 25, 50, 100 ],
-            sortBy        : 'repository',
-            sortDirection : 'asc',
             filter        : {
                 id         : null,
                 repository : null,
@@ -296,6 +290,12 @@ export default {
                 id             : null,
                 repositoryCode : null,
             },
+            items         : null,
+            pageOptions   : [ 10, 25, 50, 100 ],
+            perPage       : 10,
+            sortBy        : 'repository',
+            sortDirection : 'asc',
+            totalRows     : 0,
         };
     },
     computed   : {
