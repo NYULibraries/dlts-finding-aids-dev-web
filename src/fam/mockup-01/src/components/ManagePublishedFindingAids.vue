@@ -179,7 +179,7 @@
             id="load-table-items-modal"
             size="lg"
             centered
-            title="Refreshing table with latest Github repo metadata"
+            title="Fetching the latest EAD files metadata from the Github repo"
             hide-footer
         >
             <b-row>
