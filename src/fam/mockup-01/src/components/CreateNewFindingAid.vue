@@ -110,6 +110,11 @@ export default {
                 return this.repositories[ repositoryCode ].name;
             } );
         },
+        recognizedRepositoryNamesListHTML() {
+            return this.recognizedRepositoryNames.map( repositoryName => {
+                return `<li>${ repositoryName }</li>\n`;
+            } ).join( '' );
+        },
         ...mapGetters(
             [
                 'currentUser',
@@ -148,11 +153,59 @@ export default {
 
         parser = new DOMParser();
 
-        this.recognizedRepositoryNames = this.getRecognizedRepositoryNames();
-
         this.setHelpModal(
             {
-                content : 'TODO',
+                content : `This mockup will accept uploads of EAD files with this
+(obviously fake) structure:
+
+<br>
+<br>
+
+<code>
+&lt;ead&gt;<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&lt;eadid&gt;abc_123_def456&lt;/eadid&gt;<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&lt;title&gt;New finding aid&lt;/title&gt;<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&lt;repository&gt;New York University Archives&lt;/repository&gt;<br />
+&lt;/ead&gt;
+</code>
+
+<br>
+<br>
+
+Some things to try:
+
+<br>
+<br>
+
+<ul>
+    <li>Upload a file with valid content using a filename ending in .xml</li>
+    <li>Upload a file with valid content using a filename that does not end in .xml</li>
+    <li>Upload a file with that is missing one or more of the elements shown in the example above</li>
+    <li>Upload a file with one or more elements with empty values</li>
+    <li>
+        Upload a file with an &lt;eadid&gt; that does not conform to the
+        <a
+            href="https://jira.nyu.edu/jira/browse/FADESIGN-20?focusedCommentId=426301&page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-426301"
+            target="_blank">
+            rules
+        </a>
+    </li>
+    <li>
+        Upload a file with a &lt;repository&gt; long name for a repository that
+        the current user is not authorized for in the FAM (note that user
+        weatherly@nyu.edu is authorized to manage all repositories)
+    </li>
+    <li>
+        Upload a file with a &lt;repository&gt; value that is not a recognized.
+        These are the currently recognized repository long names:
+        <ul>
+            ${ this.recognizedRepositoryNamesListHTML }
+        </ul>
+    </li>
+    <li>Click the Cancel button after an upload has completed, but before submitting using the Submit button</li>
+    <li>Upload a valid EAD file and submit it using the Submit button</li>
+</ul>
+`,
                 title   : 'Create New Finding Aid screen',
             },
         );
