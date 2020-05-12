@@ -66,12 +66,14 @@ export default {
                 await this.$sleep( 500 );
 
                 this.setCurrentUser( '' );
+                this.setFetchInitialPublishedFindingAidsMetadata( true );
                 this.$router.push( 'login' );
             }
         },
         ...mapActions(
             [
                 'setCurrentUser',
+                'setFetchInitialPublishedFindingAidsMetadata',
             ],
         ),
     },

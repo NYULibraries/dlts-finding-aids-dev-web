@@ -353,6 +353,7 @@ export default {
             [
                 'currentRepositoryCodes',
                 'currentUser',
+                'fetchInitialPublishedFindingAidsMetadata',
                 'publishedFindingAids',
                 'repositories',
             ],
@@ -364,7 +365,13 @@ export default {
             this.$router.push( { name : 'login' } );
         }
 
-        this.refreshTableItems();
+        if ( this.fetchInitialPublishedFindingAidsMetadata ) {
+            this.refreshTableItemsFromServer();
+
+            this.setFetchInitialPublishedFindingAidsMetadata( false );
+        } else {
+            this.refreshTableItemsFromStore();
+        }
 
         this.totalRows = this.items.length;
 
@@ -458,13 +465,16 @@ export default {
                 title    : 'Deletion has been queued',
             } ).then(
                 function () {
-                    that.refreshTableItems();
+                    that.refreshTableItemsFromStore();
 
                     that.$refs.table.refresh();
                 },
             );
         },
-        async refreshTableItems() {
+        refreshTableItemsFromStore() {
+            this.items = this.getItems();
+        },
+        async refreshTableItemsFromServer() {
             this.$bvModal.show( 'load-table-items-modal' );
 
             const numCurrentRepositoryCodes = this.currentRepositoryCodes.length;
@@ -488,6 +498,7 @@ export default {
         ...mapActions(
             [
                 'setHelpModal',
+                'setFetchInitialPublishedFindingAidsMetadata',
                 'unpublishFindingAid',
             ],
         ),
