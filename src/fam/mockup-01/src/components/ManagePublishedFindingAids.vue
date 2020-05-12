@@ -196,7 +196,7 @@
                                 v-for="loadedRepositoryCode in loadedRepositoryCodes"
                                 :key="loadedRepositoryCode"
                             >
-                                {{ loadedRepositoryCode }}: done
+                                {{ loadedRepositoryCode }}: {{ getNumFindingAidsForRepositoryCode( loadedRepositoryCode ) }} EAD files
                             </li>
                         </ul>
                     </div>
@@ -431,6 +431,9 @@ export default {
             } );
 
             return items;
+        },
+        getNumFindingAidsForRepositoryCode( repositoryCode ) {
+            return Object.keys( this.publishedFindingAids[ repositoryCode ] ).length.toLocaleString();
         },
         onFiltered( filteredItems ) {
             // Trigger pagination to update the number of buttons/pages due to filtering
