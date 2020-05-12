@@ -63,6 +63,7 @@
                         id="cancel-button"
                         class="button"
                         variant="dark"
+                        :disabled="cancelDisabled"
                         @click="cancel"
                     >
                         Cancel
@@ -98,6 +99,7 @@ export default {
     data() {
         return {
             file                : null,
+            cancelDisabled      : null,
             inProcessFindingAid : null,
             results             : null,
             formFileState       : null,
@@ -125,6 +127,8 @@ export default {
     },
     watch : {
         async file() {
+            this.cancelDisabled = true;
+
             if ( ! this.file.name.endsWith( '.xml' ) ) {
                 this.results = 'The uploaded EAD file must have a .xml extension.';
                 this.formFileState = false;
@@ -142,6 +146,8 @@ export default {
 
             // Need to do this so that users can re-upload same file in Chrome
             this.$refs[ 'upload-file-input' ].reset();
+
+            this.cancelDisabled = false;
         },
     },
     mounted() {
