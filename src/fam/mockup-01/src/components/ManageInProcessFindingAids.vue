@@ -234,7 +234,7 @@
             header-text-variant="danger"
             size="lg"
             centered
-            title="Confirm publish"
+            title="Confirm publication"
             ok-title="Publish"
             ok-variant="danger"
             @cancel="cancelPublishInProcessFindingAid"
