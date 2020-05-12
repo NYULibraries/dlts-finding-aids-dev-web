@@ -7,17 +7,17 @@ import publishedFindingAids from './published-finding-aids';
 
 const state = function () {
     return {
-        currentRepositoryCodes : [],
-        currentRepositoryNames : [],
-        currentUser            : '',
+        currentRepositoryCodes                   : [],
+        currentRepositoryNames                   : [],
+        currentUser                              : '',
         fetchInitialPublishedFindingAidsMetadata : true,
-        helpModal              : {
+        helpModal                                : {
             content : '',
             title   : '',
         },
-        inProcessFindingAids   : inProcessFindingAids,
+        inProcessFindingAids                     : inProcessFindingAids,
         // https://jira.nyu.edu/jira/browse/FADESIGN-65
-        repositories           : {
+        repositories                             : {
             akkasah  : {
                 archivists   : [
                     'weatherly@nyu.edu',
@@ -109,9 +109,9 @@ const state = function () {
                 loadTime     : 14830,
             },
         },
-        publishedFindingAids   : publishedFindingAids,
+        publishedFindingAids                     : publishedFindingAids,
         // https://jira.nyu.edu/jira/browse/FADESIGN-63
-        users                  : [
+        users                                    : [
             'brad@nyu.edu',
             'francesca@nyu.edu',
             'larry@nyhistory.org',
