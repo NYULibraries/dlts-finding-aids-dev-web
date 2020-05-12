@@ -94,20 +94,23 @@ export default {
     },
     mounted() {
         const userList = this.users.map( user => {
-            return `<li>${ user }</li>`;
+            return `<li>${ user } - ${ this.getRepositoryCodesForUser( user ).join( ', ' ) }</li>`;
         } ).join( '\n' );
         this.setHelpModal(
             {
                 content : `
 <p>Each FAM user is granted permissions to a specific group of repositories.
-This interactive mockup comes with these fictitious, generic users, all of whom
-have a password of "password":</p>
+This interactive mockup comes with the following users, all of whom have a password of "password":</p>
 <ul>
 ${ userList }
 </ul>
 
-<p>Try logging in one or more times with an incorrect username or password, before
-finally logging in with a valid username/password.</p>
+<p>Some things to try:</p>
+
+<ul>
+    <li>Log in one or more times with an incorrect username or password</li>
+    <li>Log in as different users</li>
+</ul>
 `,
                 title   : 'Login screen',
             },
