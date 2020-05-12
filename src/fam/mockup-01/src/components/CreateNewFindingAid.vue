@@ -99,13 +99,17 @@ export default {
         return {
             file                      : null,
             inProcessFindingAid       : null,
-            recognizedRepositoryNames : null,
             results                   : null,
             state                     : null,
             submitDisabled            : true,
         };
     },
     computed : {
+        recognizedRepositoryNames() {
+            return Object.keys( this.repositories ).map( repositoryCode => {
+                return this.repositories[ repositoryCode ].name;
+            } );
+        },
         ...mapGetters(
             [
                 'currentUser',
@@ -176,11 +180,6 @@ export default {
                 throw new Error( `Required element <${ elementName }> not found.` );
             }
         },
-        getRecognizedRepositoryNames() {
-            return Object.keys( this.repositories ).map( repositoryCode => {
-                return this.repositories[ repositoryCode ].name;
-            } );
-        },
         getRepositoryCodeForRepository( repositoryName ) {
             var that = this,
                 repositoryCode;
@@ -220,7 +219,7 @@ export default {
             } );
 
             if ( uploadedFindingAid.repository ) {
-                if ( this.getRecognizedRepositoryNames().includes( uploadedFindingAid.repository ) ) {
+                if ( this.recognizedRepositoryNames.includes( uploadedFindingAid.repository ) ) {
                     if ( ! this.currentRepositoryNames.includes( uploadedFindingAid.repository ) ) {
                         this.results += `User ${ this.currentUser } is not currently authorized` +
                                         ` to create a finding aid for repository "${ uploadedFindingAid.repository }".\n`;
