@@ -4,7 +4,7 @@
             id="main-container"
             class="main-container h-100"
         >
-            <h1>Login the Finding Aids Manager</h1>
+            <h1>Log in to the Finding Aids Manager</h1>
 
             <b-row
                 id="feedback-row"
