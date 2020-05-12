@@ -180,6 +180,7 @@
             size="lg"
             centered
             title="Refreshing table with latest Github repo metadata"
+            hide-footer
         >
             <b-row>
                 <b-col>
