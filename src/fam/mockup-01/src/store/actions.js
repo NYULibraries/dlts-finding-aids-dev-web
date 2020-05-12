@@ -17,6 +17,9 @@ export default {
     setCurrentUser( { commit }, user ) {
         commit( 'setCurrentUser', user );
     },
+    setFetchInitialPublishedFindingAidsMetadata( { commit }, value ) {
+        commit( 'setFetchInitialPublishedFindingAidsMetadata', value );
+    },
     setHelpModal( { commit }, helpModal ) {
         commit( 'setHelpModal', helpModal );
     },

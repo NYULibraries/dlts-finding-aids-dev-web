@@ -23,6 +23,9 @@ export default {
     setCurrentUser( state, user ) {
         state.currentUser = user;
     },
+    setFetchInitialPublishedFindingAidsMetadata( state, value ) {
+        state.fetchInitialPublishedFindingAidsMetadata = value;
+    },
     setHelpModal( state, helpModal ) {
         state.helpModal = helpModal;
     },

@@ -10,6 +10,7 @@ const state = function () {
         currentRepositoryCodes : [],
         currentRepositoryNames : [],
         currentUser            : '',
+        fetchInitialPublishedFindingAidsMetadata : true,
         helpModal              : {
             content : '',
             title   : '',
