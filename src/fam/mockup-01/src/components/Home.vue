@@ -84,7 +84,8 @@ export default {
 
         this.setHelpModal(
             {
-                content : 'TODO',
+                content : '<p>Try navigating using the navbar and the links on the page.</p>' +
+                    '<p>Try logging out and navigating back to this home page without first logging back in.</p>',
                 title   : 'Home screen',
             },
         );
