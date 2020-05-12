@@ -216,22 +216,24 @@ export default {
                 }
             } );
 
-            if ( this.getRecognizedRepositoryNames().includes( uploadedFindingAid.repository ) ) {
-                if ( ! this.currentRepositoryNames.includes( uploadedFindingAid.repository ) ) {
-                    this.results += `User ${ this.currentUser } is not currently authorized` +
-                                    ` to create a finding aid for repository "${ uploadedFindingAid.repository }".\n`;
+            if ( uploadedFindingAid.repository ) {
+                if ( this.getRecognizedRepositoryNames().includes( uploadedFindingAid.repository ) ) {
+                    if ( ! this.currentRepositoryNames.includes( uploadedFindingAid.repository ) ) {
+                        this.results += `User ${ this.currentUser } is not currently authorized` +
+                                        ` to create a finding aid for repository "${ uploadedFindingAid.repository }".\n`;
 
-                    abort = true;
-                }
-            } else {
-                this.results += `Element <repository> contains unknown repository name "${ uploadedFindingAid.repository }".
+                        abort = true;
+                    }
+                } else {
+                    this.results += `Element <repository> contains unknown repository name "${ uploadedFindingAid.repository }".
 The repository name must match a value from this list:
 
 ${ this.recognizedRepositoryNames.join( '\n' ) }
 
 `;
 
-                abort = true;
+                    abort = true;
+                }
             }
 
             const eadidErrors = this.validateEADID( uploadedFindingAid.eadid );
