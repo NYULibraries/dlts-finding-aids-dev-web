@@ -179,7 +179,7 @@
             id="load-table-items-modal"
             size="lg"
             centered
-            title="Refresh table with latest Github repo files metadata"
+            title="Refreshing table with latest Github repo metadata"
         >
             <b-row>
                 <b-col>
@@ -188,7 +188,7 @@
                             v-for="loadingRepositoryCode in loadingRepositoryCodes"
                             :key="loadingRepositoryCode"
                         >
-                            Fetching latest EAD files snapshot for {{ loadingRepositoryCode }} <b-spinner />
+                            Fetching latest EAD files snapshot for {{ loadingRepositoryCode }} repository <b-spinner />
                         </div>
                         <br>
                         <ul>
