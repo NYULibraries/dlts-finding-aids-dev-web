@@ -21,6 +21,7 @@
                 >
                     <!-- Styled -->
                     <b-form-file
+                        ref="upload-file-input"
                         v-model="file"
                         :state="state"
                         accept=".xml"
@@ -128,6 +129,9 @@ export default {
             const ead = await this.$readFileAsTextSync( this.file );
 
             this.processEAD( ead );
+
+            // Need to do this so that users can re-upload same file in Chrome
+            this.$refs[ 'upload-file-input' ].reset();
         },
     },
     mounted() {
