@@ -436,7 +436,12 @@ export default {
             return items;
         },
         getNumFindingAidsForRepositoryCode( repositoryCode ) {
-            return Object.keys( this.publishedFindingAids[ repositoryCode ] ).length.toLocaleString();
+            if ( this.publishedFindingAids[ repositoryCode ] ) {
+                return Object.keys( this.publishedFindingAids[ repositoryCode ] )
+                    .length.toLocaleString();
+            } else {
+                return 0;
+            }
         },
         onFiltered( filteredItems ) {
             // Trigger pagination to update the number of buttons/pages due to filtering
