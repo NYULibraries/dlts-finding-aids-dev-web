@@ -189,7 +189,7 @@
                             v-for="loadingRepositoryCode in loadingRepositoryCodes"
                             :key="loadingRepositoryCode"
                         >
-                            Fetching latest EAD files snapshot for {{ loadingRepositoryCode }} repository <b-spinner />
+                            Fetching latest Github EAD files snapshot for {{ loadingRepositoryCode }} repository <b-spinner />
                         </div>
                         <br>
                         <ul>
