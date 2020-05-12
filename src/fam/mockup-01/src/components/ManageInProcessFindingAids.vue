@@ -413,7 +413,36 @@ export default {
 
         this.setHelpModal(
             {
-                content : 'TODO',
+                content : `Some things to try:
+
+<br>
+<br>
+
+<ul>
+    <li>Filter by:
+        <ul>
+            <li>Repository</li>
+            <li>ID</li>
+            <li>Title</li>
+        </ul>
+    </li>
+    <li>Sort (ascending and descending) by:
+        <ul>
+            <li>Repository</li>
+            <li>ID</li>
+            <li>Title</li>
+            <li>Datetime</li>
+        </ul>
+    </li>
+    <li>Select different per page options from the dropdown</li>
+    <li>Navigate to different pages using page navigator buttons</li>
+    <li>Expand the Actions row for one or more finding aids rows</li>
+    <li>Expand the Actions row for a finding aid and click the "View finding aid preview" button</li>
+    <li>Expand the Actions row for a finding aid and click the "View EAD file preview" button</li>
+    <li>Expand the Actions row for a finding aid and click the "Publish finding aid" button</li>
+    <li>Expand the Actions row for a finding aid and click the "Delete in-process finding aid" button</li>
+</ul>
+`,
                 title   : 'Manage In-Process Finding Aids screen',
             },
         );
