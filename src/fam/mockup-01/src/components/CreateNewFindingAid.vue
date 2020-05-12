@@ -23,7 +23,7 @@
                     <b-form-file
                         ref="upload-file-input"
                         v-model="file"
-                        :state="state"
+                        :state="formFileState"
                         accept=".xml"
                         placeholder="Choose an EAD file or drop it here..."
                         drop-placeholder="Drop file here..."
@@ -97,11 +97,11 @@ export default {
     },
     data() {
         return {
-            file                      : null,
-            inProcessFindingAid       : null,
-            results                   : null,
-            state                     : null,
-            submitDisabled            : true,
+            file                : null,
+            inProcessFindingAid : null,
+            results             : null,
+            formFileState       : null,
+            submitDisabled      : true,
         };
     },
     computed : {
@@ -127,11 +127,11 @@ export default {
         async file() {
             if ( ! this.file.name.endsWith( '.xml' ) ) {
                 this.results = 'The uploaded EAD file must have a .xml extension.';
-                this.state = false;
+                this.formFileState = false;
                 return;
             }
 
-            this.state = true;
+            this.formFileState = true;
             this.results = `Uploading EAD file ${ this.file.name }...\n`;
             await this.$sleep( 5000 );
             this.results += 'Upload complete.\n';
@@ -214,7 +214,7 @@ Some things to try:
         cancel() {
             this.file = null;
             this.results = null;
-            this.state = true;
+            this.formFileState = true;
             this.submitDisabled = true;
         },
         getEADElementValue( eadDoc, elementName ) {
@@ -303,7 +303,7 @@ ${ this.recognizedRepositoryNames.join( '\n' ) }
 
             if ( abort ) {
                 this.results += 'Please make the necessary corrections and re-upload the EAD file.';
-                this.state = false;
+                this.formFileState = false;
                 this.submitDisabled = true;
 
                 return;
