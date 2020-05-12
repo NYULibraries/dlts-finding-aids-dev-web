@@ -56,7 +56,7 @@
             <!-- Main table element -->
             <b-table
                 ref="table"
-                bordered
+                dark
                 striped
                 show-empty
                 small
