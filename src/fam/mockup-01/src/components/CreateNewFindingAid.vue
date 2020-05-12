@@ -178,6 +178,19 @@ export default {
 <br>
 <br>
 
+The elements used in this fake schema are the bare minimum needed for the EAD file to be
+"uploaded" in this interactive mockup for inclusion in the <strong>In-process FAs</strong> table.
+
+<br>
+<br>
+
+This mockup does some basic validation of these (mostly fake) elements to provide
+a feel for the sort of verifications we can have the FAM perform before attempting
+to create a preview finding aid.
+
+<br>
+<br>
+
 Some things to try:
 
 <br>
