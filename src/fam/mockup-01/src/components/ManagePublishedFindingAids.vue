@@ -363,6 +363,8 @@ export default {
     mounted() {
         if ( ! this.currentUser ) {
             this.$router.push( { name : 'login' } );
+
+            return;
         }
 
         if ( this.fetchInitialPublishedFindingAidsMetadata ) {
