@@ -83,6 +83,7 @@
 </template>
 
 <script>
+import moment from 'moment';
 import { mapActions, mapGetters } from 'vuex';
 
 import Navbar from './Navbar';
@@ -261,9 +262,13 @@ ${ this.recognizedRepositoryNames.join( '\n' ) }
                 title      : uploadedFindingAid.title,
             };
 
-            this.results += 'EAD file has been validated.\nReady to submit:\n' +
-                            JSON.stringify( uploadedFindingAid, null, '    ' ) +
-                            '\n';
+            this.results += 'EAD file has been validated.\nReady to submit:\n\n' +
+                `EAD ID: ${ uploadedFindingAid.eadid }\n` +
+                `TITLE: ${ uploadedFindingAid.title }\n` +
+                `REPOSITORY: ${ uploadedFindingAid.repository }` +
+                '\n\n';
+
+            this.results += 'Proceed to In-process FAs to preview the new EAD file and finding aid.\n';
 
             this.submitDisabled = false;
         },
@@ -274,8 +279,14 @@ ${ this.recognizedRepositoryNames.join( '\n' ) }
 
             this.addInProcessFindingAid( this.newInProcessFindingAid );
 
-            this.results += 'New in-process finding aid created:\n' +
-                            JSON.stringify( this.newInProcessFindingAid, null, '    ' ) + '\n';
+            const formattedDatetime =
+                moment( this.newInProcessFindingAid.datetime * 1000 ).format( 'M/D/YYYY h:mm a' );
+
+            this.results += 'New in-process finding aid created:\n\n' +
+                `ID: ${ this.newInProcessFindingAid.id }\n` +
+                `TITLE: ${ this.newInProcessFindingAid.title }\n` +
+                `REPOSITORY CODE: ${ this.newInProcessFindingAid.repository }\n` +
+                `DATETIME: ${  formattedDatetime }\n`;
 
             this.submitDisabled = true;
         },
