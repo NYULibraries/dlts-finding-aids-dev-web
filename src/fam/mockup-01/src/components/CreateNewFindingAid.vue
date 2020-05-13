@@ -127,27 +127,29 @@ export default {
     },
     watch : {
         async file() {
-            this.cancelDisabled = true;
+            if ( this.file ) {
+                this.cancelDisabled = true;
 
-            if ( ! this.file.name.endsWith( '.xml' ) ) {
-                this.results = 'The uploaded EAD file must have a .xml extension.';
-                this.formFileState = false;
-                return;
+                if ( ! this.file.name.endsWith( '.xml' ) ) {
+                    this.results = 'The uploaded EAD file must have a .xml extension.';
+                    this.formFileState = false;
+                    return;
+                }
+
+                this.formFileState = true;
+                this.results = `Uploading EAD file ${ this.file.name }...\n`;
+                await this.$sleep( 5000 );
+                this.results += 'Upload complete.\n';
+
+                const ead = await this.$readFileAsTextSync( this.file );
+
+                this.processEAD( ead );
+
+                // Need to do this so that users can re-upload same file in Chrome
+                this.$refs[ 'upload-file-input' ].reset();
+
+                this.cancelDisabled = false;
             }
-
-            this.formFileState = true;
-            this.results = `Uploading EAD file ${ this.file.name }...\n`;
-            await this.$sleep( 5000 );
-            this.results += 'Upload complete.\n';
-
-            const ead = await this.$readFileAsTextSync( this.file );
-
-            this.processEAD( ead );
-
-            // Need to do this so that users can re-upload same file in Chrome
-            this.$refs[ 'upload-file-input' ].reset();
-
-            this.cancelDisabled = false;
         },
     },
     mounted() {
