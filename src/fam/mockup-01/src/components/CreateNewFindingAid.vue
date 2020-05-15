@@ -343,8 +343,6 @@ ${ this.recognizedRepositoryNames.join( '\n' ) }
                 `REPOSITORY: ${ uploadedFindingAid.repository }` +
                 '\n\n';
 
-            this.results += 'Proceed to In-process FAs to preview the new EAD file and finding aid.\n';
-
             this.submitDisabled = false;
         },
         async submit() {
@@ -361,7 +359,9 @@ ${ this.recognizedRepositoryNames.join( '\n' ) }
                 `ID: ${ this.newInProcessFindingAid.id }\n` +
                 `TITLE: ${ this.newInProcessFindingAid.title }\n` +
                 `REPOSITORY CODE: ${ this.newInProcessFindingAid.repository }\n` +
-                `DATETIME: ${  formattedDatetime }\n`;
+                `DATETIME: ${  formattedDatetime }\n\n`;
+
+            this.results += 'Proceed to In-process FAs to preview the new EAD file and finding aid.\n';
 
             this.submitDisabled = true;
         },
