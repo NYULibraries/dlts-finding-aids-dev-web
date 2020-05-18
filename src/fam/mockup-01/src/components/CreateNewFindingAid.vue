@@ -114,7 +114,7 @@ export default {
         },
         recognizedRepositoryNamesListHTML() {
             return this.recognizedRepositoryNames.map( repositoryName => {
-                return `<li>${ repositoryName }</li>\n`;
+                return `<li>${ repositoryName.replace( '&', '&amp;amp;' ) }</li>\n`;
             } ).join( '' );
         },
         ...mapGetters(
@@ -204,6 +204,7 @@ Some things to try:
     <li>Upload a file with that is missing one or more of the elements shown in the example above</li>
     <li>Upload a file with one or more elements with empty values</li>
     <li>
+
         Upload a file with an &lt;eadid&gt; that does not conform to the
         <a
             href="https://jira.nyu.edu/jira/browse/FADESIGN-20?focusedCommentId=426301&page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-426301"
@@ -218,7 +219,9 @@ Some things to try:
     </li>
     <li>
         Upload a file with a &lt;repository&gt; value that is not a recognized.
-        These are the currently recognized repository long names:
+        These are the currently recognized repository long names
+        (note that you must use the "&ampamp;" entity reference to include an "&"
+         character in XML text):
         <ul>
             ${ this.recognizedRepositoryNamesListHTML }
         </ul>
