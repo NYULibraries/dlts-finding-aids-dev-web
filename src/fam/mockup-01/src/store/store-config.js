@@ -90,15 +90,6 @@ const state = function () {
                 organization : 'NYU',
                 loadTime     : 490,
             },
-            rism     : {
-                archivists   : [
-                    'weatherly@nyu.edu',
-                    'megan@nyu.edu',
-                ],
-                name         : 'Research Institute for the Study of Man',
-                organization : 'NYU',
-                loadTime     : 530,
-            },
             tamwag   : {
                 archivists   : [
                     'weatherly@nyu.edu',

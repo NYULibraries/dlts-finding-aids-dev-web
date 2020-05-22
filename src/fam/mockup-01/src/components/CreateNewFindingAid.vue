@@ -23,7 +23,7 @@
                     <b-form-file
                         ref="upload-file-input"
                         v-model="file"
-                        :state="state"
+                        :state="formFileState"
                         accept=".xml"
                         placeholder="Choose an EAD file or drop it here..."
                         drop-placeholder="Drop file here..."
@@ -63,6 +63,7 @@
                         id="cancel-button"
                         class="button"
                         variant="dark"
+                        :disabled="cancelDisabled"
                         @click="cancel"
                     >
                         Cancel
@@ -97,15 +98,25 @@ export default {
     },
     data() {
         return {
-            file                      : null,
-            inProcessFindingAid       : null,
-            recognizedRepositoryNames : null,
-            results                   : null,
-            state                     : null,
-            submitDisabled            : true,
+            file                : null,
+            cancelDisabled      : null,
+            inProcessFindingAid : null,
+            results             : null,
+            formFileState       : null,
+            submitDisabled      : true,
         };
     },
     computed : {
+        recognizedRepositoryNames() {
+            return Object.keys( this.repositories ).map( repositoryCode => {
+                return this.repositories[ repositoryCode ].name;
+            } );
+        },
+        recognizedRepositoryNamesListHTML() {
+            return this.recognizedRepositoryNames.map( repositoryName => {
+                return `<li>${ repositoryName.replace( '&', '&amp;amp;' ) }</li>\n`;
+            } ).join( '' );
+        },
         ...mapGetters(
             [
                 'currentUser',
@@ -116,23 +127,29 @@ export default {
     },
     watch : {
         async file() {
-            if ( ! this.file.name.endsWith( '.xml' ) ) {
-                this.results = 'The uploaded EAD file must have a .xml extension.';
-                this.state = false;
-                return;
+            if ( this.file ) {
+                this.cancelDisabled = true;
+
+                if ( ! this.file.name.endsWith( '.xml' ) ) {
+                    this.results = 'The uploaded EAD file must have a .xml extension.';
+                    this.formFileState = false;
+                    return;
+                }
+
+                this.formFileState = true;
+                this.results = `Uploading EAD file ${ this.file.name }...\n`;
+                await this.$sleep( 5000 );
+                this.results += 'Upload complete.\n';
+
+                const ead = await this.$readFileAsTextSync( this.file );
+
+                this.processEAD( ead );
+
+                // Need to do this so that users can re-upload same file in Chrome
+                this.$refs[ 'upload-file-input' ].reset();
+
+                this.cancelDisabled = false;
             }
-
-            this.state = true;
-            this.results = `Uploading EAD file ${ this.file.name }...\n`;
-            await this.$sleep( 5000 );
-            this.results += 'Upload complete.\n';
-
-            const ead = await this.$readFileAsTextSync( this.file );
-
-            this.processEAD( ead );
-
-            // Need to do this so that users can re-upload same file in Chrome
-            this.$refs[ 'upload-file-input' ].reset();
         },
     },
     mounted() {
@@ -144,11 +161,75 @@ export default {
 
         parser = new DOMParser();
 
-        this.recognizedRepositoryNames = this.getRecognizedRepositoryNames();
-
         this.setHelpModal(
             {
-                content : 'TODO',
+                content : `This mockup will accept uploads of EAD files with this
+(obviously fake) structure:
+
+<br>
+<br>
+
+<code>
+&lt;ead&gt;<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&lt;eadid&gt;abc_123_def456&lt;/eadid&gt;<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&lt;title&gt;New finding aid&lt;/title&gt;<br />
+&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&lt;repository&gt;New York University Archives&lt;/repository&gt;<br />
+&lt;/ead&gt;
+</code>
+
+<br>
+<br>
+
+The elements used in this fake schema are the bare minimum needed for the EAD file to be
+"uploaded" in this interactive mockup for inclusion in the <strong>In-process FAs</strong> table.
+
+<br>
+<br>
+
+This mockup does some basic validation of these (mostly fake) elements to provide
+a feel for the sort of verifications we can have the FAM perform before attempting
+to create a preview finding aid.
+
+<br>
+<br>
+
+Some things to try:
+
+<br>
+<br>
+
+<ul>
+    <li>Upload a file with valid content using a filename ending in .xml</li>
+    <li>Upload a file with valid content using a filename that does not end in .xml</li>
+    <li>Upload a file with that is missing one or more of the elements shown in the example above</li>
+    <li>Upload a file with one or more elements with empty values</li>
+    <li>
+
+        Upload a file with an &lt;eadid&gt; that does not conform to the
+        <a
+            href="https://jira.nyu.edu/jira/browse/FADESIGN-20?focusedCommentId=426301&page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-426301"
+            target="_blank">
+            rules
+        </a>
+    </li>
+    <li>
+        Upload a file with a &lt;repository&gt; long name for a repository that
+        the current user is not authorized for in the FAM (note that user
+        weatherly@nyu.edu is authorized to manage all repositories)
+    </li>
+    <li>
+        Upload a file with a &lt;repository&gt; value that is not a recognized.
+        These are the currently recognized repository long names
+        (note that you must use the "&ampamp;" entity reference to include an "&"
+         character in XML text):
+        <ul>
+            ${ this.recognizedRepositoryNamesListHTML }
+        </ul>
+    </li>
+    <li>Click the Cancel button after an upload has completed, but before submitting using the Submit button</li>
+    <li>Upload a valid EAD file and submit it using the Submit button</li>
+</ul>
+`,
                 title   : 'Create New Finding Aid screen',
             },
         );
@@ -157,7 +238,7 @@ export default {
         cancel() {
             this.file = null;
             this.results = null;
-            this.state = true;
+            this.formFileState = true;
             this.submitDisabled = true;
         },
         getEADElementValue( eadDoc, elementName ) {
@@ -175,11 +256,6 @@ export default {
             } else {
                 throw new Error( `Required element <${ elementName }> not found.` );
             }
-        },
-        getRecognizedRepositoryNames() {
-            return Object.keys( this.repositories ).map( repositoryCode => {
-                return this.repositories[ repositoryCode ].name;
-            } );
         },
         getRepositoryCodeForRepository( repositoryName ) {
             var that = this,
@@ -220,7 +296,7 @@ export default {
             } );
 
             if ( uploadedFindingAid.repository ) {
-                if ( this.getRecognizedRepositoryNames().includes( uploadedFindingAid.repository ) ) {
+                if ( this.recognizedRepositoryNames.includes( uploadedFindingAid.repository ) ) {
                     if ( ! this.currentRepositoryNames.includes( uploadedFindingAid.repository ) ) {
                         this.results += `User ${ this.currentUser } is not currently authorized` +
                                         ` to create a finding aid for repository "${ uploadedFindingAid.repository }".\n`;
@@ -251,7 +327,7 @@ ${ this.recognizedRepositoryNames.join( '\n' ) }
 
             if ( abort ) {
                 this.results += 'Please make the necessary corrections and re-upload the EAD file.';
-                this.state = false;
+                this.formFileState = false;
                 this.submitDisabled = true;
 
                 return;
@@ -270,8 +346,6 @@ ${ this.recognizedRepositoryNames.join( '\n' ) }
                 `REPOSITORY: ${ uploadedFindingAid.repository }` +
                 '\n\n';
 
-            this.results += 'Proceed to In-process FAs to preview the new EAD file and finding aid.\n';
-
             this.submitDisabled = false;
         },
         async submit() {
@@ -288,7 +362,9 @@ ${ this.recognizedRepositoryNames.join( '\n' ) }
                 `ID: ${ this.newInProcessFindingAid.id }\n` +
                 `TITLE: ${ this.newInProcessFindingAid.title }\n` +
                 `REPOSITORY CODE: ${ this.newInProcessFindingAid.repository }\n` +
-                `DATETIME: ${  formattedDatetime }\n`;
+                `DATETIME: ${  formattedDatetime }\n\n`;
+
+            this.results += 'Proceed to In-process FAs to preview the new EAD file and finding aid.\n';
 
             this.submitDisabled = true;
         },
