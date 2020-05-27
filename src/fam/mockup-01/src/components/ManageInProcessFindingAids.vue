@@ -126,8 +126,15 @@
                     </b-form-group>
                 </template>
 
+                <template v-slot:cell(title)="row">
+                    <div @click="row.toggleDetails">
+                        {{ row.item.title }}
+                    </div>
+                </template>
+
                 <template v-slot:cell(actions)="row">
                     <span
+                        ref="toggle-details-span"
                         class="h1"
                     >
                         <b-icon
