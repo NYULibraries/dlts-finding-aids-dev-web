@@ -519,9 +519,6 @@ Some things to try:
                 },
             );
         },
-        refreshTableItemsFromStore() {
-            this.items = this.getItems();
-        },
         async refreshTableItemsFromServer() {
             this.$bvModal.show( 'load-table-items-modal' );
 
@@ -541,6 +538,9 @@ Some things to try:
                 this.loadedRepositoryCodes.push( repositoryCode );
             }
 
+            this.items = this.getItems();
+        },
+        refreshTableItemsFromStore() {
             this.items = this.getItems();
         },
         ...mapActions(
