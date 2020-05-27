@@ -126,8 +126,15 @@
                     </b-form-group>
                 </template>
 
+                <template v-slot:cell(title)="row">
+                    <div @click="row.toggleDetails">
+                        {{ row.item.title }}
+                    </div>
+                </template>
+
                 <template v-slot:cell(actions)="row">
                     <span
+                        ref="toggle-details-span"
                         class="h1"
                     >
                         <b-icon
@@ -519,9 +526,6 @@ Some things to try:
                 },
             );
         },
-        refreshTableItemsFromStore() {
-            this.items = this.getItems();
-        },
         async refreshTableItemsFromServer() {
             this.$bvModal.show( 'load-table-items-modal' );
 
@@ -541,6 +545,9 @@ Some things to try:
                 this.loadedRepositoryCodes.push( repositoryCode );
             }
 
+            this.items = this.getItems();
+        },
+        refreshTableItemsFromStore() {
             this.items = this.getItems();
         },
         ...mapActions(
