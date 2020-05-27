@@ -144,7 +144,7 @@
                         />
                         <b-icon
                             v-else
-                            icon="caret-left-fill"
+                            icon="caret-right-fill"
                             @click="row.toggleDetails"
                         />
                     </span>
@@ -310,6 +310,11 @@ export default {
         return {
             fields : [
                 {
+                    key   : 'actions',
+                    label : '',
+                    class : 'text-left text-nowrap',
+                },
+                {
                     key           : 'repository',
                     label         : 'Repository',
                     sortable      : true,
@@ -340,11 +345,6 @@ export default {
                     sortDirection     : 'desc',
                     filterByFormatted : true,
                     class             : 'text-left text-nowrap',
-                },
-                {
-                    key   : 'actions',
-                    label : 'Actions',
-                    class : 'text-left text-nowrap',
                 },
             ],
             items         : null,
