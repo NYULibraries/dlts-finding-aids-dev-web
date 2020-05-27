@@ -475,24 +475,6 @@ export default {
 
             this.$bvModal.show( 'confirm-publish-modal' );
         },
-        previewToDeleteFullURL( type ) {
-            return window.location.href.replace( '/#/in-process', '' ) +
-                   '/' +
-                   this.$router.resolve(
-                       {
-                           name   : 'preview',
-                           params : {
-                               type           : type,
-                               repositoryCode : this.findingAidToDelete.repositoryCode,
-                               id             : this.findingAidToDelete.id,
-                           },
-                       },
-                   ).href;
-        },
-        refreshTableItems() {
-            this.items = this.getItems();
-        },
-        // Originally this was deleteInProcessFindingAid, which conflicts with
         // Vuex action of the same name.
         async confirmDeleteInProcessFindingAid() {
             this.$bvModal.show( 'deletion-in-progress-modal' );
@@ -524,6 +506,62 @@ export default {
                     that.$refs.table.refresh();
                 },
             );
+        },
+        // Originally this was deleteInProcessFindingAid, which conflicts with
+        customFilter( row, filterProp ) {
+            for ( const filter in filterProp ) {
+                const filterValue = filterProp[ filter ];
+
+                if ( filterValue && ! row[ filter ].toLowerCase().includes( filterProp[ filter ] ) ) {
+                    return false;
+                }
+            }
+
+            return true;
+        },
+        getItems() {
+            const items = [];
+
+            Object.keys( this.inProcessFindingAids ).forEach( repositoryCode => {
+                if ( this.currentRepositoryCodes.includes( repositoryCode ) ) {
+                    const findingAids = this.inProcessFindingAids[ repositoryCode ];
+
+                    Object.keys( findingAids ).forEach( id => {
+                        const findingAid = findingAids[ id ];
+
+                        items.push(
+                            {
+                                repository     : `${ this.repositories[ repositoryCode ].name } (${ repositoryCode })`,
+                                repositoryCode : repositoryCode,
+                                id             : id,
+                                title          : findingAid.title,
+                                datetime       : findingAid.datetime,
+                            },
+                        );
+                    } );
+                }
+            } );
+
+            return items;
+        },
+        onFiltered( filteredItems ) {
+            // Trigger pagination to update the number of buttons/pages due to filtering
+            this.totalRows = filteredItems.length;
+            this.currentPage = 1;
+        },
+        previewToDeleteFullURL( type ) {
+            return window.location.href.replace( '/#/in-process', '' ) +
+                   '/' +
+                   this.$router.resolve(
+                       {
+                           name   : 'preview',
+                           params : {
+                               type           : type,
+                               repositoryCode : this.findingAidToDelete.repositoryCode,
+                               id             : this.findingAidToDelete.id,
+                           },
+                       },
+                   ).href;
         },
         async queuePublishInProcessFindingAid() {
             this.$bvModal.show( 'queuing-publish-modal' );
@@ -568,46 +606,8 @@ export default {
                 },
             );
         },
-        customFilter( row, filterProp ) {
-            for ( const filter in filterProp ) {
-                const filterValue = filterProp[ filter ];
-
-                if ( filterValue && ! row[ filter ].toLowerCase().includes( filterProp[ filter ] ) ) {
-                    return false;
-                }
-            }
-
-            return true;
-        },
-        getItems() {
-            const items = [];
-
-            Object.keys( this.inProcessFindingAids ).forEach( repositoryCode => {
-                if ( this.currentRepositoryCodes.includes( repositoryCode ) ) {
-                    const findingAids = this.inProcessFindingAids[ repositoryCode ];
-
-                    Object.keys( findingAids ).forEach( id => {
-                        const findingAid = findingAids[ id ];
-
-                        items.push(
-                            {
-                                repository     : `${ this.repositories[ repositoryCode ].name } (${ repositoryCode })`,
-                                repositoryCode : repositoryCode,
-                                id             : id,
-                                title          : findingAid.title,
-                                datetime       : findingAid.datetime,
-                            },
-                        );
-                    } );
-                }
-            } );
-
-            return items;
-        },
-        onFiltered( filteredItems ) {
-            // Trigger pagination to update the number of buttons/pages due to filtering
-            this.totalRows = filteredItems.length;
-            this.currentPage = 1;
+        refreshTableItems() {
+            this.items = this.getItems();
         },
         ...mapActions(
             [
