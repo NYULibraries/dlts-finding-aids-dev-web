@@ -5,7 +5,7 @@ import mutations from './mutations';
 import inProcessFindingAids from './in-process-finding-aids';
 import publishedFindingAids from './published-finding-aids';
 
-const TOTAL_LOAD_TIME_FOR_ALL_REPOSITORIES = 1000;
+const TOTAL_LOAD_TIME_FOR_ALL_REPOSITORIES = 1500;
 
 const state = function () {
     return {
