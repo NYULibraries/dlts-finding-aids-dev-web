@@ -43,7 +43,7 @@
                         id="results-textarea"
                         v-model="results"
                         placeholder="Waiting for upload of EAD file..."
-                        rows="20"
+                        rows="15"
                         readonly
                         plaintext
                     />
@@ -413,7 +413,7 @@ ${ this.recognizedRepositoryNames.join( '\n' ) }
 }
 
 #results-col {
-    height : 500px;
+    height : 380px;
 }
 
 #results-textarea {
