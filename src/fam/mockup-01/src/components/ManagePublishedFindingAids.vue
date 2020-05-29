@@ -57,6 +57,7 @@
             <b-table
                 ref="table"
                 dark
+                empty-filtered-text="The are no finding aids matching your request."
                 striped
                 show-empty
                 small
@@ -71,6 +72,16 @@
                 :sort-direction="sortDirection"
                 @filtered="onFiltered"
             >
+                <template
+                    v-if="fetchInitialPublishedFindingAidsMetadata"
+                    v-slot:emptyfiltered=""
+                >
+                    <h4>
+                        Fetching latest Github EAD files snapshot
+                        <b-spinner />
+                    </h4>
+                </template>
+
                 <template v-slot:head(repository)="data">
                     <b-form-group
                         :label="data.label"
@@ -181,36 +192,6 @@
                 </template>
             </b-table>
         </b-container>
-
-        <b-modal
-            id="load-table-items-modal"
-            size="lg"
-            centered
-            title="Fetching the latest EAD files metadata from the Github repo"
-            hide-footer
-        >
-            <b-row>
-                <b-col>
-                    <div id="load-table-items-modal-progress-message">
-                        <div
-                            v-for="loadingRepositoryCode in loadingRepositoryCodes"
-                            :key="loadingRepositoryCode"
-                        >
-                            Fetching Github EAD files snapshot for {{ loadingRepositoryCode }} repository <b-spinner />
-                        </div>
-                        <br>
-                        <ul>
-                            <li
-                                v-for="loadedRepositoryCode in loadedRepositoryCodes"
-                                :key="loadedRepositoryCode"
-                            >
-                                {{ loadedRepositoryCode }}: {{ getNumFindingAidsForRepositoryCode( loadedRepositoryCode ) }} EAD files
-                            </li>
-                        </ul>
-                    </div>
-                </b-col>
-            </b-row>
-        </b-modal>
 
         <b-modal
             id="confirm-unpublish-modal"
@@ -328,8 +309,6 @@ export default {
                 repositoryCode : null,
             },
             items                  : null,
-            loadedRepositoryCodes  : [],
-            loadingRepositoryCodes : [],
             pageOptions            : [ 10, 25, 50, 100 ],
             perPage                : 10,
             sortBy                 : 'repository',
@@ -368,7 +347,7 @@ export default {
         ),
     },
     watch      : {},
-    mounted() {
+    async mounted() {
         if ( ! this.currentUser ) {
             this.$router.push( { name : 'login' } );
 
@@ -376,7 +355,7 @@ export default {
         }
 
         if ( this.fetchInitialPublishedFindingAidsMetadata ) {
-            this.refreshTableItemsFromServer();
+            await this.refreshTableItemsFromServer();
 
             this.setFetchInitialPublishedFindingAidsMetadata( false );
         } else {
@@ -527,22 +506,13 @@ Some things to try:
             );
         },
         async refreshTableItemsFromServer() {
-            this.$bvModal.show( 'load-table-items-modal' );
-
+            // Using for-loop instead of for-each to make it simpler for.$sleep
+            // to work with the async/await.
             const numCurrentRepositoryCodes = this.currentRepositoryCodes.length;
             for ( let i = 0; i < numCurrentRepositoryCodes; i++ ) {
                 const repositoryCode = this.currentRepositoryCodes[ i ];
 
-                this.loadingRepositoryCodes.push( repositoryCode );
-
                 await this.$sleep( this.repositories[ repositoryCode ].loadTime );
-
-                this.loadingRepositoryCodes.splice(
-                    this.loadingRepositoryCodes.indexOf( repositoryCode ),
-                    1,
-                );
-
-                this.loadedRepositoryCodes.push( repositoryCode );
             }
 
             this.items = this.getItems();
