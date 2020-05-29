@@ -1,8 +1,8 @@
 export default {
     addInProcessFindingAid( state, findingAid ) {
         state.inProcessFindingAids[ findingAid.repository ][ findingAid.id ] = {
-            datetime : findingAid.datetime,
-            title    : findingAid.title,
+            timestamp : findingAid.timestamp,
+            title     : findingAid.title,
         };
     },
     deleteInProcessFindingAid( state, findingAid ) {
@@ -10,8 +10,8 @@ export default {
     },
     publishInProcessFindingAid( state, findingAid ) {
         state.publishedFindingAids[ findingAid.repository ][ findingAid.id ] = {
-            datetime : findingAid.datetime,
-            title    : findingAid.title,
+            timestamp : findingAid.timestamp,
+            title     : findingAid.title,
         };
     },
     setCurrentRepositoryCodes( state, repositoryCodes ) {

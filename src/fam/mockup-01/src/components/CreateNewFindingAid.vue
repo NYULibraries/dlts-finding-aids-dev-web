@@ -334,7 +334,7 @@ ${ this.recognizedRepositoryNames.join( '\n' ) }
             }
 
             this.newInProcessFindingAid = {
-                datetime   : Math.round( ( new Date() ).getTime() / 1000 ),
+                timestamp   : Math.round( ( new Date() ).getTime() / 1000 ),
                 id         : uploadedFindingAid.eadid,
                 repository : this.getRepositoryCodeForRepository( uploadedFindingAid.repository ),
                 title      : uploadedFindingAid.title,
@@ -355,14 +355,14 @@ ${ this.recognizedRepositoryNames.join( '\n' ) }
 
             this.addInProcessFindingAid( this.newInProcessFindingAid );
 
-            const formattedDatetime =
-                moment( this.newInProcessFindingAid.datetime * 1000 ).format( 'M/D/YYYY h:mm a' );
+            const formattedTimestamp =
+                moment( this.newInProcessFindingAid.timestamp * 1000 ).format( 'M/D/YYYY h:mm a' );
 
             this.results += 'New in-process finding aid created:\n\n' +
                 `ID: ${ this.newInProcessFindingAid.id }\n` +
                 `TITLE: ${ this.newInProcessFindingAid.title }\n` +
                 `REPOSITORY CODE: ${ this.newInProcessFindingAid.repository }\n` +
-                `DATETIME: ${  formattedDatetime }\n\n`;
+                `TIMESTAMP: ${  formattedTimestamp }\n\n`;
 
             this.results += 'Proceed to In-process FAs to preview the new EAD file and finding aid.\n';
 
