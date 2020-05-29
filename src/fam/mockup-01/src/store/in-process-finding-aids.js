@@ -84,6 +84,8 @@ export default {
             'title'    : 'Julie Kathryn Franco I Am Snow Angel Papers MSS.480',
         },
     },
+    'lapietra' : {
+    },
     'nyhs' : {
         'Guide to the Cased Image File' : {
             'datetime' : 1466094511,
