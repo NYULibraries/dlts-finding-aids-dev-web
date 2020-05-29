@@ -9692,6 +9692,8 @@ export default {
             'title'    : 'William Zinsser Papers MSS 031',
         },
     },
+    'lapietra' : {
+    },
     'nyhs' : {
         '123' : {
             'datetime' : 1590115195,
