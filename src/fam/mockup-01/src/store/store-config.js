@@ -23,6 +23,8 @@ const state = function () {
             akkasah  : {
                 archivists   : [
                     'weatherly@nyu.edu',
+                    'carol.kassel@nyu.edu',
+                    'deb.verhoff@nyu.edu',
                     'brad@nyu.edu',
                 ],
                 name         : 'Akkasah Center for Photography at NYU Abu Dhabi',
@@ -32,6 +34,8 @@ const state = function () {
             archives : {
                 archivists   : [
                     'weatherly@nyu.edu',
+                    'carol.kassel@nyu.edu',
+                    'deb.verhoff@nyu.edu',
                     'megan@nyu.edu',
                 ],
                 name         : 'New York University Archives',
@@ -41,6 +45,8 @@ const state = function () {
             bhs      : {
                 archivists   : [
                     'weatherly@nyu.edu',
+                    'carol.kassel@nyu.edu',
+                    'deb.verhoff@nyu.edu',
                     'maggie@brooklynhistory.org',
                 ],
                 name         : 'Brooklyn Historical Society',
@@ -50,6 +56,8 @@ const state = function () {
             fales    : {
                 archivists   : [
                     'weatherly@nyu.edu',
+                    'carol.kassel@nyu.edu',
+                    'deb.verhoff@nyu.edu',
                     'megan@nyu.edu',
                 ],
                 name         : 'Fales Library & Special Collections',
@@ -59,6 +67,8 @@ const state = function () {
             lapietra : {
                 archivists   : [
                     'weatherly@nyu.edu',
+                    'carol.kassel@nyu.edu',
+                    'deb.verhoff@nyu.edu',
                     'francesca@nyu.edu',
                 ],
                 name         : 'Villa La Pietra',
@@ -68,6 +78,8 @@ const state = function () {
             nyhs     : {
                 archivists   : [
                     'weatherly@nyu.edu',
+                    'carol.kassel@nyu.edu',
+                    'deb.verhoff@nyu.edu',
                     'larry@nyhistory.org',
                 ],
                 name         : 'New-York Historical Society',
@@ -77,6 +89,8 @@ const state = function () {
             nyuad    : {
                 archivists   : [
                     'weatherly@nyu.edu',
+                    'carol.kassel@nyu.edu',
+                    'deb.verhoff@nyu.edu',
                     'brad@nyu.edu',
                 ],
                 name         : 'NYU Abu Dhabi Archives and Special Collections',
@@ -86,6 +100,8 @@ const state = function () {
             poly     : {
                 archivists   : [
                     'weatherly@nyu.edu',
+                    'carol.kassel@nyu.edu',
+                    'deb.verhoff@nyu.edu',
                     'lyndsay@nyu.edu',
                 ],
                 name         : 'Poly Archives at Bern Dibner Library of Science and Technology',
@@ -95,6 +111,8 @@ const state = function () {
             tamwag   : {
                 archivists   : [
                     'weatherly@nyu.edu',
+                    'carol.kassel@nyu.edu',
+                    'deb.verhoff@nyu.edu',
                     'megan@nyu.edu',
                 ],
                 name         : 'Tamiment Library & Robert F. Wagner Labor Archives',
@@ -106,6 +124,8 @@ const state = function () {
         // https://jira.nyu.edu/jira/browse/FADESIGN-63
         users                                    : [
             'brad@nyu.edu',
+            'carol.kassel@nyu.edu',
+            'deb.verhoff@nyu.edu',
             'francesca@nyu.edu',
             'larry@nyhistory.org',
             'lyndsay@nyu.edu',
