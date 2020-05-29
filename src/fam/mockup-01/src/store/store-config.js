@@ -61,7 +61,7 @@ const state = function () {
                     'weatherly@nyu.edu',
                     'francesca@nyu.edu',
                 ],
-                name         : 'La Pietra',
+                name         : 'Villa La Pietra',
                 organization : 'NYU',
                 loadTime     : 0.013 * TOTAL_LOAD_TIME_FOR_ALL_REPOSITORIES,
             },
