@@ -126,12 +126,6 @@
                     </b-form-group>
                 </template>
 
-                <template v-slot:cell(title)="row">
-                    <div @click="row.toggleDetails">
-                        {{ row.item.title }}
-                    </div>
-                </template>
-
                 <template v-slot:cell(actions)="row">
                     <span
                         ref="toggle-details-span"
@@ -148,6 +142,30 @@
                             @click="row.toggleDetails"
                         />
                     </span>
+                </template>
+
+                <template v-slot:cell(repository)="row">
+                    <div @click="row.toggleDetails">
+                        {{ row.item.repository }}
+                    </div>
+                </template>
+
+                <template v-slot:cell(id)="row">
+                    <div @click="row.toggleDetails">
+                        {{ row.item.id }}
+                    </div>
+                </template>
+
+                <template v-slot:cell(title)="row">
+                    <div @click="row.toggleDetails">
+                        {{ row.item.title }}
+                    </div>
+                </template>
+
+                <template v-slot:cell(timestamp)="row">
+                    <div @click="row.toggleDetails">
+                        {{ row.value }}
+                    </div>
                 </template>
 
                 <template v-slot:row-details="row">
