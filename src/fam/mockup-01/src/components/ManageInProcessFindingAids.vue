@@ -309,6 +309,68 @@
                 <b-col />
             </b-row>
         </b-modal>
+
+        <b-modal
+            id="publication-has-been-queued-modal"
+            size="lg"
+            centered
+            title="Publication has been queued"
+        >
+            <p>
+                The finding aid has been queued for publication.
+                The finding aid, public EAD file, and search data will
+                be published after the Github change has been made.
+                The full publication process should be completed in [X time].
+            </p>
+
+            <p>
+                Links (will pop up new browser tabs):
+            </p>
+
+            <ul>
+                <li>
+                    <a
+                        :href="`http://dlib.nyu.edu/findingaids/html/${ findingAidToPublish.repositoryCode }/${ findingAidToPublish.id }/`"
+                        target="_blank"
+                    >
+                        Finding aid HTML
+                    </a>
+                </li>
+                <li>
+                    <a
+                        :href="`http://dlib.nyu.edu/findingaids/ead/${ findingAidToPublish.repositoryCode }/${ findingAidToPublish.id }.xml`"
+                        target="_blank"
+                    >
+                        Public EAD file
+                    </a>
+                </li>
+                <li>
+                    <a
+                        :href="`https://github.com/NYULibraries/findingaids_eads/blob/master/${ findingAidToPublish.repositoryCode }/${ findingAidToPublish.id }.xml`"
+                        target="_blank"
+                    >
+                        Github EAD file
+                    </a>
+                </li>
+                <li>
+                    <a
+                        href="https://specialcollections.library.nyu.edu/search/"
+                        target="_blank"
+                    >
+                        Archival collections search
+                    </a>
+                </li>
+            </ul>
+
+            <template v-slot:modal-footer="{ ok }">
+                <b-button
+                    variant="primary"
+                    @click="ok()"
+                >
+                    OK
+                </b-button>
+            </template>
+        </b-modal>
     </div>
 </template>
 
@@ -611,25 +673,17 @@ export default {
                 },
             );
 
-            this.clearPublishInProcess();
-
-            const message =
-                'The finding aid has been queued for publication.' +
-                ' The finding aid, public EAD file, and search data will' +
-                ' be published after the Github change has been made.' +
-                ' The full publication process should be completed in [X time].';
-
             const that = this;
-            this.$bvModal.msgBoxOk( message, {
-                centered : true,
-                title    : 'Publication has been queued',
-            } ).then(
-                function () {
-                    that.refreshTableItems();
+            this.$bvModal.show( 'publication-has-been-queued-modal' )
+                .then(
+                    function () {
+                        that.refreshTableItems();
 
-                    that.$refs.table.refresh();
-                },
-            );
+                        that.$refs.table.refresh();
+                    },
+                );
+
+            this.clearPublishInProcess();
         },
         refreshTableItems() {
             this.items = this.getItems();
