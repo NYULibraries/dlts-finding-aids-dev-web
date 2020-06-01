@@ -336,10 +336,10 @@ export default {
                     class         : 'text-left text-wrap',
                 },
                 {
-                    key               : 'datetime',
-                    label             : 'Datetime',
-                    formatter         : ( datetime ) => {
-                        return moment( datetime * 1000 ).format( 'M/D/YYYY h:mm a' );
+                    key               : 'timestamp',
+                    label             : 'Timestamp',
+                    formatter         : ( timestamp ) => {
+                        return moment( timestamp * 1000 ).format( 'M/D/YYYY h:mm a' );
                     },
                     sortable          : true,
                     sortDirection     : 'desc',
@@ -438,7 +438,7 @@ export default {
             <li>Repository</li>
             <li>ID</li>
             <li>Title</li>
-            <li>Datetime</li>
+            <li>Timestamp</li>
         </ul>
     </li>
     <li>Select different per page options from the dropdown</li>
@@ -542,7 +542,7 @@ export default {
                                 repositoryCode : repositoryCode,
                                 id             : id,
                                 title          : findingAid.title,
-                                datetime       : findingAid.datetime,
+                                timestamp       : findingAid.timestamp,
                             },
                         );
                     } );
@@ -579,7 +579,7 @@ export default {
 
             this.publishInProcessFindingAid(
                 {
-                    datetime   : Math.round( ( new Date() ).getTime() / 1000 ),
+                    timestamp   : Math.round( ( new Date() ).getTime() / 1000 ),
                     id         : this.findingAidToPublish.id,
                     repository : this.findingAidToPublish.repositoryCode,
                     title      : this.findingAidToPublish.title,
