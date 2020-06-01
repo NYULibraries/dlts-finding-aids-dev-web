@@ -137,6 +137,24 @@
                     </b-form-group>
                 </template>
 
+                <template v-slot:cell(actions)="row">
+                    <span
+                        ref="toggle-details-span"
+                        class="h1"
+                    >
+                        <b-icon
+                            v-if="row.detailsShowing"
+                            icon="caret-down-fill"
+                            @click="row.toggleDetails"
+                        />
+                        <b-icon
+                            v-else
+                            icon="caret-right-fill"
+                            @click="row.toggleDetails"
+                        />
+                    </span>
+                </template>
+
                 <template v-slot:cell(repository)="row">
                     <div @click="row.toggleDetails">
                         {{ row.item.repository }}
@@ -159,24 +177,6 @@
                     <div @click="row.toggleDetails">
                         {{ row.value }}
                     </div>
-                </template>
-
-                <template v-slot:cell(actions)="row">
-                    <span
-                        ref="toggle-details-span"
-                        class="h1"
-                    >
-                        <b-icon
-                            v-if="row.detailsShowing"
-                            icon="caret-down-fill"
-                            @click="row.toggleDetails"
-                        />
-                        <b-icon
-                            v-else
-                            icon="caret-right-fill"
-                            @click="row.toggleDetails"
-                        />
-                    </span>
                 </template>
 
                 <template v-slot:row-details="row">
