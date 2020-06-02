@@ -315,6 +315,7 @@
             size="lg"
             centered
             title="Publication has been queued"
+            @ok="clickAcknowledgePublicationHasBeenQueued"
         >
             <p>
                 The finding aid has been queued for publication.
@@ -553,6 +554,12 @@ export default {
             this.findingAidToPublish.id = null;
             this.findingAidToPublish.repositoryCode = null;
         },
+        clickAcknowledgePublicationHasBeenQueued() {
+            this.refreshTableItems();
+            this.$refs.table.refresh();
+
+            this.clearPublishInProcess();
+        },
         clickDeleteInProcessFindingAid( event ) {
             this.findingAidToDelete.id = event.currentTarget.dataset.id;
             this.findingAidToDelete.repositoryCode = event.currentTarget.dataset.repositoryCode;
@@ -678,11 +685,6 @@ export default {
             );
 
             this.$bvModal.show( 'publication-has-been-queued-modal' );
-
-            this.refreshTableItems();
-            this.$refs.table.refresh();
-
-            this.clearPublishInProcess();
         },
         refreshTableItems() {
             this.items = this.getItems();
