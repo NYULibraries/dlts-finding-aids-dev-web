@@ -29,7 +29,7 @@ export default {
     setHelpModal( state, helpModal ) {
         state.helpModal = helpModal;
     },
-    unpublishFindingAid( state, findingAid ) {
+    deleteFindingAid( state, findingAid ) {
         delete state.publishedFindingAids[ findingAid.repository ][ findingAid.id ];
     },
 };
