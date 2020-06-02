@@ -286,13 +286,13 @@
                     Github EAD file:
                     https://github.com/NYULibraries/findingaids_eads/blob/master/{{ findingAidToPublish.repositoryCode }}/{{ findingAidToPublish.id }}.xml
                 </li>
-
-                <p></p>
-
-                <p>
-                    It will also update the search data and results in the Archival collections search located at: https://specialcollections.library.nyu.edu/search/
-                </p>
             </ul>
+
+            <p></p>
+
+            <p>
+                It will also update the search data and results in the Archival collections search located at: https://specialcollections.library.nyu.edu/search/
+            </p>
         </b-modal>
 
         <b-modal
