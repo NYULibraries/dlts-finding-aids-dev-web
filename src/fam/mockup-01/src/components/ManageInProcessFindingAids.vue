@@ -677,15 +677,10 @@ export default {
                 },
             );
 
-            const that = this;
-            this.$bvModal.show( 'publication-has-been-queued-modal' )
-                .then(
-                    function () {
-                        that.refreshTableItems();
+            this.$bvModal.show( 'publication-has-been-queued-modal' );
 
-                        that.$refs.table.refresh();
-                    },
-                );
+            this.refreshTableItems();
+            this.$refs.table.refresh();
 
             this.clearPublishInProcess();
         },
