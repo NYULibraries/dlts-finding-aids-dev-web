@@ -275,7 +275,7 @@
             <p></p>
             <ul>
                 <li>
-                    Finding aid:
+                    Finding aid HTML:
                     http://dlib.nyu.edu/findingaids/html/{{ findingAidToPublish.repositoryCode }}/{{ findingAidToPublish.id }}/
                 </li>
                 <li>
@@ -283,12 +283,11 @@
                     http://dlib.nyu.edu/findingaids/ead/{{ findingAidToPublish.repositoryCode }}/{{ findingAidToPublish.id }}.xml
                 </li>
                 <li>
-                    Search data: https://specialcollections.library.nyu.edu/search/
-                </li>
-                <li>
                     Github EAD file:
                     https://github.com/NYULibraries/findingaids_eads/blob/master/{{ findingAidToPublish.repositoryCode }}/{{ findingAidToPublish.id }}.xml
                 </li>
+
+                It will also update the search data and results in the Archival collections search located at: https://specialcollections.library.nyu.edu/search/
             </ul>
         </b-modal>
 
