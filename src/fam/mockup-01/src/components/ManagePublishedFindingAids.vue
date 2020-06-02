@@ -227,19 +227,24 @@
             <p></p>
             <ul>
                 <li>
-                    Finding aid: http://dlib.nyu.edu/findingaids/html/{{ findingAidToDelete.repositoryCode }}/{{ findingAidToDelete.id }}/
+                    Finding aid HTML:
+                    http://dlib.nyu.edu/findingaids/html/{{ findingAidToDelete.repositoryCode }}/{{ findingAidToDelete.id }}/
                 </li>
                 <li>
-                    Public EAD file: http://dlib.nyu.edu/findingaids/ead/{{ findingAidToDelete.repositoryCode }}/{{ findingAidToDelete.id }}.xml
-                </li>
-                <li>
-                    Search data: https://specialcollections.library.nyu.edu/search/
+                    Public EAD file:
+                    http://dlib.nyu.edu/findingaids/ead/{{ findingAidToDelete.repositoryCode }}/{{ findingAidToDelete.id }}.xml
                 </li>
                 <li>
                     Github EAD file:
                     https://github.com/NYULibraries/findingaids_eads/blob/master/{{ findingAidToDelete.repositoryCode }}/{{ findingAidToDelete.id }}.xml
                 </li>
             </ul>
+
+            <p></p>
+
+            <p>
+                It will also delete the search data and results in the Archival collections search located at: https://specialcollections.library.nyu.edu/search/
+            </p>
         </b-modal>
 
         <b-modal
