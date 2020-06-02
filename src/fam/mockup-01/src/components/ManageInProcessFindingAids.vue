@@ -329,35 +329,39 @@
 
             <ul>
                 <li>
+                    Finding aid HTML:
                     <a
                         :href="`http://dlib.nyu.edu/findingaids/html/${ findingAidToPublish.repositoryCode }/${ findingAidToPublish.id }/`"
                         target="_blank"
                     >
-                        Finding aid HTML
+                        http://dlib.nyu.edu/findingaids/html/{{ findingAidToPublish.repositoryCode }}/{{ findingAidToPublish.id }}/
                     </a>
                 </li>
                 <li>
+                    Public EAD file:
                     <a
-                        :href="`http://dlib.nyu.edu/findingaids/ead/${ findingAidToPublish.repositoryCode }/${ findingAidToPublish.id }.xml`"
+                        :href="`http://dlib.nyu.edu/findingaids/ead/{{ findingAidToPublish.repositoryCode }}/{{ findingAidToPublish.id }}.xml`"
                         target="_blank"
                     >
-                        Public EAD file
+                        http://dlib.nyu.edu/findingaids/ead/{{ findingAidToPublish.repositoryCode }}/{{ findingAidToPublish.id }}.xml
                     </a>
                 </li>
                 <li>
+                    Github EAD file:
                     <a
-                        :href="`https://github.com/NYULibraries/findingaids_eads/blob/master/${ findingAidToPublish.repositoryCode }/${ findingAidToPublish.id }.xml`"
+                        :href="`https://github.com/NYULibraries/findingaids_eads/blob/master/{{ findingAidToPublish.repositoryCode }}/{{ findingAidToPublish.id }}.xml`"
                         target="_blank"
                     >
-                        Github EAD file
+                        https://github.com/NYULibraries/findingaids_eads/blob/master/{{ findingAidToPublish.repositoryCode }}/{{ findingAidToPublish.id }}.xml
                     </a>
                 </li>
                 <li>
+                    Archival collections search:
                     <a
                         href="https://specialcollections.library.nyu.edu/search/"
                         target="_blank"
                     >
-                        Archival collections search
+                        https://specialcollections.library.nyu.edu/search/
                     </a>
                 </li>
             </ul>
@@ -673,15 +677,10 @@ export default {
                 },
             );
 
-            const that = this;
-            this.$bvModal.show( 'publication-has-been-queued-modal' )
-                .then(
-                    function () {
-                        that.refreshTableItems();
+            this.$bvModal.show( 'publication-has-been-queued-modal' );
 
-                        that.$refs.table.refresh();
-                    },
-                );
+            this.refreshTableItems();
+            this.$refs.table.refresh();
 
             this.clearPublishInProcess();
         },

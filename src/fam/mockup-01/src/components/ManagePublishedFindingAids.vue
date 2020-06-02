@@ -202,9 +202,9 @@
                             :data-id="row.item.id"
                             :data-repository-code="row.item.repositoryCode"
                             variant="danger"
-                            @click="clickUnpublishFindingAid"
+                            @click="clickDeleteFindingAid"
                         >
-                            Unpublish finding aid
+                            Delete finding aid
                         </b-button>
                     </div>
                 </template>
@@ -212,38 +212,38 @@
         </b-container>
 
         <b-modal
-            id="confirm-unpublish-modal"
+            id="confirm-delete-modal"
             header-text-variant="danger"
             size="lg"
             centered
             title="Confirm deletion"
             ok-title="Delete"
             ok-variant="danger"
-            @cancel="cancelUnpublishFindingAid"
-            @ok="queueUnpublishFindingAid"
+            @cancel="cancelDeleteFindingAid"
+            @ok="queueDeleteFindingAid"
         >
-            <p>Are you sure you wish to unpublish {{ findingAidToUnpublish.repositoryCode }}/{{ findingAidToUnpublish.id }}?</p>
+            <p>Are you sure you wish to delete {{ findingAidToDelete.repositoryCode }}/{{ findingAidToDelete.id }}?</p>
             <p>This will delete the following:</p>
             <p></p>
             <ul>
                 <li>
-                    Finding aid: http://dlib.nyu.edu/findingaids/html/{{ findingAidToUnpublish.repositoryCode }}/{{ findingAidToUnpublish.id }}/
+                    Finding aid: http://dlib.nyu.edu/findingaids/html/{{ findingAidToDelete.repositoryCode }}/{{ findingAidToDelete.id }}/
                 </li>
                 <li>
-                    Public EAD file: http://dlib.nyu.edu/findingaids/ead/{{ findingAidToUnpublish.repositoryCode }}/{{ findingAidToUnpublish.id }}.xml
+                    Public EAD file: http://dlib.nyu.edu/findingaids/ead/{{ findingAidToDelete.repositoryCode }}/{{ findingAidToDelete.id }}.xml
                 </li>
                 <li>
                     Search data: https://specialcollections.library.nyu.edu/search/
                 </li>
                 <li>
                     Github EAD file:
-                    https://github.com/NYULibraries/findingaids_eads/blob/master/{{ findingAidToUnpublish.repositoryCode }}/{{ findingAidToUnpublish.id }}.xml
+                    https://github.com/NYULibraries/findingaids_eads/blob/master/{{ findingAidToDelete.repositoryCode }}/{{ findingAidToDelete.id }}.xml
                 </li>
             </ul>
         </b-modal>
 
         <b-modal
-            id="queuing-unpublish-modal"
+            id="queuing-delete-modal"
             centered
             no-close-on-esc
             no-close-on-backdrop
@@ -322,7 +322,7 @@ export default {
                 title      : null,
             },
             filterOn               : [ 'title' ],
-            findingAidToUnpublish  : {
+            findingAidToDelete  : {
                 id             : null,
                 repositoryCode : null,
             },
@@ -419,7 +419,7 @@ Some things to try:
     <li>Expand the Actions row for one or more finding aids rows</li>
     <li>Expand the Actions row for a finding aid and click the "View finding aid" button</li>
     <li>Expand the Actions row for a finding aid and click the "View EAD file" button</li>
-    <li>Expand the Actions row for a finding aid and click the "Unpublish finding aid" button</li>
+    <li>Expand the Actions row for a finding aid and click the "Delete finding aid" button</li>
 </ul>
 `,
                 title   : 'Manage Published Finding Aids screen',
@@ -427,18 +427,18 @@ Some things to try:
         );
     },
     methods    : {
-        cancelUnpublishFindingAid() {
-            this.clearUnpublish();
+        cancelDeleteFindingAid() {
+            this.clearDelete();
         },
-        clearUnpublish() {
-            this.findingAidToUnpublish.id = null;
-            this.findingAidToUnpublish.repositoryCode = null;
+        clearDelete() {
+            this.findingAidToDelete.id = null;
+            this.findingAidToDelete.repositoryCode = null;
         },
-        clickUnpublishFindingAid( event ) {
-            this.findingAidToUnpublish.id = event.currentTarget.dataset.id;
-            this.findingAidToUnpublish.repositoryCode = event.currentTarget.dataset.repositoryCode;
+        clickDeleteFindingAid( event ) {
+            this.findingAidToDelete.id = event.currentTarget.dataset.id;
+            this.findingAidToDelete.repositoryCode = event.currentTarget.dataset.repositoryCode;
 
-            this.$bvModal.show( 'confirm-unpublish-modal' );
+            this.$bvModal.show( 'confirm-delete-modal' );
         },
         customFilter( row, filterProp ) {
             for ( const filter in filterProp ) {
@@ -489,27 +489,27 @@ Some things to try:
             this.totalRows = filteredItems.length;
             this.currentPage = 1;
         },
-        async queueUnpublishFindingAid() {
-            this.$bvModal.show( 'queuing-unpublish-modal' );
+        async queueDeleteFindingAid() {
+            this.$bvModal.show( 'queuing-delete-modal' );
 
             await this.$sleep( 1000 );
 
-            this.$bvModal.hide( 'queuing-unpublish-modal' );
+            this.$bvModal.hide( 'queuing-delete-modal' );
 
-            this.unpublishFindingAid(
+            this.deleteFindingAid(
                 {
-                    id         : this.findingAidToUnpublish.id,
-                    repository : this.findingAidToUnpublish.repositoryCode,
+                    id         : this.findingAidToDelete.id,
+                    repository : this.findingAidToDelete.repositoryCode,
                 },
             );
 
-            this.clearUnpublish();
+            this.clearDelete();
 
             const message =
                 'The Github EAD file has been queued for deletion.' +
                 ' The finding aid, public EAD file, and search data will' +
                 ' be deleted after the Github change has been made.' +
-                ' The full unpublish process should be completed in [X time].';
+                ' The full delete process should be completed in [X time].';
 
             const that = this;
             this.$bvModal.msgBoxOk( message, {
@@ -542,7 +542,7 @@ Some things to try:
             [
                 'setHelpModal',
                 'setFetchInitialPublishedFindingAidsMetadata',
-                'unpublishFindingAid',
+                'deleteFindingAid',
             ],
         ),
     },
