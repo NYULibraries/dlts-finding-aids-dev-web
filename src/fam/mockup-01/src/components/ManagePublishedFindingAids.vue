@@ -341,12 +341,10 @@ export default {
     },
     computed   : {
         repositoryFilterOptions() {
-            const options = this.currentRepositoryCodes.map( repositoryCode => {
+            const options = this.currentRepositoryNames.map( repositoryName => {
                 return {
-                    // Filter matches against repository, which has repositoryCode
-                    // in parentheses at the end.
-                    value : `(${ repositoryCode })`,
-                    text  : repositoryCode,
+                    value : repositoryName,
+                    text  : repositoryName,
                 };
             } );
 
@@ -362,6 +360,7 @@ export default {
         ...mapGetters(
             [
                 'currentRepositoryCodes',
+                'currentRepositoryNames',
                 'currentUser',
                 'fetchInitialPublishedFindingAidsMetadata',
                 'publishedFindingAids',
@@ -449,7 +448,7 @@ Some things to try:
             for ( const filter in filterProp ) {
                 const filterValue = filterProp[ filter ];
 
-                if ( filterValue && ! row[ filter ].toLowerCase().includes( filterProp[ filter ] ) ) {
+                if ( filterValue && ! row[ filter ].toLowerCase().includes( filterValue.toLowerCase() ) ) {
                     return false;
                 }
             }
