@@ -467,12 +467,10 @@ export default {
             return this.previewToDeleteFullURL( 'finding-aid' );
         },
         repositoryFilterOptions() {
-            const options = this.currentRepositoryCodes.map( repositoryCode => {
+            const options = this.currentRepositoryNames.map( repositoryName => {
                 return {
-                    // Filter matches against repository, which has repositoryCode
-                    // in parentheses at the end.
-                    value : `(${ repositoryCode })`,
-                    text  : repositoryCode,
+                    value : repositoryName,
+                    text  : repositoryName,
                 };
             } );
 
@@ -488,6 +486,7 @@ export default {
         ...mapGetters(
             [
                 'currentRepositoryCodes',
+                'currentRepositoryNames',
                 'currentUser',
                 'inProcessFindingAids',
                 'repositories',
@@ -576,6 +575,7 @@ export default {
 
             this.$bvModal.show( 'confirm-publish-modal' );
         },
+        // Originally this was deleteInProcessFindingAid, which conflicts with
         // Vuex action of the same name.
         async confirmDeleteInProcessFindingAid() {
             this.$bvModal.show( 'deletion-in-progress-modal' );
@@ -608,12 +608,11 @@ export default {
                 },
             );
         },
-        // Originally this was deleteInProcessFindingAid, which conflicts with
         customFilter( row, filterProp ) {
             for ( const filter in filterProp ) {
                 const filterValue = filterProp[ filter ];
 
-                if ( filterValue && ! row[ filter ].toLowerCase().includes( filterProp[ filter ] ) ) {
+                if ( filterValue && ! row[ filter ].toLowerCase().includes( filterValue.toLowerCase() ) ) {
                     return false;
                 }
             }
