@@ -576,6 +576,7 @@ export default {
 
             this.$bvModal.show( 'confirm-publish-modal' );
         },
+        // Originally this was deleteInProcessFindingAid, which conflicts with
         // Vuex action of the same name.
         async confirmDeleteInProcessFindingAid() {
             this.$bvModal.show( 'deletion-in-progress-modal' );
@@ -608,7 +609,6 @@ export default {
                 },
             );
         },
-        // Originally this was deleteInProcessFindingAid, which conflicts with
         customFilter( row, filterProp ) {
             for ( const filter in filterProp ) {
                 const filterValue = filterProp[ filter ];
