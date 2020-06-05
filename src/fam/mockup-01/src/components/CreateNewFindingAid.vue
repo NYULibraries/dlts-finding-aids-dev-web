@@ -269,7 +269,11 @@ Some things to try:
 
             return repositoryCode;
         },
-        processEAD( ead ) {
+        async processEAD( ead ) {
+            this.results += 'Validating EAD file...\n';
+
+            await this.$sleep( 2000 );
+
             let abort = false;
             const uploadedFindingAid = {};
 
@@ -340,7 +344,10 @@ ${ this.recognizedRepositoryNames.join( '\n' ) }
                 title      : uploadedFindingAid.title,
             };
 
-            this.results += 'EAD file has been validated.\nReady to submit:\n\n' +
+            this.results += 'File validation is complete.\n\nClick Submit to move this file to In-Process FAs' +
+                ' and to create a preview finding aid for:\n\n';
+
+            this.results +=
                 `EAD ID: ${ uploadedFindingAid.eadid }\n` +
                 `TITLE: ${ uploadedFindingAid.title }\n` +
                 `REPOSITORY: ${ uploadedFindingAid.repository }` +
@@ -358,11 +365,7 @@ ${ this.recognizedRepositoryNames.join( '\n' ) }
             const formattedTimestamp =
                 moment( this.newInProcessFindingAid.timestamp * 1000 ).format( 'M/D/YYYY h:mm a' );
 
-            this.results += 'New in-process finding aid created:\n\n' +
-                `ID: ${ this.newInProcessFindingAid.id }\n` +
-                `TITLE: ${ this.newInProcessFindingAid.title }\n` +
-                `REPOSITORY CODE: ${ this.newInProcessFindingAid.repository }\n` +
-                `TIMESTAMP: ${  formattedTimestamp }\n\n`;
+            this.results += `New in-process finding aid created with timestamp ${  formattedTimestamp }.\n\n`;
 
             this.results += 'Proceed to In-process FAs to preview the new EAD file and finding aid.\n';
 
