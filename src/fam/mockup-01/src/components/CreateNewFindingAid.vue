@@ -408,8 +408,6 @@ ${ this.recognizedRepositoryNames.join( '\n' ) }
             } );
         },
         validateXML( eadDoc ) {
-            let isValidXML;
-
             const parserErrorCount = eadDoc.documentElement
                 .getElementsByTagName( 'parsererror' ).length;
 
@@ -417,12 +415,10 @@ ${ this.recognizedRepositoryNames.join( '\n' ) }
                 this.results += 'The XML in this file is not valid.  Please check it ' +
                     'using an XML validator.';
 
-                isValidXML = false;
-            } else {
-                isValidXML = true;
+                return false;
             }
 
-            return isValidXML;
+            return true;
         },
         ...mapActions(
             [
