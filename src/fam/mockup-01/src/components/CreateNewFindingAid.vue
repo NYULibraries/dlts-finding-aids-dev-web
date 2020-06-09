@@ -228,6 +228,7 @@ Some things to try:
         </ul>
     </li>
     <li>Click the Cancel button after an upload has completed, but before submitting using the Submit button</li>
+    <li>Upload a valid EAD file with one or more elements with <code>audience</code> attribute set to "internal"</li>
     <li>Upload a valid EAD file and submit it using the Submit button</li>
 </ul>
 `,
