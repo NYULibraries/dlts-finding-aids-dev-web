@@ -279,12 +279,8 @@ Some things to try:
 
             const eadDoc = parser.parseFromString( ead, 'application/xml' );
 
-            const parserErrorCount = eadDoc.documentElement
-                .getElementsByTagName( 'parsererror' ).length;
-
-            if ( parserErrorCount > 0 ) {
-                this.results += 'The XML in this file is not valid.  Please check it ' +
-                                'using an XML validator.';
+            // These validate methods will update this.results accordingly.
+            if ( ! this.validateXML( eadDoc ) ) {
                 return;
             }
 
@@ -398,6 +394,23 @@ ${ this.recognizedRepositoryNames.join( '\n' ) }
             }
 
             return errors;
+        },
+        validateXML( eadDoc ) {
+            let isValidXML;
+
+            const parserErrorCount = eadDoc.documentElement
+                .getElementsByTagName( 'parsererror' ).length;
+
+            if ( parserErrorCount > 0 ) {
+                this.results += 'The XML in this file is not valid.  Please check it ' +
+                    'using an XML validator.';
+
+                isValidXML = false;
+            } else {
+                isValidXML = true;
+            }
+
+            return isValidXML;
         },
         ...mapActions(
             [
