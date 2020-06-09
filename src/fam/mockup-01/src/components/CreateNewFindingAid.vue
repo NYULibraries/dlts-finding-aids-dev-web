@@ -104,6 +104,7 @@ export default {
             results             : null,
             formFileState       : null,
             submitDisabled      : true,
+            uploadedFindingAid  : {},
         };
     },
     computed : {
@@ -227,6 +228,7 @@ Some things to try:
         </ul>
     </li>
     <li>Click the Cancel button after an upload has completed, but before submitting using the Submit button</li>
+    <li>Upload a valid EAD file with one or more elements with <code>audience</code> attribute set to "internal"</li>
     <li>Upload a valid EAD file and submit it using the Submit button</li>
 </ul>
 `,
@@ -275,62 +277,35 @@ Some things to try:
             await this.$sleep( 2000 );
 
             let abort = false;
-            const uploadedFindingAid = {};
+            this.uploadedFindingAid = {};
 
             const eadDoc = parser.parseFromString( ead, 'application/xml' );
 
-            const parserErrorCount = eadDoc.documentElement
-                .getElementsByTagName( 'parsererror' ).length;
-
-            if ( parserErrorCount > 0 ) {
-                this.results += 'The XML in this file is not valid.  Please check it ' +
-                                'using an XML validator.';
+            // These validate methods will update this.results accordingly.
+            if ( ! this.validateXML( eadDoc ) ) {
                 return;
             }
 
-            const requiredEADElements = [ 'eadid', 'repository', 'title' ];
-            requiredEADElements.forEach( elementName => {
-                try {
-                    uploadedFindingAid[ elementName ] = this.getEADElementValue( eadDoc, elementName );
-                } catch( e ) {
-                    this.results += `${ e }\n`;
-
-                    abort = true;
-                }
-            } );
-
-            if ( uploadedFindingAid.repository ) {
-                if ( this.recognizedRepositoryNames.includes( uploadedFindingAid.repository ) ) {
-                    if ( ! this.currentRepositoryNames.includes( uploadedFindingAid.repository ) ) {
-                        this.results += `User ${ this.currentUser } is not currently authorized` +
-                                        ` to create a finding aid for repository "${ uploadedFindingAid.repository }".\n`;
-
-                        abort = true;
-                    }
-                } else {
-                    this.results += `Element <repository> contains unknown repository name "${ uploadedFindingAid.repository }".
-The repository name must match a value from this list:
-
-${ this.recognizedRepositoryNames.join( '\n' ) }
-
-`;
-
-                    abort = true;
-                }
+            if ( ! this.validateRequiredEADElements( eadDoc,
+                [ 'eadid', 'repository', 'title' ],
+            ) ) {
+                abort = true;
             }
 
-            const eadidErrors = this.validateEADID( uploadedFindingAid.eadid );
-            if ( eadidErrors.length > 0 ) {
-                this.results += `<eadid> value "${ uploadedFindingAid.eadid }" does ` +
-                    'not conform to the Finding Aids specification.\n';
+            if ( ! this.validateRepository() ) {
+                abort = true;
+            }
 
-                this.results += eadidErrors.join( '\n' ) + '\n';
+            if ( ! this.validateEADID( this.uploadedFindingAid.eadid ) ) {
+                abort = true;
+            }
 
+            if ( ! this.validateNoUnpublishedMaterial( eadDoc ) ) {
                 abort = true;
             }
 
             if ( abort ) {
-                this.results += 'Please make the necessary corrections and re-upload the EAD file.';
+                this.results += '\nPlease make the necessary corrections and re-upload the EAD file.';
                 this.formFileState = false;
                 this.submitDisabled = true;
 
@@ -339,18 +314,18 @@ ${ this.recognizedRepositoryNames.join( '\n' ) }
 
             this.newInProcessFindingAid = {
                 timestamp   : Math.round( ( new Date() ).getTime() / 1000 ),
-                id         : uploadedFindingAid.eadid,
-                repository : this.getRepositoryCodeForRepository( uploadedFindingAid.repository ),
-                title      : uploadedFindingAid.title,
+                id         : this.uploadedFindingAid.eadid,
+                repository : this.getRepositoryCodeForRepository( this.uploadedFindingAid.repository ),
+                title      : this.uploadedFindingAid.title,
             };
 
             this.results += 'File validation is complete.\n\nClick Submit to move this file to In-Process FAs' +
                 ' and to create a preview finding aid for:\n\n';
 
             this.results +=
-                `EAD ID: ${ uploadedFindingAid.eadid }\n` +
-                `TITLE: ${ uploadedFindingAid.title }\n` +
-                `REPOSITORY: ${ uploadedFindingAid.repository }` +
+                `EAD ID: ${ this.uploadedFindingAid.eadid }\n` +
+                `TITLE: ${ this.uploadedFindingAid.title }\n` +
+                `REPOSITORY: ${ this.uploadedFindingAid.repository }` +
                 '\n\n';
 
             this.submitDisabled = false;
@@ -371,10 +346,10 @@ ${ this.recognizedRepositoryNames.join( '\n' ) }
 
             this.submitDisabled = true;
         },
-        validateEADID( eadid ) {
+        validateEADID() {
             const errors = [];
 
-            const tokens = eadid.split( '_' );
+            const tokens = this.uploadedFindingAid.eadid.split( '_' );
             if ( tokens.length < 2 || tokens.length > 8 ) {
                 errors.push( 'There must be between 2 to 8 character groups joined by underscores.' );
             }
@@ -397,7 +372,83 @@ ${ this.recognizedRepositoryNames.join( '\n' ) }
                              disallowedCharactersFound.sort().join( ', ' ) );
             }
 
-            return errors;
+            if ( errors.length > 0 ) {
+                this.results += `<eadid> value "${ this.uploadedFindingAid.eadid }" does ` +
+                                'not conform to the Finding Aids specification.\n';
+
+                this.results += errors.join( '\n' ) + '\n';
+
+                return false;
+            }
+
+            return true;
+        },
+        validateNoUnpublishedMaterial( eadDoc ) {
+            const allElements = eadDoc.getElementsByTagName( '*' );
+            const elementsWithAudienceInternal = [];
+
+            allElements.forEach( element => {
+                if ( element.getAttribute( 'audience' ) === 'internal' ) {
+                    elementsWithAudienceInternal.push( element );
+                }
+            } );
+
+            if ( elementsWithAudienceInternal.length > 0 ) {
+                this.results += 'The EAD file contains unpublished material. ' +
+                                ' The following EAD elements have their audience' +
+                                ' attributes set to "internal":\n';
+                elementsWithAudienceInternal.forEach( element => {
+                    this.results += `<${ element.tagName }>\n`;
+                } );
+
+                return false;
+            }
+
+            return true;
+        },
+        validateRepository() {
+            if ( this.uploadedFindingAid.repository ) {
+                if ( this.recognizedRepositoryNames.includes( this.uploadedFindingAid.repository ) ) {
+                    if ( ! this.currentRepositoryNames.includes( this.uploadedFindingAid.repository ) ) {
+                        this.results += `User ${ this.currentUser } is not currently authorized` +
+                                        ` to create a finding aid for repository "${ this.uploadedFindingAid.repository }".\n`;
+
+                        return false;
+                    }
+                } else {
+                    this.results += `Element <repository> contains unknown repository name "${ this.uploadedFindingAid.repository }".
+The repository name must match a value from this list:
+
+${ this.recognizedRepositoryNames.join( '\n' ) }
+`;
+
+                    return false;
+                }
+            }
+
+            return true;
+        },
+        validateRequiredEADElements( eadDoc, requiredEADElements ) {
+            requiredEADElements.forEach( elementName => {
+                try {
+                    this.uploadedFindingAid[ elementName ] = this.getEADElementValue( eadDoc, elementName );
+                } catch( e ) {
+                    this.results += `${ e }\n`;
+                }
+            } );
+        },
+        validateXML( eadDoc ) {
+            const parserErrorCount = eadDoc.documentElement
+                .getElementsByTagName( 'parsererror' ).length;
+
+            if ( parserErrorCount > 0 ) {
+                this.results += 'The XML in this file is not valid.  Please check it ' +
+                    'using an XML validator.';
+
+                return false;
+            }
+
+            return true;
         },
         ...mapActions(
             [
