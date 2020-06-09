@@ -304,7 +304,7 @@ Some things to try:
             }
 
             if ( abort ) {
-                this.results += 'Please make the necessary corrections and re-upload the EAD file.';
+                this.results += '\nPlease make the necessary corrections and re-upload the EAD file.';
                 this.formFileState = false;
                 this.submitDisabled = true;
 
@@ -419,7 +419,6 @@ Some things to try:
 The repository name must match a value from this list:
 
 ${ this.recognizedRepositoryNames.join( '\n' ) }
-
 `;
 
                     return false;
