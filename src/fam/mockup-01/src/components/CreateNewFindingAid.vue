@@ -299,6 +299,10 @@ Some things to try:
                 abort = true;
             }
 
+            if ( ! this.validateNoUnpublishedMaterial( eadDoc ) ) {
+                abort = true;
+            }
+
             if ( abort ) {
                 this.results += 'Please make the necessary corrections and re-upload the EAD file.';
                 this.formFileState = false;
@@ -372,6 +376,29 @@ Some things to try:
                                 'not conform to the Finding Aids specification.\n';
 
                 this.results += errors.join( '\n' ) + '\n';
+
+                return false;
+            }
+
+            return true;
+        },
+        validateNoUnpublishedMaterial( eadDoc ) {
+            const allElements = eadDoc.getElementsByTagName( '*' );
+            const elementsWithAudienceInternal = [];
+
+            allElements.forEach( element => {
+                if ( element.getAttribute( 'audience' ) === 'internal' ) {
+                    elementsWithAudienceInternal.push( element );
+                }
+            } );
+
+            if ( elementsWithAudienceInternal.length > 0 ) {
+                this.results += 'The EAD file contains unpublished material. ' +
+                                ' The following EAD elements have their audience' +
+                                ' attributes set to "internal":\n';
+                elementsWithAudienceInternal.forEach( element => {
+                    this.results += `<${ element.tagName }>\n`;
+                } );
 
                 return false;
             }
