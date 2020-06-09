@@ -295,13 +295,7 @@ Some things to try:
                 abort = true;
             }
 
-            const eadidErrors = this.validateEADID( this.uploadedFindingAid.eadid );
-            if ( eadidErrors.length > 0 ) {
-                this.results += `<eadid> value "${ this.uploadedFindingAid.eadid }" does ` +
-                    'not conform to the Finding Aids specification.\n';
-
-                this.results += eadidErrors.join( '\n' ) + '\n';
-
+            if ( ! this.validateEADID( this.uploadedFindingAid.eadid ) ) {
                 abort = true;
             }
 
@@ -347,10 +341,10 @@ Some things to try:
 
             this.submitDisabled = true;
         },
-        validateEADID( eadid ) {
+        validateEADID() {
             const errors = [];
 
-            const tokens = eadid.split( '_' );
+            const tokens = this.uploadedFindingAid.eadid.split( '_' );
             if ( tokens.length < 2 || tokens.length > 8 ) {
                 errors.push( 'There must be between 2 to 8 character groups joined by underscores.' );
             }
@@ -373,7 +367,16 @@ Some things to try:
                              disallowedCharactersFound.sort().join( ', ' ) );
             }
 
-            return errors;
+            if ( errors.length > 0 ) {
+                this.results += `<eadid> value "${ this.uploadedFindingAid.eadid }" does ` +
+                                'not conform to the Finding Aids specification.\n';
+
+                this.results += errors.join( '\n' ) + '\n';
+
+                return false;
+            }
+
+            return true;
         },
         validateRepository() {
             if ( this.uploadedFindingAid.repository ) {
