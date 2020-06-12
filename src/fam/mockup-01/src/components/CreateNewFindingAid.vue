@@ -408,8 +408,8 @@ Some things to try:
 
             if ( elementsWithAudienceInternal.length > 0 ) {
                 this.results += 'The EAD file contains unpublished material. ' +
-                                ' The following EAD elements have their audience' +
-                                ' attributes set to "internal":\n';
+                                ' The following EAD elements have attribute' +
+                                ' audience="internal":\n';
                 elementsWithAudienceInternal.forEach( element => {
                     this.results += `<${ element.tagName }>\n`;
                 } );
