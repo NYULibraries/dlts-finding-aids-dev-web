@@ -386,7 +386,7 @@ Some things to try:
             }
 
             if ( errors.length > 0 ) {
-                this.results += `<eadid> value "${ this.uploadedFindingAid.eadid }" does ` +
+                this.results += `\n<eadid> value "${ this.uploadedFindingAid.eadid }" does ` +
                                 'not conform to the Finding Aids specification.\n';
 
                 this.results += errors.join( '\n' ) + '\n';
@@ -407,9 +407,9 @@ Some things to try:
             } );
 
             if ( elementsWithAudienceInternal.length > 0 ) {
-                this.results += 'The EAD file contains unpublished material. ' +
+                this.results += '\nThe EAD file contains unpublished material. ' +
                                 ' The following EAD elements have attribute' +
-                                ' audience="internal":\n';
+                                ' audience="internal" and must be removed:\n';
                 elementsWithAudienceInternal.forEach( element => {
                     this.results += `<${ element.tagName }>\n`;
                 } );
@@ -423,15 +423,14 @@ Some things to try:
             if ( this.uploadedFindingAid.repository ) {
                 if ( this.recognizedRepositoryNames.includes( this.uploadedFindingAid.repository ) ) {
                     if ( ! this.currentRepositoryNames.includes( this.uploadedFindingAid.repository ) ) {
-                        this.results += `User ${ this.currentUser } is not currently authorized` +
+                        this.results += `\nUser ${ this.currentUser } is not currently authorized` +
                                         ` to create a finding aid for repository "${ this.uploadedFindingAid.repository }".\n`;
 
                         return false;
                     }
                 } else {
-                    this.results += `Element <repository> contains unknown repository name "${ this.uploadedFindingAid.repository }".
+                    this.results += `\nElement <repository> contains unknown repository name "${ this.uploadedFindingAid.repository }".
 The repository name must match a value from this list:
-
 ${ this.recognizedRepositoryNames.join( '\n' ) }
 `;
 
@@ -446,7 +445,7 @@ ${ this.recognizedRepositoryNames.join( '\n' ) }
                 try {
                     this.uploadedFindingAid[ elementName ] = this.getEADElementValue( eadDoc, elementName );
                 } catch( e ) {
-                    this.results += `${ e }\n`;
+                    this.results += `\n${ e }\n`;
                 }
             } );
         },
@@ -455,7 +454,7 @@ ${ this.recognizedRepositoryNames.join( '\n' ) }
                 .getElementsByTagName( 'parsererror' ).length;
 
             if ( parserErrorCount > 0 ) {
-                this.results += 'The XML in this file is not valid.  Please check it ' +
+                this.results += '\nThe XML in this file is not valid.  Please check it ' +
                     'using an XML validator.';
 
                 return false;
