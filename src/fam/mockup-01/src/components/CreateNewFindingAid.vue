@@ -284,6 +284,21 @@ Some things to try:
 
             return repositoryCode;
         },
+        getRequiredEADElements( eadDoc, requiredEADElements ) {
+            let result = true;
+
+            requiredEADElements.forEach( elementName => {
+                try {
+                    this.uploadedFindingAid[ elementName ] = this.getEADElementValue( eadDoc, elementName );
+                } catch( e ) {
+                    result = false;
+
+                    this.results += `\n${ e }\n`;
+                }
+            } );
+
+            return result;
+        },
         async processEAD( ead ) {
             this.results += 'Validating EAD file...\n';
 
@@ -299,8 +314,8 @@ Some things to try:
                 return;
             }
 
-            if ( ! this.validateRequiredEADElements( eadDoc,
-                [ 'eadid', 'repository', 'title' ],
+            // This will fill this.uploadedFindingAid
+            if ( ! this.getRequiredEADElements( eadDoc, [ 'eadid', 'repository', 'title' ],
             ) ) {
                 abort = true;
             }
@@ -439,15 +454,6 @@ ${ this.recognizedRepositoryNames.join( '\n' ) }
             }
 
             return true;
-        },
-        validateRequiredEADElements( eadDoc, requiredEADElements ) {
-            requiredEADElements.forEach( elementName => {
-                try {
-                    this.uploadedFindingAid[ elementName ] = this.getEADElementValue( eadDoc, elementName );
-                } catch( e ) {
-                    this.results += `\n${ e }\n`;
-                }
-            } );
         },
         validateXML( eadDoc ) {
             const parserErrorCount = eadDoc.documentElement
