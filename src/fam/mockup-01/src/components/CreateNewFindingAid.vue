@@ -359,10 +359,10 @@ Some things to try:
 
             this.submitDisabled = true;
         },
-        validateEADID() {
+        validateEADID( eadid ) {
             const errors = [];
 
-            const tokens = this.uploadedFindingAid.eadid.split( '_' );
+            const tokens = eadid.split( '_' );
             if ( tokens.length < 2 || tokens.length > 8 ) {
                 errors.push( 'There must be between 2 to 8 character groups joined by underscores.' );
             }
@@ -386,7 +386,7 @@ Some things to try:
             }
 
             if ( errors.length > 0 ) {
-                this.results += `\n<eadid> value "${ this.uploadedFindingAid.eadid }" does ` +
+                this.results += `\n<eadid> value "${ eadid }" does ` +
                                 'not conform to the Finding Aids specification.\n';
 
                 this.results += errors.join( '\n' ) + '\n';
