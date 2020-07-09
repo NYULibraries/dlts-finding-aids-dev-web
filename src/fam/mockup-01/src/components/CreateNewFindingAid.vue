@@ -435,19 +435,22 @@ Some things to try:
         // ...a published finding aid in different repository:
         //         ...that user is authorized for
         //         ...that user is not authorized for
-            const errors = [];
+            let existingInProcessFindingAidConflict;
+            Object.keys( this.inProcessFindingAids ).forEach( repositoryCode => {
+                if ( this.inProcessFindingAids[ repositoryCode ][ eadid ] ) {
+                    existingInProcessFindingAidConflict =
+                        this.inProcessFindingAids[ repositoryCode ][ eadid ];
+                    existingInProcessFindingAidConflict.eadid = eadid;
+                    existingInProcessFindingAidConflict.repository = repositoryCode;
+                }
+            } );
 
-            const existingInProcessFindingAid = this.inProcessFindingAids[ repositoryCode ][ eadid ];
-            if ( existingInProcessFindingAid ) {
-                errors.push(
-                    `An in-process finding aid with EAD ID "${ eadid }" already exists:\n\n` +
-                    this.getFindingAidDescription( existingInProcessFindingAid ) +
-                    'You must delete or publish this in-process finding aid before uploading this EAD file.',
-                );
-            }
-
-            if ( errors.length > 0 ) {
-                this.results += errors.join( '\n' ) + '\n';
+            if ( existingInProcessFindingAidConflict ) {
+                if ( existingInProcessFindingAidConflict.repository === this.uploadedFindingAid.repositoryCode ) {
+                    this.results += `An in-process finding aid with EAD ID "${ eadid }" already exists:\n\n` +
+                        this.getFindingAidDescription( existingInProcessFindingAidConflict ) + '\n' +
+                        'You must delete or publish this in-process finding aid before uploading this EAD file.\n';
+                }
 
                 return false;
             }
