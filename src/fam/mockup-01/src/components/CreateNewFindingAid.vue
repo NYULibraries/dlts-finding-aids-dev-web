@@ -122,6 +122,7 @@ export default {
             [
                 'currentUser',
                 'currentRepositoryNames',
+                'inProcessFindingAids',
                 'repositories',
             ],
         ),
@@ -336,6 +337,11 @@ Some things to try:
                 abort = true;
             }
 
+            if ( ! this.validateEADIDNoConflicts( this.uploadedFindingAid.eadid,
+                this.uploadedFindingAid.repositoryCode ) ) {
+                abort = true;
+            }
+
             if ( ! this.validateNoUnpublishedMaterial( eadDoc ) ) {
                 abort = true;
             }
@@ -408,6 +414,33 @@ Some things to try:
                 this.results += `\n<eadid> value "${ eadid }" does ` +
                                 'not conform to the Finding Aids specification.\n';
 
+                this.results += errors.join( '\n' ) + '\n';
+
+                return false;
+            }
+
+            return true;
+        },
+        validateEADIDNoConflicts( eadid, repositoryCode ) {
+        // TODO:
+        // ...an in-process finding aid in different repository:
+        //         ...that user is authorized for
+        //         ...that user is not authorized for
+        // ...a published finding aid in different repository:
+        //         ...that user is authorized for
+        //         ...that user is not authorized for
+            const errors = [];
+
+            const existingInProcessFindingAid = this.inProcessFindingAids[ repositoryCode ][ eadid ];
+            if ( existingInProcessFindingAid ) {
+                errors.push(
+                    `An in-process finding aid with EAD ID "${ eadid }" already exists:\n\n` +
+                    this.getFindingAidDescription( existingInProcessFindingAid ) +
+                    'You must delete or publish this in-process finding aid before uploading this EAD file.',
+                );
+            }
+
+            if ( errors.length > 0 ) {
                 this.results += errors.join( '\n' ) + '\n';
 
                 return false;
