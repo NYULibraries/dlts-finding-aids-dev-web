@@ -329,6 +329,8 @@ Some things to try:
             if ( ! this.validateRepository() ) {
                 abort = true;
             }
+            this.uploadedFindingAid.repositoryCode =
+                this.getRepositoryCodeForRepository( this.uploadedFindingAid.repository );
 
             if ( ! this.validateEADID( this.uploadedFindingAid.eadid ) ) {
                 abort = true;
@@ -349,7 +351,7 @@ Some things to try:
             this.newInProcessFindingAid = {
                 timestamp   : Math.round( ( new Date() ).getTime() / 1000 ),
                 id         : this.uploadedFindingAid.eadid,
-                repository : this.getRepositoryCodeForRepository( this.uploadedFindingAid.repository ),
+                repository : this.uploadedFindingAid.repositoryCode,
                 title      : this.uploadedFindingAid.title,
             };
 
