@@ -274,10 +274,16 @@ Some things to try:
             }
         },
         getFindingAidDescription( findingAid ) {
-            return `EAD ID: ${ this.uploadedFindingAid.eadid }\n` +
-                   `TITLE: ${ this.uploadedFindingAid.title }\n` +
-                   `REPOSITORY: ${ this.uploadedFindingAid.repository }` +
-                   '\n\n';
+            let description =
+                `EAD ID: ${ findingAid.eadid }\n` +
+                `TITLE: ${ findingAid.title }\n` +
+                `REPOSITORY: ${ findingAid.repository }\n`;
+
+            if ( findingAid.timestamp ) {
+                description += `TIMESTAMP: ${ findingAid.timestamp }\n`;
+            }
+
+            return description;
         },
         getRepositoryCodeForRepository( repositoryName ) {
             var that = this,
@@ -364,7 +370,7 @@ Some things to try:
             this.results += 'File validation is complete.\n\nClick Submit to move this file to In-Process FAs' +
                 ' and to create a preview finding aid for:\n\n';
 
-            this.results += this.getFindingAidDescription( this.uploadedFindingAid );
+            this.results += this.getFindingAidDescription( this.uploadedFindingAid ) + '\n';
 
             this.submitDisabled = false;
         },
