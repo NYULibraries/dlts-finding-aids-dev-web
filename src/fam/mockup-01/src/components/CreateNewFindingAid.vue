@@ -343,8 +343,7 @@ Some things to try:
                 abort = true;
             }
 
-            if ( ! this.validateEADIDNoConflicts( this.uploadedFindingAid.eadid,
-                this.uploadedFindingAid.repositoryCode ) ) {
+            if ( ! this.validateEADIDNoConflicts() ) {
                 abort = true;
             }
 
@@ -427,16 +426,57 @@ Some things to try:
 
             return true;
         },
-        validateEADIDNoConflicts( eadid, repositoryCode ) {
+        validateEADIDNoConflicts() {
         // ...a published finding aid in different repository:
         //         ...that user is authorized for
         //         ...that user is not authorized for
             const noConflictsInInProcessFindingAids =
-                this.validateEADIDNoConflictsInInProcessFindingAids( eadid, repositoryCode );
+                this.validateEADIDNoConflictsInInProcessFindingAids();
 
             return noConflictsInInProcessFindingAids;
         },
-        validateEADIDNoConflictsInInProcessFindingAids( eadid, repositoryCode ) {
+        validateEADIDNoConflictsInInProcessFindingAids() {
+            const eadid = this.uploadedFindingAid.eadid;
+            const repository = this.uploadedFindingAid;
+
+            let existingInProcessFindingAidWithSameEADID;
+            Object.keys( this.inProcessFindingAids ).forEach( repositoryCode => {
+                if ( this.inProcessFindingAids[ repositoryCode ][ eadid ] ) {
+                    existingInProcessFindingAidWithSameEADID =
+                        this.inProcessFindingAids[ repositoryCode ][ eadid ];
+                    existingInProcessFindingAidWithSameEADID.eadid = eadid;
+                    existingInProcessFindingAidWithSameEADID.repository = this.repositories[ repositoryCode ].name;
+                    existingInProcessFindingAidWithSameEADID.repositoryCode = repositoryCode;
+                }
+            } );
+
+            if ( existingInProcessFindingAidWithSameEADID ) {
+                if ( existingInProcessFindingAidWithSameEADID.repository === repository ) {
+                    this.results += `An in-process finding aid with EAD ID "${ eadid }" already exists:\n\n` +
+                                    this.getFindingAidDescription( existingInProcessFindingAidWithSameEADID ) + '\n' +
+                                    'You must delete or publish this in-process finding aid before uploading this EAD file.\n';
+                } else {
+                    this.results += `An in-process finding aid with EAD ID "${ eadid }" already exists in repository ` +
+                                    `"${ existingInProcessFindingAidWithSameEADID.repository }":\n\n` +
+                                    this.getFindingAidDescription( existingInProcessFindingAidWithSameEADID ) + '\n' +
+                                    `The uploaded EAD file belongs to repository "${ repository }".  ` +
+                                    'EAD ID values must be unique across all repositories.\nIn order to create ' +
+                                    'an in-process finding aid from this EAD file, ';
+
+                    let deletionMethod = 'delete';
+                    if ( ! this.currentRepositoryNames.includes( existingInProcessFindingAidWithSameEADID.repository ) ) {
+                        deletionMethod = 'request the deletion of';
+                    }
+
+                    this.results += `you must either ${ deletionMethod } the existing in-process finding aid in repository ` +
+                                    `"${ existingInProcessFindingAidWithSameEADID.repository }", or change the <eadid> ` +
+                                    'value in this EAD file.\n';
+                }
+
+                return false;
+            }
+        },
+        validateEADIDNoConflictsInPublishedFindingAids( eadid, repositoryCode ) {
             let existingInProcessFindingAidWithSameEADID;
             Object.keys( this.inProcessFindingAids ).forEach( repositoryCode => {
                 if ( this.inProcessFindingAids[ repositoryCode ][ eadid ] ) {
