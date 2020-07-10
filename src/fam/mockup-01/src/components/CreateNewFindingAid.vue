@@ -274,6 +274,12 @@ Some things to try:
                 throw new Error( `Required element <${ elementName }> not found.` );
             }
         },
+        getErrorHeader( headerText ) {
+            const label = 'Error: ';
+            const dashes = '-'.repeat( headerText.length + label.length );
+
+            return `${ dashes }\n${ label }${ headerText }\n\n`;
+        },
         getFindingAidDescription( findingAid ) {
             let description =
                 `EAD ID: ${ findingAid.eadid }\n` +
@@ -353,7 +359,9 @@ Some things to try:
             }
 
             if ( abort ) {
-                this.results += '\nPlease make the necessary corrections and re-upload the EAD file.';
+                const instruction = 'Please make the necessary corrections and re-upload the EAD file.';
+                this.results += '-'.repeat( instruction.length ) + '\n\n' + instruction;
+
                 this.formFileState = false;
                 this.submitDisabled = true;
 
@@ -417,10 +425,11 @@ Some things to try:
             }
 
             if ( errors.length > 0 ) {
-                this.results += `\n<eadid> value "${ eadid }" does ` +
+                this.results += this.getErrorHeader( 'Invalid <eadid>' ) +
+                                `<eadid> value "${ eadid }" does ` +
                                 'not conform to the Finding Aids specification.\n';
 
-                this.results += errors.join( '\n' ) + '\n';
+                this.results += errors.join( '\n' ) + '\n\n';
 
                 return false;
             }
@@ -458,11 +467,13 @@ Some things to try:
 
             if ( existingInProcessFindingAidWithSameEADID ) {
                 if ( existingInProcessFindingAidWithSameEADID.repository === repository ) {
-                    this.results += `An in-process finding aid with EAD ID "${ eadid }" already exists:\n\n` +
+                    this.results += this.getErrorHeader( 'Finding aid already in-process' ) +
+                                    `An in-process finding aid with EAD ID "${ eadid }" already exists:\n\n` +
                                     this.getFindingAidDescription( existingInProcessFindingAidWithSameEADID ) + '\n' +
-                                    'You must delete or publish this in-process finding aid before uploading this EAD file.\n';
+                                    'You must delete or publish this in-process finding aid before uploading this EAD file.\n\n';
                 } else {
-                    this.results += `An in-process finding aid with EAD ID "${ eadid }" already exists in repository ` +
+                    this.results += this.getErrorHeader( '<eadid> conflict with finding aid in a different repository' ) +
+                                    `An in-process finding aid with EAD ID "${ eadid }" already exists in repository ` +
                                     `"${ existingInProcessFindingAidWithSameEADID.repository }":\n\n` +
                                     this.getFindingAidDescription( existingInProcessFindingAidWithSameEADID ) + '\n' +
                                     `The uploaded EAD file belongs to repository "${ repository }".  ` +
@@ -476,7 +487,7 @@ Some things to try:
 
                     this.results += `you must either ${ deletionMethod } the existing in-process finding aid in repository ` +
                                     `"${ existingInProcessFindingAidWithSameEADID.repository }", or change the <eadid> ` +
-                                    'value in this EAD file.\n';
+                                    'value in this EAD file.\n\n';
                 }
 
                 return false;
@@ -501,7 +512,8 @@ Some things to try:
             } );
 
             if ( existingPublishedFindingAidWithSameEADIDInDifferentRepository ) {
-                this.results += `A published finding aid with EAD ID "${ eadid }" already exists in repository ` +
+                this.results += this.getErrorHeader( '<eadid> conflict with finding aid in a different repository' ) +
+                                `A published finding aid with EAD ID "${ eadid }" already exists in repository ` +
                                 `"${ existingPublishedFindingAidWithSameEADIDInDifferentRepository.repository }":\n\n` +
                                 this.getFindingAidDescription( existingPublishedFindingAidWithSameEADIDInDifferentRepository ) + '\n' +
                                 `The uploaded EAD file belongs to repository "${ repository }".  ` +
@@ -515,7 +527,7 @@ Some things to try:
 
                 this.results += `you must either ${ deletionMethod } the existing published finding aid in repository ` +
                                 `"${ existingPublishedFindingAidWithSameEADIDInDifferentRepository.repository }", or change the <eadid> ` +
-                                'value in this EAD file.\n';
+                                'value in this EAD file.\n\n';
 
                 return false;
             }
@@ -533,12 +545,15 @@ Some things to try:
             } );
 
             if ( elementsWithAudienceInternal.length > 0 ) {
-                this.results += '\nThe EAD file contains unpublished material. ' +
-                                ' The following EAD elements have attribute' +
-                                ' audience="internal" and must be removed:\n';
+                this.results += this.getErrorHeader( 'Private data detected' ) +
+                                'The EAD file contains unpublished material.  ' +
+                                'The following EAD elements have attribute audience="internal" and must be removed:\n\n';
+
                 elementsWithAudienceInternal.forEach( element => {
                     this.results += `<${ element.tagName }>\n`;
                 } );
+
+                this.results += '\n';
 
                 return false;
             }
@@ -549,16 +564,17 @@ Some things to try:
             if ( this.uploadedFindingAid.repository ) {
                 if ( this.recognizedRepositoryNames.includes( this.uploadedFindingAid.repository ) ) {
                     if ( ! this.currentRepositoryNames.includes( this.uploadedFindingAid.repository ) ) {
-                        this.results += `\nUser ${ this.currentUser } is not currently authorized` +
-                                        ` to create a finding aid for repository "${ this.uploadedFindingAid.repository }".\n`;
+                        this.results += this.getErrorHeader(
+                            `User ${ this.currentUser } is not currently authorized` +
+                            ` to create a finding aid for repository "${ this.uploadedFindingAid.repository }".` );
 
                         return false;
                     }
                 } else {
-                    this.results += `\nElement <repository> contains unknown repository name "${ this.uploadedFindingAid.repository }".
-The repository name must match a value from this list:
-${ this.recognizedRepositoryNames.join( '\n' ) }
-`;
+                    this.results += this.getErrorHeader( 'Invalid <repository>' ) +
+                                    `Element <repository> contains unknown repository name "${ this.uploadedFindingAid.repository }".\n` +
+                                    'The repository name must match a value from this list:\n\n' +
+                                    this.recognizedRepositoryNames.join( '\n' ) + '\n\n';
 
                     return false;
                 }
@@ -571,8 +587,8 @@ ${ this.recognizedRepositoryNames.join( '\n' ) }
                 .getElementsByTagName( 'parsererror' ).length;
 
             if ( parserErrorCount > 0 ) {
-                this.results += '\nThe XML in this file is not valid.  Please check it ' +
-                    'using an XML validator.';
+                this.results += this.getErrorHeader( 'The XML in this file is not valid.  Please check it ' +
+                    'using an XML validator.' );
 
                 return false;
             }
@@ -601,6 +617,7 @@ ${ this.recognizedRepositoryNames.join( '\n' ) }
 
 #results-textarea {
     border : solid black 1px;
+    font-family : "Courier";
     padding : 1%;
 }
 
