@@ -473,19 +473,19 @@ Proceed to In-process FAs to preview the new EAD file and finding aid.
             if ( existingInProcessFindingAidWithSameEADID ) {
                 if ( existingInProcessFindingAidWithSameEADID.repository === repository ) {
                     this.results += this.getErrorHeader( 'Finding aid already in-process' ) +
-`An in-process finding aid with EAD ID "${ eadid }" already exists:
+`An in-process finding aid with <eadid> "${ eadid }" already exists:
 
 ${ this.getFindingAidDescription( existingInProcessFindingAidWithSameEADID ) }
 You must delete or publish this in-process finding aid before uploading this EAD file.
 
 `;
                 } else {
-                    this.results += this.getErrorHeader( '<eadid> conflict with finding aid in a different repository' ) +
-`An in-process finding aid with EAD ID "${ eadid }" already exists in repository "${ existingInProcessFindingAidWithSameEADID.repository }":
+                    this.results += this.getErrorHeader( '<eadid> conflict with a finding aid in a different repository' ) +
+`An in-process finding aid with <eadid> "${ eadid }" already exists in repository "${ existingInProcessFindingAidWithSameEADID.repository }":
 
 this.getFindingAidDescription( existingInProcessFindingAidWithSameEADID )
 
-The uploaded EAD file belongs to repository "${ repository }".  EAD ID values must be unique across all repositories.
+The uploaded EAD file belongs to repository "${ repository }".  <eadid> values must be unique across all repositories.
 In order to create an in-process finding aid from this EAD file, `;
 
                     let deletionMethod = 'delete';
@@ -522,11 +522,11 @@ or change the <eadid> value in this EAD file.
             } );
 
             if ( existingPublishedFindingAidWithSameEADIDInDifferentRepository ) {
-                this.results += this.getErrorHeader( '<eadid> conflict with finding aid in a different repository' ) +
-`A published finding aid with EAD ID "${ eadid }" already exists in repository "${ existingPublishedFindingAidWithSameEADIDInDifferentRepository.repository }":
+                this.results += this.getErrorHeader( '<eadid> conflict with a finding aid in a different repository' ) +
+`A published finding aid with <eadid> "${ eadid }" already exists in repository "${ existingPublishedFindingAidWithSameEADIDInDifferentRepository.repository }":
 
 ${ this.getFindingAidDescription( existingPublishedFindingAidWithSameEADIDInDifferentRepository ) }
-The uploaded EAD file belongs to repository "${ repository }".  EAD ID values must be unique across all repositories.
+The uploaded EAD file belongs to repository "${ repository }".  <eadid> values must be unique across all repositories.
 In order to create an in-process finding aid from this EAD file, `;
 
                 let deletionMethod = 'delete';
@@ -583,7 +583,7 @@ or change the <eadid> value in this EAD file.
                     }
                 } else {
                     this.results += this.getErrorHeader( 'Invalid <repository>' ) +
-`Element <repository> contains unknown repository name "${ this.uploadedFindingAid.repository }".
+`<repository> contains unknown repository name "${ this.uploadedFindingAid.repository }".
 The repository name must match a value from this list:
 
 ${ this.recognizedRepositoryNames.join( '\n' ) }
