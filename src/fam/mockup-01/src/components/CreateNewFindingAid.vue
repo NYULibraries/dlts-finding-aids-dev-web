@@ -397,7 +397,7 @@ Click Submit to move this file to In-Process FAs and to create a preview finding
 
             this.results += `New in-process finding aid created with timestamp ${  formattedTimestamp }.
 
-            Proceed to In-process FAs to preview the new EAD file and finding aid.
+Proceed to In-process FAs to preview the new EAD file and finding aid.
 
 `;
 
