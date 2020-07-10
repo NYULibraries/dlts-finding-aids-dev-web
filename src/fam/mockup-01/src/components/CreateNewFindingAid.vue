@@ -472,6 +472,8 @@ Some things to try:
 
                 return false;
             }
+
+            return true;
         },
         validateEADIDNoConflictsInPublishedFindingAids( eadid, repositoryCode ) {
             let existingInProcessFindingAidWithSameEADID;
