@@ -434,7 +434,7 @@ Some things to try:
         },
         validateEADIDNoConflictsInInProcess() {
             const eadid = this.uploadedFindingAid.eadid;
-            const repository = this.uploadedFindingAid;
+            const repository = this.uploadedFindingAid.repository;
 
             let existingInProcessFindingAidWithSameEADID;
             Object.keys( this.inProcessFindingAids ).forEach( repositoryCode => {
