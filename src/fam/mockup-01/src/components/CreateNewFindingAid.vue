@@ -492,7 +492,7 @@ You must delete or publish this in-process finding aid before uploading this EAD
                     this.results += this.getErrorHeader( '<eadid> conflict with a finding aid in a different repository' ) +
 `An in-process finding aid with <eadid> "${ eadid }" already exists in repository "${ existingInProcessFindingAidWithSameEADID.repository }":
 
-this.getFindingAidDescription( existingInProcessFindingAidWithSameEADID )
+${ this.getFindingAidDescription( existingInProcessFindingAidWithSameEADID ) }
 
 The uploaded EAD file belongs to repository "${ repository }".  <eadid> values must be unique across all repositories.
 In order to create an in-process finding aid from this EAD file, `;
