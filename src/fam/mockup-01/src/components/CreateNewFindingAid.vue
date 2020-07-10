@@ -123,6 +123,7 @@ export default {
                 'currentUser',
                 'currentRepositoryNames',
                 'inProcessFindingAids',
+                'publishedFindingAids',
                 'repositories',
             ],
         ),
@@ -243,6 +244,15 @@ Some things to try:
         </code>
 
     </li>
+    <li>Upload an EAD file with the same &lt;eadid&gt; value as:
+        <ul>
+            <li>an existing <strong>in-process</strong> finding aid which belongs to the <strong>same repository</strong></li>
+            <li>an existing <strong>in-process</strong> finding aid which belongs to a <strong>different repository</strong> for which the user is <strong>authorized</strong></li>
+            <li>an existing <strong>in-process</strong> finding aid which belongs to a <strong>different repository</strong> for which the user is <strong>not authorized</strong></li>
+            <li>an existing <strong>published</strong> finding aid which belongs to a <strong>different repository</strong> for which the user is <strong>authorized</strong></li>
+            <li>an existing <strong>published</strong> finding aid which belongs to a <strong>different repository</strong> for which the user is <strong>not authorized</strong></li>
+        </ul>
+    </li>
     <li>Upload a valid EAD file and submit it using the Submit button</li>
 </ul>
 `,
@@ -272,6 +282,12 @@ Some things to try:
             } else {
                 throw new Error( `Required element <${ elementName }> not found.` );
             }
+        },
+        getErrorHeader( headerText ) {
+            const label = 'Error: ';
+            const dashes = '-'.repeat( headerText.length + label.length );
+
+            return `${ dashes }\n${ label }${ headerText }\n\n`;
         },
         getFindingAidDescription( findingAid ) {
             let description =
@@ -352,7 +368,9 @@ Some things to try:
             }
 
             if ( abort ) {
-                this.results += '\nPlease make the necessary corrections and re-upload the EAD file.';
+                const instruction = 'Please make the necessary corrections and re-upload the EAD file.';
+                this.results += '-'.repeat( instruction.length ) + '\n\n' + instruction;
+
                 this.formFileState = false;
                 this.submitDisabled = true;
 
@@ -366,8 +384,11 @@ Some things to try:
                 title      : this.uploadedFindingAid.title,
             };
 
-            this.results += 'File validation is complete.\n\nClick Submit to move this file to In-Process FAs' +
-                ' and to create a preview finding aid for:\n\n';
+            this.results += `File validation is complete.
+
+Click Submit to move this file to In-Process FAs and to create a preview finding aid for:
+
+`;
 
             this.results += this.getFindingAidDescription( this.uploadedFindingAid ) + '\n';
 
@@ -383,9 +404,11 @@ Some things to try:
             const formattedTimestamp =
                 moment( this.newInProcessFindingAid.timestamp * 1000 ).format( 'M/D/YYYY h:mm a' );
 
-            this.results += `New in-process finding aid created with timestamp ${  formattedTimestamp }.\n\n`;
+            this.results += `New in-process finding aid created with timestamp ${  formattedTimestamp }.
 
-            this.results += 'Proceed to In-process FAs to preview the new EAD file and finding aid.\n';
+Proceed to In-process FAs to preview the new EAD file and finding aid.
+
+`;
 
             this.submitDisabled = true;
         },
@@ -416,10 +439,11 @@ Some things to try:
             }
 
             if ( errors.length > 0 ) {
-                this.results += `\n<eadid> value "${ eadid }" does ` +
+                this.results += this.getErrorHeader( 'Invalid <eadid>' ) +
+                                `<eadid> value "${ eadid }" does ` +
                                 'not conform to the Finding Aids specification.\n';
 
-                this.results += errors.join( '\n' ) + '\n';
+                this.results += errors.join( '\n' ) + '\n\n';
 
                 return false;
             }
@@ -430,11 +454,19 @@ Some things to try:
             const noConflictsInInProcess =
                 this.validateEADIDNoConflictsInInProcess();
 
-            return noConflictsInInProcess;
+            const noConflictsInInProcessPublished =
+                this.validateEADIDNoConflictsInPublished();
+
+            // We can't return
+            //    this.validateEADIDNoConflictsInInProcess() &&
+            //    this.validateEADIDNoConflictsInInProcess()
+            // ...because both methods must run for side effects, and && will
+            // short-circuit the latter method call if the first returns false.
+            return noConflictsInInProcess && noConflictsInInProcessPublished;
         },
         validateEADIDNoConflictsInInProcess() {
             const eadid = this.uploadedFindingAid.eadid;
-            const repository = this.uploadedFindingAid;
+            const repository = this.uploadedFindingAid.repository;
 
             let existingInProcessFindingAidWithSameEADID;
             Object.keys( this.inProcessFindingAids ).forEach( repositoryCode => {
@@ -449,67 +481,78 @@ Some things to try:
 
             if ( existingInProcessFindingAidWithSameEADID ) {
                 if ( existingInProcessFindingAidWithSameEADID.repository === repository ) {
-                    this.results += `An in-process finding aid with EAD ID "${ eadid }" already exists:\n\n` +
-                                    this.getFindingAidDescription( existingInProcessFindingAidWithSameEADID ) + '\n' +
-                                    'You must delete or publish this in-process finding aid before uploading this EAD file.\n';
+                    this.results += this.getErrorHeader( 'Finding aid already in-process' ) +
+`An in-process finding aid with <eadid> "${ eadid }" already exists:
+
+${ this.getFindingAidDescription( existingInProcessFindingAidWithSameEADID ) }
+You must delete or publish this in-process finding aid before uploading this EAD file.
+
+`;
                 } else {
-                    this.results += `An in-process finding aid with EAD ID "${ eadid }" already exists in repository ` +
-                                    `"${ existingInProcessFindingAidWithSameEADID.repository }":\n\n` +
-                                    this.getFindingAidDescription( existingInProcessFindingAidWithSameEADID ) + '\n' +
-                                    `The uploaded EAD file belongs to repository "${ repository }".  ` +
-                                    'EAD ID values must be unique across all repositories.\nIn order to create ' +
-                                    'an in-process finding aid from this EAD file, ';
+                    this.results += this.getErrorHeader( '<eadid> conflict with an in-process finding aid in a different repository' ) +
+`An in-process finding aid with <eadid> "${ eadid }" already exists in repository "${ existingInProcessFindingAidWithSameEADID.repository }":
+
+${ this.getFindingAidDescription( existingInProcessFindingAidWithSameEADID ) }
+
+The uploaded EAD file belongs to repository "${ repository }".  <eadid> values must be unique across all repositories.
+In order to create an in-process finding aid from this EAD file, `;
 
                     let deletionMethod = 'delete';
                     if ( ! this.currentRepositoryNames.includes( existingInProcessFindingAidWithSameEADID.repository ) ) {
                         deletionMethod = 'request the deletion of';
                     }
 
-                    this.results += `you must either ${ deletionMethod } the existing in-process finding aid in repository ` +
-                                    `"${ existingInProcessFindingAidWithSameEADID.repository }", or change the <eadid> ` +
-                                    'value in this EAD file.\n';
+                    this.results +=
+`you must either ${ deletionMethod } the existing in-process finding aid in repository "${ existingInProcessFindingAidWithSameEADID.repository }" ` +
+`or change the <eadid> value in this EAD file.
+
+`;
                 }
 
                 return false;
             }
+
+            return true;
         },
-        validateEADIDNoConflictsInPublishedFindingAids( eadid, repositoryCode ) {
-            let existingInProcessFindingAidWithSameEADID;
-            Object.keys( this.inProcessFindingAids ).forEach( repositoryCode => {
-                if ( this.inProcessFindingAids[ repositoryCode ][ eadid ] ) {
-                    existingInProcessFindingAidWithSameEADID =
-                        this.inProcessFindingAids[ repositoryCode ][ eadid ];
-                    existingInProcessFindingAidWithSameEADID.eadid = eadid;
-                    existingInProcessFindingAidWithSameEADID.repository = this.repositories[ repositoryCode ].name;
-                    existingInProcessFindingAidWithSameEADID.repositoryCode = repositoryCode;
+        validateEADIDNoConflictsInPublished() {
+            const eadid = this.uploadedFindingAid.eadid;
+            const repository = this.uploadedFindingAid.repository;
+
+            let existingPublishedFindingAidWithSameEADIDInDifferentRepository;
+            Object.keys( this.publishedFindingAids ).forEach( repositoryCode => {
+                if ( this.publishedFindingAids[ repositoryCode ][ eadid ] &&
+                     repositoryCode !== this.uploadedFindingAid.repositoryCode ) {
+                    existingPublishedFindingAidWithSameEADIDInDifferentRepository =
+                        this.publishedFindingAids[ repositoryCode ][ eadid ];
+                    existingPublishedFindingAidWithSameEADIDInDifferentRepository.eadid = eadid;
+                    existingPublishedFindingAidWithSameEADIDInDifferentRepository.repository = this.repositories[ repositoryCode ].name;
+                    existingPublishedFindingAidWithSameEADIDInDifferentRepository.repositoryCode = repositoryCode;
                 }
             } );
 
-            if ( existingInProcessFindingAidWithSameEADID ) {
-                if ( existingInProcessFindingAidWithSameEADID.repository === this.uploadedFindingAid.repository ) {
-                    this.results += `An in-process finding aid with EAD ID "${ eadid }" already exists:\n\n` +
-                                    this.getFindingAidDescription( existingInProcessFindingAidWithSameEADID ) + '\n' +
-                                    'You must delete or publish this in-process finding aid before uploading this EAD file.\n';
-                } else {
-                    this.results += `An in-process finding aid with EAD ID "${ eadid }" already exists in repository ` +
-                                    `"${ existingInProcessFindingAidWithSameEADID.repository }":\n\n` +
-                                    this.getFindingAidDescription( existingInProcessFindingAidWithSameEADID ) + '\n' +
-                                    `The uploaded EAD file belongs to repository "${ this.uploadedFindingAid.repository }".  ` +
-                                    'EAD ID values must be unique across all repositories.\nIn order to create ' +
-                                    'an in-process finding aid from this EAD file, ';
+            if ( existingPublishedFindingAidWithSameEADIDInDifferentRepository ) {
+                this.results += this.getErrorHeader( '<eadid> conflict with a published finding aid in a different repository' ) +
+`A published finding aid with <eadid> "${ eadid }" already exists in repository "${ existingPublishedFindingAidWithSameEADIDInDifferentRepository.repository }":
 
-                    let deletionMethod = 'delete';
-                    if ( ! this.currentRepositoryNames.includes( existingInProcessFindingAidWithSameEADID.repository ) ) {
-                        deletionMethod = 'request the deletion of';
-                    }
+${ this.getFindingAidDescription( existingPublishedFindingAidWithSameEADIDInDifferentRepository ) }
+The uploaded EAD file belongs to repository "${ repository }".  <eadid> values must be unique across all repositories.
+In order to create an in-process finding aid from this EAD file, `;
 
-                    this.results += `you must either ${ deletionMethod } the existing in-process finding aid in repository ` +
-                                    `"${ existingInProcessFindingAidWithSameEADID.repository }", or change the <eadid> ` +
-                                    'value in this EAD file.\n';
+                let deletionMethod = 'delete';
+                if ( ! this.currentRepositoryNames.includes( existingPublishedFindingAidWithSameEADIDInDifferentRepository.repository ) ) {
+                    deletionMethod = 'request the deletion of';
                 }
+
+                this.results +=
+`you must either ${ deletionMethod } the existing published finding aid in repository "${ existingPublishedFindingAidWithSameEADIDInDifferentRepository.repository }", ` +
+`or change the <eadid> value in this EAD file.
+
+`;
 
                 return false;
             }
+
+            return true;
         },
         validateNoUnpublishedMaterial( eadDoc ) {
             const allElements = eadDoc.getElementsByTagName( '*' );
@@ -522,12 +565,15 @@ Some things to try:
             } );
 
             if ( elementsWithAudienceInternal.length > 0 ) {
-                this.results += '\nThe EAD file contains unpublished material. ' +
-                                ' The following EAD elements have attribute' +
-                                ' audience="internal" and must be removed:\n';
+                this.results += this.getErrorHeader( 'Private data detected' ) +
+                                'The EAD file contains unpublished material.  ' +
+                                'The following EAD elements have attribute audience="internal" and must be removed:\n\n';
+
                 elementsWithAudienceInternal.forEach( element => {
                     this.results += `<${ element.tagName }>\n`;
                 } );
+
+                this.results += '\n';
 
                 return false;
             }
@@ -538,15 +584,19 @@ Some things to try:
             if ( this.uploadedFindingAid.repository ) {
                 if ( this.recognizedRepositoryNames.includes( this.uploadedFindingAid.repository ) ) {
                     if ( ! this.currentRepositoryNames.includes( this.uploadedFindingAid.repository ) ) {
-                        this.results += `\nUser ${ this.currentUser } is not currently authorized` +
-                                        ` to create a finding aid for repository "${ this.uploadedFindingAid.repository }".\n`;
+                        this.results += this.getErrorHeader(
+                            `User ${ this.currentUser } is not currently authorized` +
+                            ` to create a finding aid for repository "${ this.uploadedFindingAid.repository }".` );
 
                         return false;
                     }
                 } else {
-                    this.results += `\nElement <repository> contains unknown repository name "${ this.uploadedFindingAid.repository }".
+                    this.results += this.getErrorHeader( 'Invalid <repository>' ) +
+`<repository> contains unknown repository name "${ this.uploadedFindingAid.repository }".
 The repository name must match a value from this list:
+
 ${ this.recognizedRepositoryNames.join( '\n' ) }
+
 `;
 
                     return false;
@@ -560,8 +610,8 @@ ${ this.recognizedRepositoryNames.join( '\n' ) }
                 .getElementsByTagName( 'parsererror' ).length;
 
             if ( parserErrorCount > 0 ) {
-                this.results += '\nThe XML in this file is not valid.  Please check it ' +
-                    'using an XML validator.';
+                this.results += this.getErrorHeader( 'The XML in this file is not valid.  Please check it ' +
+                    'using an XML validator.' );
 
                 return false;
             }
@@ -590,6 +640,7 @@ ${ this.recognizedRepositoryNames.join( '\n' ) }
 
 #results-textarea {
     border : solid black 1px;
+    font-family : "Courier";
     padding : 1%;
 }
 
