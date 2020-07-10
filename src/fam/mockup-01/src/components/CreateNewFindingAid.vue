@@ -430,12 +430,12 @@ Some things to try:
         // ...a published finding aid in different repository:
         //         ...that user is authorized for
         //         ...that user is not authorized for
-            const noConflictsInInProcessFindingAids =
-                this.validateEADIDNoConflictsInInProcessFindingAids();
+            const noConflictsInInProcess =
+                this.validateEADIDNoConflictsInInProcess();
 
-            return noConflictsInInProcessFindingAids;
+            return noConflictsInInProcess;
         },
-        validateEADIDNoConflictsInInProcessFindingAids() {
+        validateEADIDNoConflictsInInProcess() {
             const eadid = this.uploadedFindingAid.eadid;
             const repository = this.uploadedFindingAid;
 
