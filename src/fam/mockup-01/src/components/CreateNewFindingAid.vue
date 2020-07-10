@@ -497,13 +497,13 @@ ${ this.getFindingAidDescription( existingInProcessFindingAidWithSameEADID ) }
 The uploaded EAD file belongs to repository "${ repository }".  <eadid> values must be unique across all repositories.
 In order to create an in-process finding aid from this EAD file, `;
 
-                    let deletionMethod = 'delete';
+                    let fixMethod = 'delete/publish';
                     if ( ! this.currentRepositoryNames.includes( existingInProcessFindingAidWithSameEADID.repository ) ) {
-                        deletionMethod = 'request the deletion of';
+                        fixMethod = 'request the deletion/publication of';
                     }
 
                     this.results +=
-`you must either ${ deletionMethod } the existing in-process finding aid in repository "${ existingInProcessFindingAidWithSameEADID.repository }" ` +
+`you must either ${ fixMethod } the existing in-process finding aid in repository "${ existingInProcessFindingAidWithSameEADID.repository }" ` +
 `or change the <eadid> value in this EAD file.
 
 `;
