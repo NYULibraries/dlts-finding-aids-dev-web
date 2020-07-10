@@ -489,7 +489,7 @@ You must delete or publish this in-process finding aid before uploading this EAD
 
 `;
                 } else {
-                    this.results += this.getErrorHeader( '<eadid> conflict with a finding aid in a different repository' ) +
+                    this.results += this.getErrorHeader( '<eadid> conflict with an in-process finding aid in a different repository' ) +
 `An in-process finding aid with <eadid> "${ eadid }" already exists in repository "${ existingInProcessFindingAidWithSameEADID.repository }":
 
 ${ this.getFindingAidDescription( existingInProcessFindingAidWithSameEADID ) }
@@ -531,7 +531,7 @@ or change the <eadid> value in this EAD file.
             } );
 
             if ( existingPublishedFindingAidWithSameEADIDInDifferentRepository ) {
-                this.results += this.getErrorHeader( '<eadid> conflict with a finding aid in a different repository' ) +
+                this.results += this.getErrorHeader( '<eadid> conflict with a published finding aid in a different repository' ) +
 `A published finding aid with <eadid> "${ eadid }" already exists in repository "${ existingPublishedFindingAidWithSameEADIDInDifferentRepository.repository }":
 
 ${ this.getFindingAidDescription( existingPublishedFindingAidWithSameEADIDInDifferentRepository ) }
