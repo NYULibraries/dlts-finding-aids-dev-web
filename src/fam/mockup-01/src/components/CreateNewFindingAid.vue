@@ -244,6 +244,15 @@ Some things to try:
         </code>
 
     </li>
+    <li>Upload an EAD file with the same &lt;eadid&gt; value as:
+        <ul>
+            <li>an existing <strong>in-process</strong> finding aid which belongs to the <strong>same repository</strong></li>
+            <li>an existing <strong>in-process</strong> finding aid which belongs to a <strong>different repository</strong> for which the user is <strong>authorized</strong></li>
+            <li>an existing <strong>in-process</strong> finding aid which belongs to a <strong>different repository</strong> for which the user is <strong>not authorized</strong></li>
+            <li>an existing <strong>published</strong> finding aid which belongs to a <strong>different repository</strong> for which the user is <strong>authorized</strong></li>
+            <li>an existing <strong>published</strong> finding aid which belongs to a <strong>different repository</strong> for which the user is <strong>not authorized</strong></li>
+        </ul>
+    </li>
     <li>Upload a valid EAD file and submit it using the Submit button</li>
 </ul>
 `,
