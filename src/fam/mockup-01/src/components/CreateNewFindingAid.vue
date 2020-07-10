@@ -427,9 +427,6 @@ Some things to try:
             return true;
         },
         validateEADIDNoConflicts() {
-        // ...a published finding aid in different repository:
-        //         ...that user is authorized for
-        //         ...that user is not authorized for
             const noConflictsInInProcess =
                 this.validateEADIDNoConflictsInInProcess();
 
