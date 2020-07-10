@@ -503,8 +503,8 @@ In order to create an in-process finding aid from this EAD file, `;
                     }
 
                     this.results +=
-`you must either ${ deletionMethod } the existing in-process finding aid in repository "${ existingInProcessFindingAidWithSameEADID.repository }",
-or change the <eadid> value in this EAD file.
+`you must either ${ deletionMethod } the existing in-process finding aid in repository "${ existingInProcessFindingAidWithSameEADID.repository }" ` +
+`or change the <eadid> value in this EAD file.
 
 `;
                 }
@@ -544,8 +544,8 @@ In order to create an in-process finding aid from this EAD file, `;
                 }
 
                 this.results +=
-`you must either ${ deletionMethod } the existing published finding aid in repository "${ existingPublishedFindingAidWithSameEADIDInDifferentRepository.repository }",
-or change the <eadid> value in this EAD file.
+`you must either ${ deletionMethod } the existing published finding aid in repository "${ existingPublishedFindingAidWithSameEADIDInDifferentRepository.repository }", ` +
+`or change the <eadid> value in this EAD file.
 
 `;
 
