@@ -257,10 +257,6 @@ export default {
             'timestamp' : 1584537892,
             'title'     : 'Irish Repertory Theatre Records AIA.080',
         },
-        'mss_460' : {
-            'timestamp' : 1583852910,
-            'title'     : 'Adele Fournet Papers on the Bit Rosie Web Series MSS.460',
-        },
         'tam_105' : {
             'timestamp' : 1582218569,
             'title'     : 'Democratic Socialists of America Records TAM.105',
