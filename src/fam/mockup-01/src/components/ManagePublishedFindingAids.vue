@@ -274,6 +274,8 @@ import moment from 'moment';
 
 import Navbar from './Navbar';
 
+const FADESIGN_118_DISAPPEARING_FINDING_AID_ID = 'fadesign_118_deleted';
+
 export default {
     name       : 'ManagePublishedFindingAids',
     components : {
@@ -507,18 +509,29 @@ Some things to try:
                 },
             );
 
-            this.clearDelete();
+            let message;
+            let title;
 
-            const message =
-                'The Github EAD file has been queued for deletion.' +
-                ' The finding aid, public EAD file, and search data will' +
-                ' be deleted after the Github change has been made.' +
-                ' The full delete process should be completed in [X time].';
+            if ( this.findingAidToDelete.id === FADESIGN_118_DISAPPEARING_FINDING_AID_ID ) {
+                message =
+                    'The finding aid may have already been deleted by another ' +
+                    'user.';
+                title = 'Finding aid not found';
+            } else {
+                message =
+                    'The Github EAD file has been queued for deletion.' +
+                    ' The finding aid, public EAD file, and search data will' +
+                    ' be deleted after the Github change has been made.' +
+                    ' The full delete process should be completed in [X time].';
+                title = 'Deletion has been queued';
+            }
+
+            this.clearDelete();
 
             const that = this;
             this.$bvModal.msgBoxOk( message, {
                 centered : true,
-                title    : 'Deletion has been queued',
+                title    : title,
             } ).then(
                 function () {
                     that.refreshTableItemsFromStore();
