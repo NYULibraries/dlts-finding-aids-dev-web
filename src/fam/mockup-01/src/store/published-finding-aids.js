@@ -1559,6 +1559,10 @@ export default {
             'timestamp' : 1553196311,
             'title'     : 'Carl L. Withers Manuscript Collection RISM.MC.1',
         },
+        'fadesign_118_changed' : {
+            'timestamp' : 936868149,
+            'title'     : 'The Changing Finding Aid',
+        },
         'fadesign_118_deleted' : {
             'timestamp' : 936868149,
             'title'     : 'The Disappearing Finding Aid',
