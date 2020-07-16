@@ -284,6 +284,7 @@ export default {
     },
     data() {
         return {
+            blockDeletionOfFadesign118Changed : true,
             currentPage            : 1,
             fields                 : [
                 {
@@ -509,17 +510,29 @@ Some things to try:
             let message;
             let title;
 
-            if ( this.findingAidToDelete.id !== FADESIGN_118_CHANGING_FINDING_AID_ID ) {
+            if ( this.findingAidToDelete.id === FADESIGN_118_CHANGING_FINDING_AID_ID &&
+                 this.blockDeletionOfFadesign118Changed ) {
+                // Don't delete the trick finding aid.
+            } else {
                 this.deleteFindingAid(
                     {
                         id         : this.findingAidToDelete.id,
                         repository : this.findingAidToDelete.repositoryCode,
                     },
                 );
+
+                message =
+                    'The Github EAD file has been queued for deletion.' +
+                    ' The finding aid, public EAD file, and search data will' +
+                    ' be deleted after the Github change has been made.' +
+                    ' The full delete process should be completed in [X time].';
+                title = 'Deletion has been queued';
             }
 
-            switch ( this.findingAidToDelete.id ) {
-            case FADESIGN_118_CHANGING_FINDING_AID_ID:
+            if (
+                this.findingAidToDelete.id === FADESIGN_118_CHANGING_FINDING_AID_ID &&
+                this.blockDeletionOfFadesign118Changed
+            ) {
                 this.publishedFindingAids.archives[ FADESIGN_118_CHANGING_FINDING_AID_ID ].timestamp =
                     moment().subtract( 1, 'minutes' ).unix();
                 message =
@@ -531,20 +544,14 @@ Some things to try:
                     'It is recommended that you preview this updated EAD file ' +
                     'before attempting to delete this finding aid.';
                 title = 'Finding aid has changed';
-                break;
-            case FADESIGN_118_DISAPPEARING_FINDING_AID_ID:
+
+                // Allow the user to delete the finding aid after this initial attempt.
+                this.blockDeletionOfFadesign118Changed = false;
+            } else if ( this.findingAidToDelete.id === FADESIGN_118_DISAPPEARING_FINDING_AID_ID ) {
                 message =
                     'The finding aid may have already been deleted by another ' +
                     'user.';
                 title = 'Finding aid not found';
-                break;
-            default:
-                message =
-                    'The Github EAD file has been queued for deletion.' +
-                    ' The finding aid, public EAD file, and search data will' +
-                    ' be deleted after the Github change has been made.' +
-                    ' The full delete process should be completed in [X time].';
-                title = 'Deletion has been queued';
             }
 
             this.clearDelete();
