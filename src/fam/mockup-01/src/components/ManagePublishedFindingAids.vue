@@ -274,6 +274,9 @@ import moment from 'moment';
 
 import Navbar from './Navbar';
 
+const FADESIGN_118_DISAPPEARING_FINDING_AID_ID = 'fadesign_118_deleted';
+const FADESIGN_118_CHANGING_FINDING_AID_ID = 'fadesign_118_changed';
+
 export default {
     name       : 'ManagePublishedFindingAids',
     components : {
@@ -281,6 +284,7 @@ export default {
     },
     data() {
         return {
+            blockDeletionOfFadesign118Changed : true,
             currentPage            : 1,
             fields                 : [
                 {
@@ -313,7 +317,7 @@ export default {
                     key               : 'timestamp',
                     label             : 'Timestamp',
                     formatter         : ( timestamp ) => {
-                        return moment( timestamp * 1000 ).format( 'M/D/YYYY h:mm a' );
+                        return this.getFormattedTimestamp( timestamp );
                     },
                     sortable          : true,
                     sortDirection     : 'desc',
@@ -424,6 +428,10 @@ Some things to try:
     <li>Expand the Actions row for a finding aid and click the "View finding aid" button</li>
     <li>Expand the Actions row for a finding aid and click the "View EAD file" button</li>
     <li>Expand the Actions row for a finding aid and click the "Delete finding aid" button</li>
+    <li>Expand the Actions row for the finding aid with ID = "fadesign_118_changing" and click the "Delete finding aid" button.
+    After this initial deletion attempt is blocked, click the "Delete finding aid" button again.
+    </li>
+    <li>Expand the Actions row for the finding aid with ID = "fadesign_118_deleted" and click the "Delete finding aid" button</li>
 </ul>
 `,
                 title   : 'Manage Published Finding Aids screen',
@@ -454,6 +462,9 @@ Some things to try:
             }
 
             return true;
+        },
+        getFormattedTimestamp( timestamp ) {
+            return moment( timestamp * 1000 ).format( 'M/D/YYYY h:mm a' );
         },
         getItems() {
             const items = [];
@@ -500,25 +511,59 @@ Some things to try:
 
             this.$bvModal.hide( 'queuing-delete-modal' );
 
-            this.deleteFindingAid(
-                {
-                    id         : this.findingAidToDelete.id,
-                    repository : this.findingAidToDelete.repositoryCode,
-                },
-            );
+            let message;
+            let title;
+
+            if ( this.findingAidToDelete.id === FADESIGN_118_CHANGING_FINDING_AID_ID &&
+                 this.blockDeletionOfFadesign118Changed ) {
+                // Don't delete the trick finding aid.
+            } else {
+                this.deleteFindingAid(
+                    {
+                        id         : this.findingAidToDelete.id,
+                        repository : this.findingAidToDelete.repositoryCode,
+                    },
+                );
+
+                message =
+                    'The Github EAD file has been queued for deletion.' +
+                    ' The finding aid, public EAD file, and search data will' +
+                    ' be deleted after the Github change has been made.' +
+                    ' The full delete process should be completed in [X time].';
+                title = 'Deletion has been queued';
+            }
+
+            if (
+                this.findingAidToDelete.id === FADESIGN_118_CHANGING_FINDING_AID_ID &&
+                this.blockDeletionOfFadesign118Changed
+            ) {
+                this.publishedFindingAids.archives[ FADESIGN_118_CHANGING_FINDING_AID_ID ].timestamp =
+                    moment().subtract( 1, 'minutes' ).unix();
+                message =
+                    'The deletion of the finding aid has been canceled because the EAD file ' +
+                    'in the Github repo has been updated and has a new timestamp of ' +
+                    this.getFormattedTimestamp(
+                        this.publishedFindingAids.archives[ FADESIGN_118_CHANGING_FINDING_AID_ID ].timestamp,
+                    ) + '.  ' +
+                    'It is recommended that you preview this updated EAD file ' +
+                    'before attempting to delete this finding aid.';
+                title = 'Finding aid has changed';
+
+                // Allow the user to delete the finding aid after this initial attempt.
+                this.blockDeletionOfFadesign118Changed = false;
+            } else if ( this.findingAidToDelete.id === FADESIGN_118_DISAPPEARING_FINDING_AID_ID ) {
+                message =
+                    'The finding aid may have already been deleted by another ' +
+                    'user.';
+                title = 'Finding aid not found';
+            }
 
             this.clearDelete();
-
-            const message =
-                'The Github EAD file has been queued for deletion.' +
-                ' The finding aid, public EAD file, and search data will' +
-                ' be deleted after the Github change has been made.' +
-                ' The full delete process should be completed in [X time].';
 
             const that = this;
             this.$bvModal.msgBoxOk( message, {
                 centered : true,
-                title    : 'Deletion has been queued',
+                title    : title,
             } ).then(
                 function () {
                     that.refreshTableItemsFromStore();
