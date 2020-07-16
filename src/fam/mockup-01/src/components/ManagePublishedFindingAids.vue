@@ -285,8 +285,8 @@ export default {
     data() {
         return {
             blockDeletionOfFadesign118Changed : true,
-            currentPage            : 1,
-            fields                 : [
+            currentPage                       : 1,
+            fields                            : [
                 {
                     key   : 'actions',
                     label : '',
