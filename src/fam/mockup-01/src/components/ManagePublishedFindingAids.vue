@@ -275,6 +275,7 @@ import moment from 'moment';
 import Navbar from './Navbar';
 
 const FADESIGN_118_DISAPPEARING_FINDING_AID_ID = 'fadesign_118_deleted';
+const FADESIGN_118_CHANGING_FINDING_AID_ID = 'fadesign_118_changed';
 
 export default {
     name       : 'ManagePublishedFindingAids',
@@ -315,7 +316,7 @@ export default {
                     key               : 'timestamp',
                     label             : 'Timestamp',
                     formatter         : ( timestamp ) => {
-                        return moment( timestamp * 1000 ).format( 'M/D/YYYY h:mm a' );
+                        return this.getFormattedTimestamp( timestamp );
                     },
                     sortable          : true,
                     sortDirection     : 'desc',
@@ -457,6 +458,9 @@ Some things to try:
 
             return true;
         },
+        getFormattedTimestamp( timestamp ) {
+            return moment( timestamp * 1000 ).format( 'M/D/YYYY h:mm a' );
+        },
         getItems() {
             const items = [];
 
@@ -502,22 +506,39 @@ Some things to try:
 
             this.$bvModal.hide( 'queuing-delete-modal' );
 
-            this.deleteFindingAid(
-                {
-                    id         : this.findingAidToDelete.id,
-                    repository : this.findingAidToDelete.repositoryCode,
-                },
-            );
-
             let message;
             let title;
 
-            if ( this.findingAidToDelete.id === FADESIGN_118_DISAPPEARING_FINDING_AID_ID ) {
+            if ( this.findingAidToDelete.id !== FADESIGN_118_CHANGING_FINDING_AID_ID ) {
+                this.deleteFindingAid(
+                    {
+                        id         : this.findingAidToDelete.id,
+                        repository : this.findingAidToDelete.repositoryCode,
+                    },
+                );
+            }
+
+            switch ( this.findingAidToDelete.id ) {
+            case FADESIGN_118_CHANGING_FINDING_AID_ID:
+                this.publishedFindingAids.archives[ FADESIGN_118_CHANGING_FINDING_AID_ID ].timestamp =
+                    moment().subtract( 1, 'minutes' ).unix();
+                message =
+                    'The deletion of the finding aid has been canceled because the EAD file ' +
+                    'in the Github repo has been updated and has a new timestamp of ' +
+                    this.getFormattedTimestamp(
+                        this.publishedFindingAids.archives[ FADESIGN_118_CHANGING_FINDING_AID_ID ].timestamp,
+                    ) + '.  ' +
+                    'It is recommended that you preview this updated EAD file ' +
+                    'before attempting to delete this finding aid.';
+                title = 'Finding aid has changed';
+                break;
+            case FADESIGN_118_DISAPPEARING_FINDING_AID_ID:
                 message =
                     'The finding aid may have already been deleted by another ' +
                     'user.';
                 title = 'Finding aid not found';
-            } else {
+                break;
+            default:
                 message =
                     'The Github EAD file has been queued for deletion.' +
                     ' The finding aid, public EAD file, and search data will' +
