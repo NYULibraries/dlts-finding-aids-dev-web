@@ -429,8 +429,11 @@ Some things to try:
     <li>Expand the Actions row for a finding aid and click the "View EAD file" button</li>
     <li>Expand the Actions row for a finding aid and click the "Delete finding aid" button
     (do not choose a finding aid with an ID that starts with "fadesign_118_")</li>
-    <li>Expand the Actions row for the finding aid with ID = "fadesign_118_changing" and click the "Delete finding aid" button.
-    After this initial deletion attempt is blocked, click the "Delete finding aid" button again.
+    <li>Expand the Actions row for the finding aid with ID = "fadesign_118_changing",
+    note the timestamp, and then click the "Delete finding aid" button.
+    This initial deletion attempt will be blocked.  After dismissing pop-up that
+    explains why the deletion was blocked, not the new timestamp on the finding aid,
+    expand the Actions row, and click the "Delete finding aid" button again.
     </li>
     <li>Expand the Actions row for the finding aid with ID = "fadesign_118_deleted" and click the "Delete finding aid" button</li>
 </ul>
