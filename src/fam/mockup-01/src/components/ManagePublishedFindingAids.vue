@@ -544,14 +544,14 @@ Some things to try:
                 this.publishedFindingAids.archives[ FADESIGN_118_CHANGING_FINDING_AID_ID ].timestamp =
                     moment().subtract( 1, 'minutes' ).unix();
                 message =
-                    'The deletion of the finding aid has been canceled because the EAD file ' +
+                    'The deletion of the finding aid has been cancelled because the EAD file ' +
                     'in the Github repo has been updated and has a new timestamp of ' +
                     this.getFormattedTimestamp(
                         this.publishedFindingAids.archives[ FADESIGN_118_CHANGING_FINDING_AID_ID ].timestamp,
                     ) + '.  ' +
                     'It is recommended that you preview this updated EAD file ' +
                     'before attempting to delete this finding aid.';
-                title = 'Finding aid has changed';
+                title = 'Finding aid deletion cancelled';
 
                 // Allow the user to delete the finding aid after this initial attempt.
                 this.blockDeletionOfFadesign118Changed = false;
