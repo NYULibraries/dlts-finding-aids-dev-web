@@ -317,7 +317,7 @@ export default {
                     key               : 'timestamp',
                     label             : 'Timestamp',
                     formatter         : ( timestamp ) => {
-                        return this.getFormattedTimestamp( timestamp );
+                        return this.$getFormattedTimestamp( timestamp );
                     },
                     sortable          : true,
                     sortDirection     : 'desc',
@@ -467,9 +467,6 @@ Some things to try:
 
             return true;
         },
-        getFormattedTimestamp( timestamp ) {
-            return moment( timestamp * 1000 ).format( 'M/D/YYYY h:mm a' );
-        },
         getItems() {
             const items = [];
 
@@ -546,7 +543,7 @@ Some things to try:
                 message =
                     'The deletion of the finding aid has been cancelled because the EAD file ' +
                     'in the Github repo has been updated and has a new timestamp of ' +
-                    this.getFormattedTimestamp(
+                    this.$getFormattedTimestamp(
                         this.publishedFindingAids.archives[ FADESIGN_118_CHANGING_FINDING_AID_ID ].timestamp,
                     ) + '.  ' +
                     'It is recommended that you preview this updated EAD file ' +
