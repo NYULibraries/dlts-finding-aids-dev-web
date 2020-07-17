@@ -588,9 +588,7 @@ export default {
 
             this.$bvModal.hide( 'deletion-in-progress-modal' );
 
-            let message;
-            let title;
-
+            let message, title;
             if ( this.findingAidToDelete.id === FADESIGN_116_CHANGING_FINDING_AID_ID &&
                  this.blockDeletionOrPublicationOfFadesign116Changed ) {
                 // Don't delete the trick finding aid.
