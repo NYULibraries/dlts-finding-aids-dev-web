@@ -512,9 +512,7 @@ Some things to try:
 
             this.$bvModal.hide( 'queuing-delete-modal' );
 
-            let message;
-            let title;
-
+            let message, title;
             if ( this.findingAidToDelete.id === FADESIGN_118_CHANGING_FINDING_AID_ID &&
                  this.blockDeletionOfFadesign118Changed ) {
                 // Don't delete the trick finding aid.
