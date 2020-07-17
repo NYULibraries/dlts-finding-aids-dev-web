@@ -27,6 +27,22 @@ export default {
             'timestamp' : 1584539268,
             'title'     : 'New York University Archives Photograph Collection PHOTO.00001',
         },
+        'fadesign_116_changed' : {
+            'timestamp' : 936882549,
+            'title'     : 'The Changing In-Process Finding Aid',
+        },
+        'fadesign_116_deleted' : {
+            'timestamp' : 936882549,
+            'title'     : 'The Disappearing In-Process Finding Aid',
+        },
+        'fadesign_117_changed' : {
+            'timestamp' : 936882549,
+            'title'     : 'The Changing In-Process Finding Aid II',
+        },
+        'fadesign_117_deleted' : {
+            'timestamp' : 936882549,
+            'title'     : 'The Disappearing In-Process Finding Aid II',
+        },
     },
     'bhs' : {
         '1974.002' : {

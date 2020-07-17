@@ -389,6 +389,11 @@ import moment from 'moment';
 
 import Navbar from './Navbar';
 
+const FADESIGN_116_CHANGING_FINDING_AID_ID = 'fadesign_116_changed';
+const FADESIGN_116_DISAPPEARING_FINDING_AID_ID = 'fadesign_116_deleted';
+const FADESIGN_117_CHANGING_FINDING_AID_ID = 'fadesign_117_changed';
+const FADESIGN_117_DISAPPEARING_FINDING_AID_ID = 'fadesign_117_deleted';
+
 export default {
     name       : 'ManageInProcessFindingAids',
     components : {
@@ -396,7 +401,9 @@ export default {
     },
     data() {
         return {
-            fields : [
+            blockDeletionOrPublicationOfFadesign116Changed : true,
+            blockDeletionOrPublicationOfFadesign117Changed : true,
+            fields                                         : [
                 {
                     key   : 'actions',
                     label : '',
@@ -427,7 +434,7 @@ export default {
                     key               : 'timestamp',
                     label             : 'Timestamp',
                     formatter         : ( timestamp ) => {
-                        return moment( timestamp * 1000 ).format( 'M/D/YYYY h:mm a' );
+                        return this.$getFormattedTimestamp( timestamp );
                     },
                     sortable          : true,
                     sortDirection     : 'desc',
@@ -533,8 +540,24 @@ export default {
     <li>Expand the Actions row for one or more finding aids rows</li>
     <li>Expand the Actions row for a finding aid and click the "View finding aid preview" button</li>
     <li>Expand the Actions row for a finding aid and click the "View EAD file preview" button</li>
-    <li>Expand the Actions row for a finding aid and click the "Publish finding aid" button</li>
-    <li>Expand the Actions row for a finding aid and click the "Delete in-process finding aid" button</li>
+    <li>Expand the Actions row for a finding aid and click the "Publish finding aid" button
+    (do not choose a finding aid with an ID that starts with "fadesign_116_" or "fadesign_117_")</li>
+    <li>Expand the Actions row for a finding aid and click the "Delete in-process finding aid" button
+    (do not choose a finding aid with an ID that starts with "fadesign_116_" or "fadesign_117_")</li>
+    <li>Expand the Actions row for the finding aid with ID = "fadesign_116_changing",
+    note the timestamp, and then click the "Delete finding aid" button.
+    This initial deletion attempt will be blocked.  After dismissing the pop-up that
+    explains why the deletion was blocked, note the new timestamp on the finding aid,
+    expand the Actions row, and click the "Delete finding aid" button again.
+    </li>
+    <li>Expand the Actions row for the finding aid with ID = "fadesign_116_deleted" and click the "Delete finding aid" button</li>
+    <li>Expand the Actions row for the finding aid with ID = "fadesign_117_changing",
+    note the timestamp, and then click the "Publish finding aid" button.
+    This initial publication attempt will be blocked.  After dismissing the pop-up that
+    explains why the publication was blocked, note the new timestamp on the finding aid,
+    expand the Actions row, and click the "Publish finding aid" button again.
+    </li>
+    <li>Expand the Actions row for the finding aid with ID = "fadesign_117_deleted" and click the "Publish finding aid" button</li>
 </ul>
 `,
                 title   : 'Manage In-Process Finding Aids screen',
@@ -584,22 +607,54 @@ export default {
 
             this.$bvModal.hide( 'deletion-in-progress-modal' );
 
-            this.deleteInProcessFindingAid(
-                {
-                    id         : this.findingAidToDelete.id,
-                    repository : this.findingAidToDelete.repositoryCode,
-                },
-            );
+            let message, title;
+            if ( this.findingAidToDelete.id === FADESIGN_116_CHANGING_FINDING_AID_ID &&
+                 this.blockDeletionOrPublicationOfFadesign116Changed ) {
+                // Don't delete the trick finding aid.
+            } else {
+                this.deleteInProcessFindingAid(
+                    {
+                        id         : this.findingAidToDelete.id,
+                        repository : this.findingAidToDelete.repositoryCode,
+                    },
+                );
+
+                message = 'The in-process finding aid has been deleted.';
+                title = 'Deletion completed';
+            }
+
+            if (
+                this.findingAidToDelete.id === FADESIGN_116_CHANGING_FINDING_AID_ID &&
+                this.blockDeletionOrPublicationOfFadesign116Changed
+            ) {
+                this.inProcessFindingAids.archives[ FADESIGN_116_CHANGING_FINDING_AID_ID ].timestamp =
+                    moment().subtract( 1, 'minutes' ).unix();
+                message =
+                    'The deletion of the in-process finding aid has been cancelled ' +
+                    'because the EAD file on the server has been updated and ' +
+                    'has a new timestamp of ' +
+                    this.$getFormattedTimestamp(
+                        this.inProcessFindingAids.archives[ FADESIGN_116_CHANGING_FINDING_AID_ID ].timestamp,
+                    ) + '.  ' +
+                    'It is recommended that you preview this updated in-process EAD file ' +
+                    'before deleting it.';
+                title = 'In-process finding aid deletion cancelled';
+
+                // Allow the user to delete the finding aid after this initial attempt.
+                this.blockDeletionOrPublicationOfFadesign116Changed = false;
+            } else if ( this.findingAidToDelete.id === FADESIGN_116_DISAPPEARING_FINDING_AID_ID ) {
+                message =
+                    'The in-process finding aid may have already been deleted by another ' +
+                    'user.';
+                title = 'In-process finding aid not found';
+            }
 
             this.clearDeleteInProcess();
-
-            const message =
-                'The in-process finding aid has been deleted.';
 
             const that = this;
             this.$bvModal.msgBoxOk( message, {
                 centered : true,
-                title    : 'Deletion completed',
+                title    : title,
             } ).then(
                 function () {
                     that.refreshTableItems();
@@ -670,6 +725,66 @@ export default {
 
             this.$bvModal.hide( 'queuing-publish-modal' );
 
+            let abortPublication, message, title;
+            if ( this.findingAidToPublish.id === FADESIGN_117_CHANGING_FINDING_AID_ID ) {
+                if ( this.blockDeletionOrPublicationOfFadesign117Changed  ) {
+                    // Don't allow this initial attempt to publish the changed finding aid.
+
+                    // Update the timestamp to simulate another user updating the finding
+                    // aid one minute ago.
+                    this.inProcessFindingAids.archives[ FADESIGN_117_CHANGING_FINDING_AID_ID ].timestamp =
+                        moment().subtract( 1, 'minutes' ).unix();
+
+                    // Allow the user to delete the finding aid after this initial attempt.
+                    this.blockDeletionOrPublicationOfFadesign117Changed = false;
+
+                    message =
+                        'The publication of the in-process finding aid has been cancelled ' +
+                        'because the EAD file on the server has been updated and ' +
+                        'has a new timestamp of ' +
+                        this.$getFormattedTimestamp(
+                            this.inProcessFindingAids.archives[ FADESIGN_117_CHANGING_FINDING_AID_ID ].timestamp,
+                        ) + '.  ' +
+                        'It is recommended that you preview this updated in-process EAD file ' +
+                        'before publishing it.';
+                    title = 'Finding aid publication cancelled';
+
+                    abortPublication = true;
+                } else {
+                    // Allow user to publish after block has been cleared.
+                }
+            } else if ( this.findingAidToPublish.id === FADESIGN_117_DISAPPEARING_FINDING_AID_ID ) {
+                message = 'The in-process finding aid may have been deleted or published by another user.';
+                title = 'In-process finding aid not found';
+
+                this.deleteInProcessFindingAid(
+                    {
+                        id         : this.findingAidToPublish.id,
+                        repository : this.findingAidToPublish.repositoryCode,
+                    },
+                );
+
+                abortPublication = true;
+            } else {
+                // Do nothing.
+            }
+
+            if ( abortPublication ) {
+                const that = this;
+                this.$bvModal.msgBoxOk( message, {
+                    centered : true,
+                    title    : title,
+                } ).then(
+                    function () {
+                        that.refreshTableItems();
+
+                        that.$refs.table.refresh();
+                    },
+                );
+
+                return;
+            }
+
             this.publishInProcessFindingAid(
                 {
                     timestamp   : Math.round( ( new Date() ).getTime() / 1000 ),
@@ -685,6 +800,8 @@ export default {
                     repository : this.findingAidToPublish.repositoryCode,
                 },
             );
+
+            this.clearPublishInProcess();
 
             this.$bvModal.show( 'publication-has-been-queued-modal' );
         },
