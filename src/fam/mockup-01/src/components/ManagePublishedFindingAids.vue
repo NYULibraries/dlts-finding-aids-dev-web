@@ -432,7 +432,7 @@ Some things to try:
     <li>Expand the Actions row for the finding aid with ID = "fadesign_118_changing",
     note the timestamp, and then click the "Delete finding aid" button.
     This initial deletion attempt will be blocked.  After dismissing pop-up that
-    explains why the deletion was blocked, not the new timestamp on the finding aid,
+    explains why the deletion was blocked, note the new timestamp on the finding aid,
     expand the Actions row, and click the "Delete finding aid" button again.
     </li>
     <li>Expand the Actions row for the finding aid with ID = "fadesign_118_deleted" and click the "Delete finding aid" button</li>
