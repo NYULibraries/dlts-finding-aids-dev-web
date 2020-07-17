@@ -389,6 +389,9 @@ import moment from 'moment';
 
 import Navbar from './Navbar';
 
+const FADESIGN_116_CHANGING_FINDING_AID_ID = 'fadesign_116_changed';
+const FADESIGN_116_DISAPPEARING_FINDING_AID_ID = 'fadesign_116_deleted';
+
 export default {
     name       : 'ManageInProcessFindingAids',
     components : {
@@ -396,7 +399,8 @@ export default {
     },
     data() {
         return {
-            fields : [
+            blockDeletionOrPublicationOfFadesign116Changed : true,
+            fields                                         : [
                 {
                     key   : 'actions',
                     label : '',
@@ -427,7 +431,7 @@ export default {
                     key               : 'timestamp',
                     label             : 'Timestamp',
                     formatter         : ( timestamp ) => {
-                        return moment( timestamp * 1000 ).format( 'M/D/YYYY h:mm a' );
+                        return this.$getFormattedTimestamp( timestamp );
                     },
                     sortable          : true,
                     sortDirection     : 'desc',
@@ -584,22 +588,56 @@ export default {
 
             this.$bvModal.hide( 'deletion-in-progress-modal' );
 
-            this.deleteInProcessFindingAid(
-                {
-                    id         : this.findingAidToDelete.id,
-                    repository : this.findingAidToDelete.repositoryCode,
-                },
-            );
+            let message;
+            let title;
+
+            if ( this.findingAidToDelete.id === FADESIGN_116_CHANGING_FINDING_AID_ID &&
+                 this.blockDeletionOrPublicationOfFadesign116Changed ) {
+                // Don't delete the trick finding aid.
+            } else {
+                this.deleteInProcessFindingAid(
+                    {
+                        id         : this.findingAidToDelete.id,
+                        repository : this.findingAidToDelete.repositoryCode,
+                    },
+                );
+
+                message = 'The in-process finding aid has been deleted.';
+                title = 'Deletion completed';
+            }
+
+            if (
+                this.findingAidToDelete.id === FADESIGN_116_CHANGING_FINDING_AID_ID &&
+                this.blockDeletionOrPublicationOfFadesign116Changed
+            ) {
+                this.inProcessFindingAids.archives[ FADESIGN_116_CHANGING_FINDING_AID_ID ].timestamp =
+                    moment().subtract( 1, 'minutes' ).unix();
+                message =
+                    'The deletion of the in-process finding aid has been cancelled ' +
+                    'because the EAD file on the server has been updated and ' +
+                    'has a new timestamp of ' +
+                    this.$getFormattedTimestamp(
+                        this.inProcessFindingAids.archives[ FADESIGN_116_CHANGING_FINDING_AID_ID ].timestamp,
+                    ) + '.  ' +
+                    'It is recommended that you preview this updated in-process EAD file ' +
+                    'before deleting it.';
+                title = 'In-process finding aid deletion cancelled';
+
+                // Allow the user to delete the finding aid after this initial attempt.
+                this.blockDeletionOrPublicationOfFadesign116Changed = false;
+            } else if ( this.findingAidToDelete.id === FADESIGN_116_DISAPPEARING_FINDING_AID_ID ) {
+                message =
+                    'The in-process finding aid may have already been deleted by another ' +
+                    'user.';
+                title = 'In-process finding aid not found';
+            }
 
             this.clearDeleteInProcess();
-
-            const message =
-                'The in-process finding aid has been deleted.';
 
             const that = this;
             this.$bvModal.msgBoxOk( message, {
                 centered : true,
-                title    : 'Deletion completed',
+                title    : title,
             } ).then(
                 function () {
                     that.refreshTableItems();
