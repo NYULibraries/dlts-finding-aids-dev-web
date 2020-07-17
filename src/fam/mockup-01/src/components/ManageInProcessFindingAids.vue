@@ -706,6 +706,66 @@ export default {
 
             this.$bvModal.hide( 'queuing-publish-modal' );
 
+            let abortPublication, message, title;
+            if ( this.findingAidToPublish.id === FADESIGN_116_CHANGING_FINDING_AID_ID ) {
+                if ( this.blockDeletionOrPublicationOfFadesign116Changed  ) {
+                    // Don't allow this initial attempt to publish the changed finding aid.
+
+                    // Update the timestamp to simulate another user updating the finding
+                    // aid one minute ago.
+                    this.inProcessFindingAids.archives[ FADESIGN_116_CHANGING_FINDING_AID_ID ].timestamp =
+                        moment().subtract( 1, 'minutes' ).unix();
+
+                    // Allow the user to delete the finding aid after this initial attempt.
+                    this.blockDeletionOrPublicationOfFadesign116Changed = false;
+
+                    message =
+                        'The publication of the in-process finding aid has been cancelled ' +
+                        'because the EAD file on the server has been updated and ' +
+                        'has a new timestamp of ' +
+                        this.$getFormattedTimestamp(
+                            this.inProcessFindingAids.archives[ FADESIGN_116_CHANGING_FINDING_AID_ID ].timestamp,
+                        ) + '.  ' +
+                        'It is recommended that you preview this updated in-process EAD file ' +
+                        'before publishing it.';
+                    title = 'Finding aid publication cancelled';
+
+                    abortPublication = true;
+                } else {
+                    // Allow user to publish after block has been cleared.
+                }
+            } else if ( this.findingAidToPublish.id === FADESIGN_116_DISAPPEARING_FINDING_AID_ID ) {
+                message = 'The in-process finding aid may have been deleted or published by another user.';
+                title = 'In-process finding aid not found';
+
+                this.deleteInProcessFindingAid(
+                    {
+                        id         : this.findingAidToPublish.id,
+                        repository : this.findingAidToPublish.repositoryCode,
+                    },
+                );
+
+                abortPublication = true;
+            } else {
+                // Do nothing.
+            }
+
+            if ( abortPublication ) {
+                const that = this;
+                this.$bvModal.msgBoxOk( message, {
+                    centered : true,
+                    title    : title,
+                } ).then(
+                    function () {
+                        that.refreshTableItems();
+
+                        that.$refs.table.refresh();
+                    },
+                );
+
+                return;
+            }
+
             this.publishInProcessFindingAid(
                 {
                     timestamp   : Math.round( ( new Date() ).getTime() / 1000 ),
