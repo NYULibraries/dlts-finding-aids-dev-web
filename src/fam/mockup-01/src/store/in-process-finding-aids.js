@@ -35,6 +35,14 @@ export default {
             'timestamp' : 936882549,
             'title'     : 'The Disappearing In-Process Finding Aid',
         },
+        'fadesign_117_changed' : {
+            'timestamp' : 936882549,
+            'title'     : 'The Changing In-Process Finding Aid II',
+        },
+        'fadesign_117_deleted' : {
+            'timestamp' : 936882549,
+            'title'     : 'The Disappearing In-Process Finding Aid II',
+        },
     },
     'bhs' : {
         '1974.002' : {
