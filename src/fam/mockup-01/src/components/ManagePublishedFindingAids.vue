@@ -274,8 +274,8 @@ import moment from 'moment';
 
 import Navbar from './Navbar';
 
-const FADESIGN_118_DISAPPEARING_FINDING_AID_ID = 'fadesign_118_deleted';
 const FADESIGN_118_CHANGING_FINDING_AID_ID = 'fadesign_118_changed';
+const FADESIGN_118_DISAPPEARING_FINDING_AID_ID = 'fadesign_118_deleted';
 
 export default {
     name       : 'ManagePublishedFindingAids',
