@@ -722,6 +722,8 @@ export default {
                 },
             );
 
+            this.clearPublishInProcess();
+
             this.$bvModal.show( 'publication-has-been-queued-modal' );
         },
         refreshTableItems() {
