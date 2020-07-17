@@ -274,8 +274,8 @@ import moment from 'moment';
 
 import Navbar from './Navbar';
 
-const FADESIGN_118_DISAPPEARING_FINDING_AID_ID = 'fadesign_118_deleted';
 const FADESIGN_118_CHANGING_FINDING_AID_ID = 'fadesign_118_changed';
+const FADESIGN_118_DISAPPEARING_FINDING_AID_ID = 'fadesign_118_deleted';
 
 export default {
     name       : 'ManagePublishedFindingAids',
@@ -317,7 +317,7 @@ export default {
                     key               : 'timestamp',
                     label             : 'Timestamp',
                     formatter         : ( timestamp ) => {
-                        return this.getFormattedTimestamp( timestamp );
+                        return this.$getFormattedTimestamp( timestamp );
                     },
                     sortable          : true,
                     sortDirection     : 'desc',
@@ -431,8 +431,8 @@ Some things to try:
     (do not choose a finding aid with an ID that starts with "fadesign_118_")</li>
     <li>Expand the Actions row for the finding aid with ID = "fadesign_118_changing",
     note the timestamp, and then click the "Delete finding aid" button.
-    This initial deletion attempt will be blocked.  After dismissing pop-up that
-    explains why the deletion was blocked, not the new timestamp on the finding aid,
+    This initial deletion attempt will be blocked.  After dismissing the pop-up that
+    explains why the deletion was blocked, note the new timestamp on the finding aid,
     expand the Actions row, and click the "Delete finding aid" button again.
     </li>
     <li>Expand the Actions row for the finding aid with ID = "fadesign_118_deleted" and click the "Delete finding aid" button</li>
@@ -466,9 +466,6 @@ Some things to try:
             }
 
             return true;
-        },
-        getFormattedTimestamp( timestamp ) {
-            return moment( timestamp * 1000 ).format( 'M/D/YYYY h:mm a' );
         },
         getItems() {
             const items = [];
@@ -515,9 +512,7 @@ Some things to try:
 
             this.$bvModal.hide( 'queuing-delete-modal' );
 
-            let message;
-            let title;
-
+            let message, title;
             if ( this.findingAidToDelete.id === FADESIGN_118_CHANGING_FINDING_AID_ID &&
                  this.blockDeletionOfFadesign118Changed ) {
                 // Don't delete the trick finding aid.
@@ -546,7 +541,7 @@ Some things to try:
                 message =
                     'The deletion of the finding aid has been cancelled because the EAD file ' +
                     'in the Github repo has been updated and has a new timestamp of ' +
-                    this.getFormattedTimestamp(
+                    this.$getFormattedTimestamp(
                         this.publishedFindingAids.archives[ FADESIGN_118_CHANGING_FINDING_AID_ID ].timestamp,
                     ) + '.  ' +
                     'It is recommended that you preview this updated EAD file ' +

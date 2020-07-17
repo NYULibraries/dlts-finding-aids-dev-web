@@ -1,3 +1,9 @@
+import moment from 'moment';
+
+function getFormattedTimestamp( timestamp ) {
+    return moment( timestamp * 1000 ).format( 'M/D/YYYY h:mm a' );
+};
+
 async function readFileAsTextSync( file ) {
     const text = await new Promise( ( resolve ) => {
         const fileReader = new FileReader();
@@ -14,6 +20,7 @@ function sleep( milliseconds ) {
 
 export default {
     install( Vue, options ) {
+        Vue.prototype.$getFormattedTimestamp = getFormattedTimestamp;
         Vue.prototype.$readFileAsTextSync = readFileAsTextSync;
         Vue.prototype.$sleep = sleep;
     },
