@@ -537,8 +537,24 @@ export default {
     <li>Expand the Actions row for one or more finding aids rows</li>
     <li>Expand the Actions row for a finding aid and click the "View finding aid preview" button</li>
     <li>Expand the Actions row for a finding aid and click the "View EAD file preview" button</li>
-    <li>Expand the Actions row for a finding aid and click the "Publish finding aid" button</li>
-    <li>Expand the Actions row for a finding aid and click the "Delete in-process finding aid" button</li>
+    <li>Expand the Actions row for a finding aid and click the "Publish finding aid" button
+    (do not choose a finding aid with an ID that starts with "fadesign_116_")</li>
+    <li>Expand the Actions row for a finding aid and click the "Delete in-process finding aid" button
+    (do not choose a finding aid with an ID that starts with "fadesign_116_")</li>
+    <li>Expand the Actions row for the finding aid with ID = "fadesign_116_changing",
+    note the timestamp, and then click the "Delete finding aid" button.
+    This initial deletion attempt will be blocked.  After dismissing the pop-up that
+    explains why the deletion was blocked, note the new timestamp on the finding aid,
+    expand the Actions row, and click the "Delete finding aid" button again.
+    </li>
+    <li>Expand the Actions row for the finding aid with ID = "fadesign_116_changing",
+    note the timestamp, and then click the "Publish finding aid" button.
+    This initial publication attempt will be blocked.  After dismissing the pop-up that
+    explains why the publication was blocked, note the new timestamp on the finding aid,
+    expand the Actions row, and click the "Publish finding aid" button again.
+    </li>
+    <li>Expand the Actions row for the finding aid with ID = "fadesign_116_deleted" and click the "Publish finding aid" button</li>
+    <li>Expand the Actions row for the finding aid with ID = "fadesign_116_deleted" and click the "Delete finding aid" button</li>
 </ul>
 `,
                 title   : 'Manage In-Process Finding Aids screen',
