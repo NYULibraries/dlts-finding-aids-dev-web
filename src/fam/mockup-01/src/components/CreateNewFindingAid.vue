@@ -166,32 +166,49 @@ export default {
 
         this.setHelpModal(
             {
-                content : `This mockup will accept uploads of EAD files with this
-(obviously fake) structure:
+                content : `
+This interactive mockup does some basic validation of the EAD file to
+provide a feel for the sort of verifications we can have the FAM perform before
+attempting to create a preview finding aid.
+<br />
+If any of the elements listed below are missing, or are present but empty,
+the EAD file will not be accepted.
 
 <br>
 <br>
 
-<code>
-&lt;ead&gt;<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&lt;eadid&gt;abc_123_def456&lt;/eadid&gt;<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&lt;title&gt;New finding aid&lt;/title&gt;<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&lt;repository&gt;New York University Archives&lt;/repository&gt;<br />
-&lt;/ead&gt;
-</code>
-
-<br>
-<br>
-
-The elements used in this fake schema are the bare minimum needed for the EAD file to be
-"uploaded" in this interactive mockup for inclusion in the <strong>In-process FAs</strong> table.
-
-<br>
-<br>
-
-This mockup does some basic validation of these (mostly fake) elements to provide
-a feel for the sort of verifications we can have the FAM perform before attempting
-to create a preview finding aid.
+<ul>
+    <li>eadid:<br />
+        <code>
+            &lt;ead&gt;[EADID]&lt;/eadid&gt;
+        </code>
+    </li>
+    <li>repository:<br />
+        <code>
+            &lt;repository&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;corpname&gt;[REPOSITORY LONG NAME]&lt;/corpname&gt;<br />
+            &lt;/repository&gt;
+        </code>
+    </li>
+    <li>unitid:<br />
+        <code>
+            &lt;archdesc&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;did&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;unitid&gt;[UNITID]&lt;/unitid&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/did&gt;<br />
+            &lt;/archdesc&gt;
+        </code>
+    </li>
+    <li>unittitle:<br />
+        <code>
+            &lt;archdesc&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;did&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;unittitle&gt;[UNITTITLE]&lt;/unittitle&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/did&gt;<br />
+            &lt;/archdesc&gt;
+        </code>
+    </li>
+</ul>
 
 <br>
 <br>
@@ -204,8 +221,9 @@ Some things to try:
 <ul>
     <li>Upload a file with valid content using a filename ending in .xml</li>
     <li>Upload a file with valid content using a filename that does not end in .xml</li>
-    <li>Upload a file with that is missing one or more of the elements shown in the example above</li>
-    <li>Upload a file with one or more elements with empty values</li>
+    <li>Upload a file with that is missing one or more of the required elements listed above
+    </li>
+    <li>Upload a file with one or more elements with empty values in one or more of the required elements listed above</li>
     <li>
 
         Upload a file with an &lt;eadid&gt; that does not conform to the
@@ -216,12 +234,12 @@ Some things to try:
         </a>
     </li>
     <li>
-        Upload a file with a &lt;repository&gt; long name for a repository that
+        Upload a file with a &lt;repository&gt/&lt;corpname&gt; long name for a repository that
         the current user is not authorized for in the FAM (note that user
         weatherly@nyu.edu is authorized to manage all repositories)
     </li>
     <li>
-        Upload a file with a &lt;repository&gt; value that is not a recognized.
+        Upload a file with a &lt;repository&gt/&lt;corpname&gt; value that is not a recognized.
         These are the currently recognized repository long names
         (note that you must use the "&ampamp;" entity reference to include an "&"
          character in XML text):
@@ -236,11 +254,24 @@ Some things to try:
         Example:
         <br />
         <code>
+&lt;ead...&gt;<br/ >
+<br/ >
+...<br />
+<br/ >
+&nbsp;&nbsp;&lt;did&gt;<br/ >
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;repository&gt;<br/ >
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;corpname&gt;New York University Archives&lt;/corpname&gt;<br/ >
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/repository&gt;<br/ >
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;unittitle&gt;John "The Cop" Quigley Collection&lt;/unittitle&gt;<br/ >
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;origination <strong>audience="internal"</strong> label="Creator"&gt;<br/ >
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;persname source="local"&gt;Oscar Rose, Secretary of the Committee on Publication; member of the NYU Arts and Engineering Alumni Association&lt;/persname&gt;<br/ >
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/origination&gt;<br/ >
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;unitid&gt;MC.100&lt;/unitid&gt;<br/ >
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;unitid <strong>audience="internal"</strong> identifier="248" type="Archivists Toolkit Database::RESOURCE"&gt;248&lt;/unitid&gt;<br/ >
+<br/ >
+...<br/ >
+<br/ >
 &lt;ead&gt;<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&lt;eadid audience="internal"&gt;abc_123_def456&lt;/eadid&gt;<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&lt;title audience="internal" identifier="248" type="Archivists Toolkit Database::RESOURCE"&gt248&lt;/title&gt;<br />
-&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&lt;repository&gt;New York University Archives&lt;/repository&gt;<br />
-&lt;/ead&gt;
         </code>
 
     </li>
