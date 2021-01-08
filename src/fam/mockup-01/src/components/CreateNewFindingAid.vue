@@ -249,7 +249,7 @@ Some things to try:
     </li>
     <li>Click the Cancel button after an upload has completed, but before submitting using the Submit button</li>
     <li>
-        Upload a valid EAD file containing one or more elements with attribute <code>audience="internal</code>.
+        Upload a valid EAD file containing one or more elements with attribute <code>audience="internal"</code>.
         <br />
         Example:
         <br />
