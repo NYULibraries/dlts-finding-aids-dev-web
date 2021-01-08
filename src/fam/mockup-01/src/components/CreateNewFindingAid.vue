@@ -267,22 +267,6 @@ Some things to try:
             this.formFileState = true;
             this.submitDisabled = true;
         },
-        getEADElementValue( eadDoc, elementName ) {
-            const element = eadDoc.getElementsByTagName( elementName )[ 0 ];
-
-            let elementValue;
-            if ( element ) {
-                elementValue = element.textContent.trim();
-
-                if ( ! elementValue ) {
-                    throw new Error( `Required element <${ elementName }> is empty.` );
-                }
-
-                return elementValue;
-            } else {
-                throw new Error( `Required element <${ elementName }> not found.` );
-            }
-        },
         getErrorHeader( headerText ) {
             const label = 'Error: ';
             const dashes = '-'.repeat( headerText.length + label.length );
@@ -316,15 +300,15 @@ Some things to try:
         getRequiredEADElements( eadDoc, requiredEADElements ) {
             let result = true;
 
-            requiredEADElements.forEach( elementName => {
+            for ( const [ elementName, getter ] of Object.entries( requiredEADElements ) ) {
                 try {
-                    this.uploadedFindingAid[ elementName ] = this.getEADElementValue( eadDoc, elementName );
+                    this.uploadedFindingAid[ elementName ] = getter( eadDoc );
                 } catch( e ) {
                     result = false;
 
-                    this.results += `\n${ e }\n`;
+                    this.results += `\n${ e.message }\n`;
                 }
-            } );
+            }
 
             return result;
         },
@@ -344,8 +328,88 @@ Some things to try:
             }
 
             // This will fill this.uploadedFindingAid
-            if ( ! this.getRequiredEADElements( eadDoc, [ 'eadid', 'repository', 'title' ],
-            ) ) {
+            const requiredEADElementsGetters = {
+                eadid : function ( eadDoc ) {
+                    const elementName = '<eadid>';
+                    const element = eadDoc.getElementsByTagName( 'eadid' )[ 0 ];
+
+                    let elementValue;
+                    if ( element ) {
+                        elementValue = element.textContent.trim();
+
+                        if ( ! elementValue ) {
+                            throw new Error( `ERROR: Required element ${ elementName } is empty.` );
+                        }
+
+                        return elementValue;
+                    } else {
+                        throw new Error( `ERROR: Required element ${ elementName } not found.` );
+                    }
+                },
+                repository : function ( eadDoc ) {
+                    const elementName = '<repository>/<corpname>';
+                    let element;
+                    let elementValue;
+                    try {
+                        element = eadDoc.getElementsByTagName( 'repository' )[ 0 ]
+                            .getElementsByTagName( 'corpname' )[ 0 ];
+
+                        elementValue = element.textContent.trim();
+                    } catch( e ) {
+                        throw new Error( `ERROR: Required element ${ elementName } not found.` );
+                    }
+
+                    if ( ! elementValue ) {
+                        throw new Error( `ERROR: Required element ${ elementName } is empty.` );
+                    }
+
+                    return elementValue;
+                },
+                title : function ( eadDoc ) {
+                    const errors = [];
+
+                    const unitTitleElementName = '<archdesc>/<did>/<unittitle>';
+                    let unitTitleElement;
+                    let unitTitleElementValue;
+                    try {
+                        unitTitleElement = eadDoc.getElementsByTagName( 'archdesc' )[ 0 ]
+                            .getElementsByTagName( 'did' )[ 0 ]
+                            .getElementsByTagName( 'unittitle' )[ 0 ];
+
+                        unitTitleElementValue = unitTitleElement.textContent.trim();
+
+                        if ( ! unitTitleElementValue ) {
+                            errors.push( `ERROR: Required element ${ unitTitleElementName } is empty.` );
+                        }
+                    } catch( e ) {
+                        errors.push( `ERROR: Required element ${ unitTitleElementName } not found.` );
+                    }
+
+                    const unitIdElementName = '<archdesc>/<did>/<unitid>';
+                    let unitIdElement;
+                    let unitIdElementValue;
+                    try {
+                        unitIdElement = eadDoc.getElementsByTagName( 'archdesc' )[ 0 ]
+                            .getElementsByTagName( 'did' )[ 0 ]
+                            .getElementsByTagName( 'unitid' )[ 0 ];
+
+                        unitIdElementValue = unitIdElement.textContent.trim();
+
+                        if ( ! unitIdElementValue ) {
+                            errors.push( `ERROR: Required element ${ unitIdElementName } is empty.` );
+                        }
+                    } catch( e ) {
+                        errors.push( `ERROR: Required element ${ unitIdElementName } not found.` );
+                    }
+
+                    if ( errors.length > 0 ) {
+                        throw new Error( errors.join( '\n\n' ) );
+                    }
+
+                    return unitTitleElementValue + ' ' + unitIdElementValue;
+                },
+            };
+            if ( ! this.getRequiredEADElements( eadDoc, requiredEADElementsGetters ) ) {
                 abort = true;
             }
 
