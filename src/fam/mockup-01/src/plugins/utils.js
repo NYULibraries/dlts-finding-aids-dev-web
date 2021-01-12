@@ -2,7 +2,7 @@ import moment from 'moment';
 
 function getFormattedTimestamp( timestamp ) {
     return moment( timestamp * 1000 ).format( 'M/D/YYYY h:mm a' );
-};
+}
 
 async function readFileAsTextSync( file ) {
     const text = await new Promise( ( resolve ) => {
