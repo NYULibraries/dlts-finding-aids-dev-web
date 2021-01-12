@@ -89,6 +89,277 @@ import { mapActions, mapGetters } from 'vuex';
 
 import Navbar from './Navbar';
 
+const validRelatorCodes = [
+    'abr',
+    'acp',
+    'act',
+    'adi',
+    'adp',
+    'aft',
+    'anl',
+    'anm',
+    'ann',
+    'ant',
+    'ape',
+    'apl',
+    'app',
+    'aqt',
+    'arc',
+    'ard',
+    'arr',
+    'art',
+    'asg',
+    'asn',
+    'ato',
+    'att',
+    'auc',
+    'aud',
+    'aui',
+    'aus',
+    'aut',
+    'bdd',
+    'bjd',
+    'bkd',
+    'bkp',
+    'blw',
+    'bnd',
+    'bpd',
+    'brd',
+    'brl',
+    'bsl',
+    'cas',
+    'ccp',
+    'chr',
+    'cli',
+    'cll',
+    'clr',
+    'clt',
+    'cmm',
+    'cmp',
+    'cmt',
+    'cnd',
+    'cng',
+    'cns',
+    'coe',
+    'col',
+    'com',
+    'con',
+    'cor',
+    'cos',
+    'cot',
+    'cou',
+    'cov',
+    'cpc',
+    'cpe',
+    'cph',
+    'cpl',
+    'cpt',
+    'cre',
+    'crp',
+    'crr',
+    'crt',
+    'csl',
+    'csp',
+    'cst',
+    'ctb',
+    'cte',
+    'ctg',
+    'ctr',
+    'cts',
+    'ctt',
+    'cur',
+    'cwt',
+    'dbp',
+    'dfd',
+    'dfe',
+    'dft',
+    'dgg',
+    'dgs',
+    'dis',
+    'dln',
+    'dnc',
+    'dnr',
+    'dpc',
+    'dpt',
+    'drm',
+    'drt',
+    'dsr',
+    'dst',
+    'dtc',
+    'dte',
+    'dtm',
+    'dto',
+    'dub',
+    'edc',
+    'edm',
+    'edt',
+    'egr',
+    'elg',
+    'elt',
+    'eng',
+    'enj',
+    'etr',
+    'evp',
+    'exp',
+    'fac',
+    'fds',
+    'fld',
+    'flm',
+    'fmd',
+    'fmk',
+    'fmo',
+    'fmp',
+    'fnd',
+    'fpy',
+    'frg',
+    'gis',
+    'his',
+    'hnr',
+    'hst',
+    'ill',
+    'ilu',
+    'ins',
+    'inv',
+    'isb',
+    'itr',
+    'ive',
+    'ivr',
+    'jud',
+    'jug',
+    'lbr',
+    'lbt',
+    'ldr',
+    'led',
+    'lee',
+    'lel',
+    'len',
+    'let',
+    'lgd',
+    'lie',
+    'lil',
+    'lit',
+    'lsa',
+    'lse',
+    'lso',
+    'ltg',
+    'lyr',
+    'mcp',
+    'mdc',
+    'med',
+    'mfp',
+    'mfr',
+    'mod',
+    'mon',
+    'mrb',
+    'mrk',
+    'msd',
+    'mte',
+    'mtk',
+    'mus',
+    'nrt',
+    'opn',
+    'org',
+    'orm',
+    'osp',
+    'oth',
+    'own',
+    'pan',
+    'pat',
+    'pbd',
+    'pbl',
+    'pdr',
+    'pfr',
+    'pht',
+    'plt',
+    'pma',
+    'pmn',
+    'pop',
+    'ppm',
+    'ppt',
+    'pra',
+    'prc',
+    'prd',
+    'pre',
+    'prf',
+    'prg',
+    'prm',
+    'prn',
+    'pro',
+    'prp',
+    'prs',
+    'prt',
+    'prv',
+    'pta',
+    'pte',
+    'ptf',
+    'pth',
+    'ptt',
+    'pup',
+    'rbr',
+    'rcd',
+    'rce',
+    'rcp',
+    'rdd',
+    'red',
+    'ren',
+    'res',
+    'rev',
+    'rpc',
+    'rps',
+    'rpt',
+    'rpy',
+    'rse',
+    'rsg',
+    'rsp',
+    'rsr',
+    'rst',
+    'rth',
+    'rtm',
+    'sad',
+    'sce',
+    'scl',
+    'scr',
+    'sds',
+    'sec',
+    'sgd',
+    'sgn',
+    'sht',
+    'sll',
+    'sng',
+    'spk',
+    'spn',
+    'spy',
+    'srv',
+    'std',
+    'stg',
+    'stl',
+    'stm',
+    'stn',
+    'str',
+    'tcd',
+    'tch',
+    'ths',
+    'tld',
+    'tlp',
+    'trc',
+    'trl',
+    'tyd',
+    'tyg',
+    'uvp',
+    'vac',
+    'vdg',
+    'wac',
+    'wal',
+    'wam',
+    'wat',
+    'wdc',
+    'wde',
+    'win',
+    'wit',
+    'wpr',
+    'wst',
+];
+
 // This will fill this.uploadedFindingAid
 const requiredEADElementsGetters = {
     eadid : function ( eadDoc ) {
@@ -330,6 +601,21 @@ Some things to try:
             ${ this.recognizedRepositoryNamesListHTML }
         </ul>
     </li>
+    <li>
+        Upload a file with multiple elements that have <code>role</code> attributes
+        containing unrecognized relator codes - i.e. codes not in the
+        <a href="https://jira.nyu.edu/jira/secure/attachment/41923/relator-authoritative-labels-2021-01-05.csv">
+            official Finding Aids relator codes list
+        </a> [TODO: CHANGE TO PUBLIC GITHUB URL ONCE IT EXISTS].
+        Elements whose <code>role</code> attributes are checked for valid relator codes:
+        <ul>
+            <li><code>&lt;archdesc&gt;/&lt;controlaccess&gt;/&lt;corpname&gt;</li></code>
+            <li><code>&lt;archdesc&gt;/&lt;controlaccess&gt;/&lt;persname&gt;</li></code>
+            <li><code>&lt;did&gt;/&lt;origination&gt;/&lt;corpname&gt;</li></code>
+            <li><code>&lt;did&gt;/&lt;origination&gt;/&lt;persname&gt;</li></code>
+            <li><code>&lt;repository&gt;/&lt;corpname&gt;</li></code>
+        </ul>
+    </li>
     <li>Click the Cancel button after an upload has completed, but before submitting using the Submit button</li>
     <li>
         Upload a valid EAD file containing one or more elements with attribute <code>audience="internal"</code>.
@@ -460,6 +746,10 @@ Some things to try:
             }
 
             if ( ! this.validateNoUnpublishedMaterial( eadDoc ) ) {
+                abort = true;
+            }
+
+            if ( ! this.validateRoleAttributes( eadDoc ) ) {
                 abort = true;
             }
 
@@ -697,6 +987,55 @@ ${ this.recognizedRepositoryNames.join( '\n' ) }
 
                     return false;
                 }
+            }
+
+            return true;
+        },
+        validateRoleAttributes( eadDoc ) {
+            const tagListsForElementsToValidate = [
+                [ 'archdesc',   'controlaccess', 'corpname' ],
+                [ 'archdesc',   'controlaccess', 'persname' ],
+                [ 'did',        'origination',   'corpname' ],
+                [ 'did',        'origination',   'persname' ],
+                [ 'repository', 'corpname'                  ],
+            ];
+
+            const elementsWithInvalidRoleAttributeErrors = [];
+
+            tagListsForElementsToValidate.forEach( tagListForElementToValidate => {
+                const selector = tagListForElementToValidate.join( ' ' ) + '[ role ]';
+                const elements = eadDoc.querySelectorAll( selector );
+
+                elements.forEach( element => {
+                    const roleAttribute = ( element.getAttribute( 'role' ) );
+
+                    if ( ! validRelatorCodes.includes( roleAttribute ) ) {
+                        const elementLabel = tagListForElementToValidate.map( tagName => {
+                            return `<${ tagName }>`;
+                        } ).join( '/' );
+                        elementsWithInvalidRoleAttributeErrors.push( {
+                            elementLabel,
+                            elementText   : element.textContent,
+                            roleAttribute : roleAttribute,
+                        } );
+                    }
+                } );
+            } );
+
+            if ( elementsWithInvalidRoleAttributeErrors.length > 0 ) {
+                this.results += this.getErrorHeader( 'Unrecognized relator codes' ) +
+                                'The EAD file contains elements with role attributes containing unrecognized relator codes' +
+                                ':\n\n';
+
+                elementsWithInvalidRoleAttributeErrors.forEach( elementWithInvalidRoleAttributeError => {
+                    this.results +=
+                        `${ elementWithInvalidRoleAttributeError.elementLabel } "${ elementWithInvalidRoleAttributeError.elementText }"` +
+                        ` has role="${ elementWithInvalidRoleAttributeError.roleAttribute }"\n`;
+                } );
+
+                this.results += '\n';
+
+                return false;
             }
 
             return true;
