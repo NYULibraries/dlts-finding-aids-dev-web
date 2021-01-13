@@ -609,11 +609,12 @@ Some things to try:
         </a> [TODO: CHANGE TO PUBLIC GITHUB URL ONCE IT EXISTS].
         Elements whose <code>role</code> attributes are checked for valid relator codes:
         <ul>
-            <li><code>&lt;archdesc&gt;/&lt;controlaccess&gt;/&lt;corpname&gt;</li></code>
-            <li><code>&lt;archdesc&gt;/&lt;controlaccess&gt;/&lt;famname&gt;</li></code>
-            <li><code>&lt;archdesc&gt;/&lt;controlaccess&gt;/&lt;persname&gt;</li></code>
-            <li><code>&lt;did&gt;/&lt;origination&gt;/&lt;corpname&gt;</li></code>
-            <li><code>&lt;did&gt;/&lt;origination&gt;/&lt;persname&gt;</li></code>
+            <li><code>&lt;controlaccess&gt;/&lt;corpname&gt;</li></code>
+            <li><code>&lt;controlaccess&gt;/&lt;famname&gt;</li></code>
+            <li><code>&lt;controlaccess&gt;/&lt;persname&gt;</li></code>
+            <li><code>&lt;origination&gt;/&lt;corpname&gt;</li></code>
+            <li><code>&lt;origination&gt;/&lt;famname&gt;</li></code>
+            <li><code>&lt;origination&gt;/&lt;persname&gt;</li></code>
             <li><code>&lt;repository&gt;/&lt;corpname&gt;</li></code>
         </ul>
     </li>
@@ -994,12 +995,13 @@ ${ this.recognizedRepositoryNames.join( '\n' ) }
         },
         validateRoleAttributes( eadDoc ) {
             const tagListsForElementsToValidate = [
-                [ 'archdesc',   'controlaccess', 'corpname' ],
-                [ 'archdesc',   'controlaccess', 'famname' ],
-                [ 'archdesc',   'controlaccess', 'persname' ],
-                [ 'did',        'origination',   'corpname' ],
-                [ 'did',        'origination',   'persname' ],
-                [ 'repository', 'corpname'                  ],
+                [ 'controlaccess', 'corpname' ],
+                [ 'controlaccess', 'famname'  ],
+                [ 'controlaccess', 'persname' ],
+                [ 'origination',   'corpname' ],
+                [ 'origination',   'famname' ],
+                [ 'origination',   'persname' ],
+                [ 'repository',    'corpname' ],
             ];
 
             const elementsWithInvalidRoleAttributeErrors = [];
