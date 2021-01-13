@@ -610,6 +610,7 @@ Some things to try:
         Elements whose <code>role</code> attributes are checked for valid relator codes:
         <ul>
             <li><code>&lt;archdesc&gt;/&lt;controlaccess&gt;/&lt;corpname&gt;</li></code>
+            <li><code>&lt;archdesc&gt;/&lt;controlaccess&gt;/&lt;famname&gt;</li></code>
             <li><code>&lt;archdesc&gt;/&lt;controlaccess&gt;/&lt;persname&gt;</li></code>
             <li><code>&lt;did&gt;/&lt;origination&gt;/&lt;corpname&gt;</li></code>
             <li><code>&lt;did&gt;/&lt;origination&gt;/&lt;persname&gt;</li></code>
@@ -994,6 +995,7 @@ ${ this.recognizedRepositoryNames.join( '\n' ) }
         validateRoleAttributes( eadDoc ) {
             const tagListsForElementsToValidate = [
                 [ 'archdesc',   'controlaccess', 'corpname' ],
+                [ 'archdesc',   'controlaccess', 'famname' ],
                 [ 'archdesc',   'controlaccess', 'persname' ],
                 [ 'did',        'origination',   'corpname' ],
                 [ 'did',        'origination',   'persname' ],
