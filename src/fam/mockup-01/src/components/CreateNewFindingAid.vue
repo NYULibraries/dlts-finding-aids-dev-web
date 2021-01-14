@@ -609,13 +609,13 @@ Some things to try:
         </a> [TODO: CHANGE TO PUBLIC GITHUB URL ONCE IT EXISTS].
         Elements whose <code>role</code> attributes are checked for valid relator codes:
         <ul>
-            <li><code>&lt;controlaccess&gt;/&lt;corpname&gt;</li></code>
-            <li><code>&lt;controlaccess&gt;/&lt;famname&gt;</li></code>
-            <li><code>&lt;controlaccess&gt;/&lt;persname&gt;</li></code>
-            <li><code>&lt;origination&gt;/&lt;corpname&gt;</li></code>
-            <li><code>&lt;origination&gt;/&lt;famname&gt;</li></code>
-            <li><code>&lt;origination&gt;/&lt;persname&gt;</li></code>
-            <li><code>&lt;repository&gt;/&lt;corpname&gt;</li></code>
+            <li><code>&lt;controlaccess&gt;&lt;corpname role="[RELATOR CODE]"&gt;...&lt;/corpname&gt;&lt;/controlaccess&gt;</li></code>
+            <li><code>&lt;controlaccess&gt;&lt;famname role="[RELATOR CODE]"&gt;...&lt;/famname&gt;&lt;/controlaccess&gt;</li></code>
+            <li><code>&lt;controlaccess&gt;&lt;persname role="[RELATOR CODE]"&gt;...&lt;/persname&gt;&lt;/controlaccess&gt;</li></code>
+            <li><code>&lt;origination&gt;&lt;corpname role="[RELATOR CODE]"&gt;...&lt;/corpname&gt;&lt;/origination&gt;</li></code>
+            <li><code>&lt;origination&gt;&lt;famname role="[RELATOR CODE]"&gt;...&lt;/famname&gt;&lt;/origination&gt;</li></code>
+            <li><code>&lt;origination&gt;&lt;persname role="[RELATOR CODE]"&gt;...&lt;/persname&gt;&lt;/origination&gt;</li></code>
+            <li><code>&lt;repository&gt;&lt;corpname role="[RELATOR CODE]"&gt;...&lt;/corpname&gt;&lt;/repository&gt;</li></code>
         </ul>
     </li>
     <li>Click the Cancel button after an upload has completed, but before submitting using the Submit button</li>
@@ -1014,11 +1014,8 @@ ${ this.recognizedRepositoryNames.join( '\n' ) }
                     const roleAttribute = ( element.getAttribute( 'role' ) );
 
                     if ( ! validRelatorCodes.includes( roleAttribute ) ) {
-                        const elementLabel = tagListForElementToValidate.map( tagName => {
-                            return `<${ tagName }>`;
-                        } ).join( '/' );
                         elementsWithInvalidRoleAttributeErrors.push( {
-                            elementLabel,
+                            tagList       : tagListForElementToValidate,
                             elementText   : element.textContent,
                             roleAttribute : roleAttribute,
                         } );
@@ -1032,9 +1029,24 @@ ${ this.recognizedRepositoryNames.join( '\n' ) }
                                 ':\n\n';
 
                 elementsWithInvalidRoleAttributeErrors.forEach( elementWithInvalidRoleAttributeError => {
+                    const tagList = elementWithInvalidRoleAttributeError.tagList.slice();
+
+                    function wrap( inner, tagList ) {
+                        if ( tagList.length === 0 ) {
+                            return inner;
+                        }
+
+                        const nextTag = tagList.pop();
+                        return wrap( `<${ nextTag }>${ inner }</${ nextTag }>`, tagList );
+                    }
+
+                    const element = wrap(
+                        elementWithInvalidRoleAttributeError.elementText,
+                        tagList,
+                    );
+
                     this.results +=
-                        `${ elementWithInvalidRoleAttributeError.elementLabel } "${ elementWithInvalidRoleAttributeError.elementText }"` +
-                        ` has role="${ elementWithInvalidRoleAttributeError.roleAttribute }"\n`;
+                        `${ element } has role="${ elementWithInvalidRoleAttributeError.roleAttribute }"\n`;
                 } );
 
                 this.results += '\n';
