@@ -317,14 +317,13 @@
             id="publication-has-been-queued-modal"
             size="lg"
             centered
-            title="Publication has been queued"
+            title="Publication complete"
             @ok="clickAcknowledgePublicationHasBeenQueued"
         >
             <p>
-                The finding aid has been queued for publication.
-                The finding aid, public EAD file, and search data will
-                be published after the Github change has been made.
-                The full publication process should be completed in [X time].
+                The finding aid and the public EAD file have been published.
+                The EAD file should be added to the Github repo in [X time].
+                The search data will be refreshed after the repo update.
             </p>
 
             <p>
