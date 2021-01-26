@@ -678,7 +678,6 @@ Some things to try:
         getFindingAidDescription( findingAid ) {
             let description =
                 `EAD ID: ${ findingAid.eadid }\n` +
-                `TITLE: ${ findingAid.title }\n` +
                 `REPOSITORY: ${ findingAid.repository }\n`;
 
             if ( findingAid.timestamp ) {
