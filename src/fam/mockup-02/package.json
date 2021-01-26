@@ -1,8 +1,8 @@
 {
-  "name": "interactive-mockup-01",
+  "name": "interactive-mockup-02",
   "version": "0.1.0",
   "private": true,
-  "description": "Finding Aids Manager interactive mockup #1",
+  "description": "Finding Aids Manager interactive mockup #2",
   "author": "David <da70@nyu.edu>",
   "scripts": {
     "serve": "vue-cli-service serve",
