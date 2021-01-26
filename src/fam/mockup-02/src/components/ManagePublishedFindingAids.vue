@@ -82,23 +82,6 @@
                     </h4>
                 </template>
 
-                <template v-slot:head(repository)="data">
-                    <b-form-group
-                        :label="data.label"
-                        label-cols="auto"
-                        label-align-sm="left"
-                        label-for="repository-filter"
-                        class="mb-0"
-                    >
-                        <b-form-select
-                            id="repository-filter"
-                            v-model="filter.repository"
-                            :options="repositoryFilterOptions"
-                            size="sm"
-                        />
-                    </b-form-group>
-                </template>
-
                 <template v-slot:head(id)="data">
                     <b-form-group
                         :label="data.label"
@@ -115,6 +98,23 @@
                                 type="search"
                             />
                         </b-input-group>
+                    </b-form-group>
+                </template>
+
+                <template v-slot:head(repository)="data">
+                    <b-form-group
+                        :label="data.label"
+                        label-cols="auto"
+                        label-align-sm="left"
+                        label-for="repository-filter"
+                        class="mb-0"
+                    >
+                        <b-form-select
+                            id="repository-filter"
+                            v-model="filter.repository"
+                            :options="repositoryFilterOptions"
+                            size="sm"
+                        />
                     </b-form-group>
                 </template>
 
@@ -136,15 +136,15 @@
                     </span>
                 </template>
 
-                <template v-slot:cell(repository)="row">
-                    <div @click="row.toggleDetails">
-                        {{ row.item.repository }}
-                    </div>
-                </template>
-
                 <template v-slot:cell(id)="row">
                     <div @click="row.toggleDetails">
                         {{ row.item.id }}
+                    </div>
+                </template>
+
+                <template v-slot:cell(repository)="row">
+                    <div @click="row.toggleDetails">
+                        {{ row.item.repository }}
                     </div>
                 </template>
 
@@ -268,15 +268,15 @@ export default {
                     class : 'text-left text-nowrap',
                 },
                 {
-                    key           : 'repository',
-                    label         : 'Repository',
+                    key           : 'id',
+                    label         : 'ID',
                     sortable      : true,
                     sortDirection : 'asc',
                     class         : 'text-left',
                 },
                 {
-                    key           : 'id',
-                    label         : 'ID',
+                    key           : 'repository',
+                    label         : 'Repository',
                     sortable      : true,
                     sortDirection : 'asc',
                     class         : 'text-left',
