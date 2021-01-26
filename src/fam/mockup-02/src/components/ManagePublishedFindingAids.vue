@@ -118,25 +118,6 @@
                     </b-form-group>
                 </template>
 
-                <template v-slot:head(title)="data">
-                    <b-form-group
-                        :label="data.label"
-                        label-cols="auto"
-                        label-align-sm="left"
-                        label-for="title-filter"
-                        class="mb-0"
-                    >
-                        <b-input-group size="sm">
-                            <b-form-input
-                                id="title-filter"
-                                v-model="filter.title"
-                                debounce="500"
-                                type="search"
-                            />
-                        </b-input-group>
-                    </b-form-group>
-                </template>
-
                 <template v-slot:cell(actions)="row">
                     <span
                         ref="toggle-details-span"
@@ -164,12 +145,6 @@
                 <template v-slot:cell(id)="row">
                     <div @click="row.toggleDetails">
                         {{ row.item.id }}
-                    </div>
-                </template>
-
-                <template v-slot:cell(title)="row">
-                    <div @click="row.toggleDetails">
-                        {{ row.item.title }}
                     </div>
                 </template>
 
@@ -305,13 +280,6 @@ export default {
                     sortable      : true,
                     sortDirection : 'asc',
                     class         : 'text-left',
-                },
-                {
-                    key           : 'title',
-                    label         : 'Title',
-                    sortable      : true,
-                    sortDirection : 'asc',
-                    class         : 'text-left text-wrap',
                 },
                 {
                     key               : 'timestamp',
