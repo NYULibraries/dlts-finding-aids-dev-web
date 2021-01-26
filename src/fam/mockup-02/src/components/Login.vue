@@ -31,7 +31,6 @@
                         <b-form-input
                             id="username"
                             v-model="username"
-                            type="email"
                         />
                     </b-col>
                 </b-row>
