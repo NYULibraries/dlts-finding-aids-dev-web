@@ -398,49 +398,6 @@ const requiredEADElementsGetters = {
 
         return elementValue;
     },
-    title : function ( eadDoc ) {
-        const errors = [];
-
-        const unitTitleElementName = '<archdesc>/<did>/<unittitle>';
-        let unitTitleElement;
-        let unitTitleElementValue;
-        try {
-            unitTitleElement = eadDoc.getElementsByTagName( 'archdesc' )[ 0 ]
-                .getElementsByTagName( 'did' )[ 0 ]
-                .getElementsByTagName( 'unittitle' )[ 0 ];
-
-            unitTitleElementValue = unitTitleElement.textContent.trim();
-
-            if ( ! unitTitleElementValue ) {
-                errors.push( `ERROR: Required element ${ unitTitleElementName } is empty.` );
-            }
-        } catch( e ) {
-            errors.push( `ERROR: Required element ${ unitTitleElementName } not found.` );
-        }
-
-        const unitIdElementName = '<archdesc>/<did>/<unitid>';
-        let unitIdElement;
-        let unitIdElementValue;
-        try {
-            unitIdElement = eadDoc.getElementsByTagName( 'archdesc' )[ 0 ]
-                .getElementsByTagName( 'did' )[ 0 ]
-                .getElementsByTagName( 'unitid' )[ 0 ];
-
-            unitIdElementValue = unitIdElement.textContent.trim();
-
-            if ( ! unitIdElementValue ) {
-                errors.push( `ERROR: Required element ${ unitIdElementName } is empty.` );
-            }
-        } catch( e ) {
-            errors.push( `ERROR: Required element ${ unitIdElementName } not found.` );
-        }
-
-        if ( errors.length > 0 ) {
-            throw new Error( errors.join( '\n\n' ) );
-        }
-
-        return unitTitleElementValue + ' ' + unitIdElementValue;
-    },
 };
 
 let parser;
@@ -542,24 +499,6 @@ the EAD file will not be accepted.
             &lt;repository&gt;<br />
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;corpname&gt;[REPOSITORY LONG NAME]&lt;/corpname&gt;<br />
             &lt;/repository&gt;
-        </code>
-    </li>
-    <li>unitid:<br />
-        <code>
-            &lt;archdesc&gt;<br />
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;did&gt;<br />
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;unitid&gt;[UNITID]&lt;/unitid&gt;<br />
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/did&gt;<br />
-            &lt;/archdesc&gt;
-        </code>
-    </li>
-    <li>unittitle:<br />
-        <code>
-            &lt;archdesc&gt;<br />
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;did&gt;<br />
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;unittitle&gt;[UNITTITLE]&lt;/unittitle&gt;<br />
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/did&gt;<br />
-            &lt;/archdesc&gt;
         </code>
     </li>
 </ul>
