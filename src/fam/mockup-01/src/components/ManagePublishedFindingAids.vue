@@ -525,11 +525,10 @@ Some things to try:
                 );
 
                 message =
-                    'The Github EAD file has been queued for deletion.' +
-                    ' The finding aid, public EAD file, and search data will' +
-                    ' be deleted after the Github change has been made.' +
-                    ' The full delete process should be completed in [X time].';
-                title = 'Deletion has been queued';
+                    'The finding aid and the public EAD file have been deleted.' +
+                    ' The Github EAD file should be removed from the Github repo in [X time].' +
+                    ' The search data will be deleted after the repo update.';
+                title = 'Deletion complete';
             }
 
             if (
