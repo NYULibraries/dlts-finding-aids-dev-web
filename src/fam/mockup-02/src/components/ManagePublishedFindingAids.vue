@@ -379,14 +379,12 @@ Some things to try:
         <ul>
             <li>Repository</li>
             <li>ID</li>
-            <li>Title</li>
         </ul>
     </li>
     <li>Sort (ascending and descending) by:
         <ul>
             <li>Repository</li>
             <li>ID</li>
-            <li>Title</li>
             <li>Timestamp</li>
         </ul>
     </li>
