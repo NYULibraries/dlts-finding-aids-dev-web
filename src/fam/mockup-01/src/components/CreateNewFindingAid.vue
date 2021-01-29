@@ -594,9 +594,7 @@ Some things to try:
     </li>
     <li>
         Upload a file with a &lt;repository&gt/&lt;corpname&gt; value that is not a recognized.
-        These are the currently recognized repository long names
-        (note that you must use the "&ampamp;" entity reference to include an "&"
-         character in XML text):
+        These are the currently recognized repository long names:
         <ul>
             ${ this.recognizedRepositoryNamesListHTML }
         </ul>
