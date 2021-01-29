@@ -99,7 +99,7 @@ export default {
             {
                 content : `
 <p>Each FAM user is granted permissions to a specific group of repositories.
-This interactive mockup comes with the following users, all of whom have a password of "password":</p>
+This interactive mockup comes with a single user whose password is "password":</p>
 <ul>
 ${ userList }
 </ul>
@@ -108,7 +108,6 @@ ${ userList }
 
 <ul>
     <li>Log in one or more times with an incorrect username or password</li>
-    <li>Log in as different users</li>
 </ul>
 `,
                 title   : 'Login screen',

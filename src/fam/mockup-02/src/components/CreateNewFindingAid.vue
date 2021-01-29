@@ -478,10 +478,7 @@ export default {
         this.setHelpModal(
             {
                 content : `
-This interactive mockup does some basic validation of the EAD file to
-provide a feel for the sort of verifications we can have the FAM perform before
-attempting to create a preview finding aid.
-<br />
+This interactive mockup does basic validation of the EAD file.
 If any of the elements listed below are missing, or are present but empty,
 the EAD file will not be accepted.
 
@@ -527,15 +524,8 @@ Some things to try:
         </a>
     </li>
     <li>
-        Upload a file with a &lt;repository&gt/&lt;corpname&gt; long name for a repository that
-        the current user is not authorized for in the FAM (note that user
-        weatherly@nyu.edu is authorized to manage all repositories)
-    </li>
-    <li>
         Upload a file with a &lt;repository&gt/&lt;corpname&gt; value that is not a recognized.
-        These are the currently recognized repository long names
-        (note that you must use the "&ampamp;" entity reference to include an "&"
-         character in XML text):
+        These are the currently recognized repository long names:
         <ul>
             ${ this.recognizedRepositoryNamesListHTML }
         </ul>
@@ -588,10 +578,8 @@ Some things to try:
     <li>Upload an EAD file with the same &lt;eadid&gt; value as:
         <ul>
             <li>an existing <strong>in-process</strong> finding aid which belongs to the <strong>same repository</strong></li>
-            <li>an existing <strong>in-process</strong> finding aid which belongs to a <strong>different repository</strong> for which the user is <strong>authorized</strong></li>
-            <li>an existing <strong>in-process</strong> finding aid which belongs to a <strong>different repository</strong> for which the user is <strong>not authorized</strong></li>
-            <li>an existing <strong>published</strong> finding aid which belongs to a <strong>different repository</strong> for which the user is <strong>authorized</strong></li>
-            <li>an existing <strong>published</strong> finding aid which belongs to a <strong>different repository</strong> for which the user is <strong>not authorized</strong></li>
+            <li>an existing <strong>in-process</strong> finding aid which belongs to a <strong>different repository</strong></li>
+            <li>an existing <strong>published</strong> finding aid which belongs to a <strong>different repository</strong></li>
         </ul>
     </li>
     <li>Upload a valid EAD file and submit it using the Submit button</li>

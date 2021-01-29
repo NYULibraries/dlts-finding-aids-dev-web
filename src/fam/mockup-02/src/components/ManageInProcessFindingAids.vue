@@ -510,12 +510,12 @@ export default {
     <li>Expand the Actions row for a finding aid and click the "Delete in-process finding aid" button
     (do not choose a finding aid with an ID that starts with "fadesign_116_" or "fadesign_117_")</li>
     <li>Expand the Actions row for the finding aid with ID = "fadesign_116_changed",
-    note the timestamp, and then click the "Delete finding aid" button.
+    note the timestamp, and then click the "Delete in-process finding aid" button.
     This initial deletion attempt will be blocked.  After dismissing the pop-up that
     explains why the deletion was blocked, note the new timestamp on the finding aid,
-    expand the Actions row, and click the "Delete finding aid" button again.
+    expand the Actions row, and click the "Delete in-process finding aid" button again.
     </li>
-    <li>Expand the Actions row for the finding aid with ID = "fadesign_116_deleted" and click the "Delete finding aid" button</li>
+    <li>Expand the Actions row for the finding aid with ID = "fadesign_116_deleted" and click the "Delete in-process finding aid" button</li>
     <li>Expand the Actions row for the finding aid with ID = "fadesign_117_changed",
     note the timestamp, and then click the "Publish finding aid" button.
     This initial publication attempt will be blocked.  After dismissing the pop-up that
