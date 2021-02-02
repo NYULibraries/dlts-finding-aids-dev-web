@@ -398,49 +398,6 @@ const requiredEADElementsGetters = {
 
         return elementValue;
     },
-    title : function ( eadDoc ) {
-        const errors = [];
-
-        const unitTitleElementName = '<archdesc>/<did>/<unittitle>';
-        let unitTitleElement;
-        let unitTitleElementValue;
-        try {
-            unitTitleElement = eadDoc.getElementsByTagName( 'archdesc' )[ 0 ]
-                .getElementsByTagName( 'did' )[ 0 ]
-                .getElementsByTagName( 'unittitle' )[ 0 ];
-
-            unitTitleElementValue = unitTitleElement.textContent.trim();
-
-            if ( ! unitTitleElementValue ) {
-                errors.push( `ERROR: Required element ${ unitTitleElementName } is empty.` );
-            }
-        } catch( e ) {
-            errors.push( `ERROR: Required element ${ unitTitleElementName } not found.` );
-        }
-
-        const unitIdElementName = '<archdesc>/<did>/<unitid>';
-        let unitIdElement;
-        let unitIdElementValue;
-        try {
-            unitIdElement = eadDoc.getElementsByTagName( 'archdesc' )[ 0 ]
-                .getElementsByTagName( 'did' )[ 0 ]
-                .getElementsByTagName( 'unitid' )[ 0 ];
-
-            unitIdElementValue = unitIdElement.textContent.trim();
-
-            if ( ! unitIdElementValue ) {
-                errors.push( `ERROR: Required element ${ unitIdElementName } is empty.` );
-            }
-        } catch( e ) {
-            errors.push( `ERROR: Required element ${ unitIdElementName } not found.` );
-        }
-
-        if ( errors.length > 0 ) {
-            throw new Error( errors.join( '\n\n' ) );
-        }
-
-        return unitTitleElementValue + ' ' + unitIdElementValue;
-    },
 };
 
 let parser;
@@ -521,10 +478,7 @@ export default {
         this.setHelpModal(
             {
                 content : `
-This interactive mockup does some basic validation of the EAD file to
-provide a feel for the sort of verifications we can have the FAM perform before
-attempting to create a preview finding aid.
-<br />
+This interactive mockup does basic validation of the EAD file.
 If any of the elements listed below are missing, or are present but empty,
 the EAD file will not be accepted.
 
@@ -542,24 +496,6 @@ the EAD file will not be accepted.
             &lt;repository&gt;<br />
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;corpname&gt;[REPOSITORY LONG NAME]&lt;/corpname&gt;<br />
             &lt;/repository&gt;
-        </code>
-    </li>
-    <li>unitid:<br />
-        <code>
-            &lt;archdesc&gt;<br />
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;did&gt;<br />
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;unitid&gt;[UNITID]&lt;/unitid&gt;<br />
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/did&gt;<br />
-            &lt;/archdesc&gt;
-        </code>
-    </li>
-    <li>unittitle:<br />
-        <code>
-            &lt;archdesc&gt;<br />
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;did&gt;<br />
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;unittitle&gt;[UNITTITLE]&lt;/unittitle&gt;<br />
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/did&gt;<br />
-            &lt;/archdesc&gt;
         </code>
     </li>
 </ul>
@@ -586,11 +522,6 @@ Some things to try:
             target="_blank">
             rules
         </a>
-    </li>
-    <li>
-        Upload a file with a &lt;repository&gt/&lt;corpname&gt; long name for a repository that
-        the current user is not authorized for in the FAM (note that user
-        weatherly@nyu.edu is authorized to manage all repositories)
     </li>
     <li>
         Upload a file with a &lt;repository&gt/&lt;corpname&gt; value that is not a recognized.
@@ -647,10 +578,8 @@ Some things to try:
     <li>Upload an EAD file with the same &lt;eadid&gt; value as:
         <ul>
             <li>an existing <strong>in-process</strong> finding aid which belongs to the <strong>same repository</strong></li>
-            <li>an existing <strong>in-process</strong> finding aid which belongs to a <strong>different repository</strong> for which the user is <strong>authorized</strong></li>
-            <li>an existing <strong>in-process</strong> finding aid which belongs to a <strong>different repository</strong> for which the user is <strong>not authorized</strong></li>
-            <li>an existing <strong>published</strong> finding aid which belongs to a <strong>different repository</strong> for which the user is <strong>authorized</strong></li>
-            <li>an existing <strong>published</strong> finding aid which belongs to a <strong>different repository</strong> for which the user is <strong>not authorized</strong></li>
+            <li>an existing <strong>in-process</strong> finding aid which belongs to a <strong>different repository</strong></li>
+            <li>an existing <strong>published</strong> finding aid which belongs to a <strong>different repository</strong></li>
         </ul>
     </li>
     <li>Upload a valid EAD file and submit it using the Submit button</li>
@@ -676,7 +605,6 @@ Some things to try:
         getFindingAidDescription( findingAid ) {
             let description =
                 `EAD ID: ${ findingAid.eadid }\n` +
-                `TITLE: ${ findingAid.title }\n` +
                 `REPOSITORY: ${ findingAid.repository }\n`;
 
             if ( findingAid.timestamp ) {

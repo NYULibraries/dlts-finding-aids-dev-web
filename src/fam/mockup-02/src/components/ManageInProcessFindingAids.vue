@@ -71,23 +71,6 @@
                 :sort-direction="sortDirection"
                 @filtered="onFiltered"
             >
-                <template v-slot:head(repository)="data">
-                    <b-form-group
-                        :label="data.label"
-                        label-cols="auto"
-                        label-align-sm="left"
-                        label-for="repository-filter"
-                        class="mb-0"
-                    >
-                        <b-form-select
-                            id="repository-filter"
-                            v-model="filter.repository"
-                            :options="repositoryFilterOptions"
-                            size="sm"
-                        />
-                    </b-form-group>
-                </template>
-
                 <template v-slot:head(id)="data">
                     <b-form-group
                         :label="data.label"
@@ -107,22 +90,20 @@
                     </b-form-group>
                 </template>
 
-                <template v-slot:head(title)="data">
+                <template v-slot:head(repository)="data">
                     <b-form-group
                         :label="data.label"
                         label-cols="auto"
                         label-align-sm="left"
-                        label-for="title-filter"
+                        label-for="repository-filter"
                         class="mb-0"
                     >
-                        <b-input-group size="sm">
-                            <b-form-input
-                                id="title-filter"
-                                v-model="filter.title"
-                                debounce="500"
-                                type="search"
-                            />
-                        </b-input-group>
+                        <b-form-select
+                            id="repository-filter"
+                            v-model="filter.repository"
+                            :options="repositoryFilterOptions"
+                            size="sm"
+                        />
                     </b-form-group>
                 </template>
 
@@ -144,21 +125,15 @@
                     </span>
                 </template>
 
-                <template v-slot:cell(repository)="row">
-                    <div @click="row.toggleDetails">
-                        {{ row.item.repository }}
-                    </div>
-                </template>
-
                 <template v-slot:cell(id)="row">
                     <div @click="row.toggleDetails">
                         {{ row.item.id }}
                     </div>
                 </template>
 
-                <template v-slot:cell(title)="row">
+                <template v-slot:cell(repository)="row">
                     <div @click="row.toggleDetails">
-                        {{ row.item.title }}
+                        {{ row.item.repository }}
                     </div>
                 </template>
 
@@ -409,13 +384,6 @@ export default {
                     class : 'text-left text-nowrap',
                 },
                 {
-                    key           : 'repository',
-                    label         : 'Repository',
-                    sortable      : true,
-                    sortDirection : 'asc',
-                    class         : 'text-left',
-                },
-                {
                     key           : 'id',
                     label         : 'ID',
                     sortable      : true,
@@ -423,11 +391,11 @@ export default {
                     class         : 'text-left',
                 },
                 {
-                    key           : 'title',
-                    label         : 'Title',
+                    key           : 'repository',
+                    label         : 'Repository',
                     sortable      : true,
                     sortDirection : 'asc',
-                    class         : 'text-left text-wrap',
+                    class         : 'text-left',
                 },
                 {
                     key               : 'timestamp',
@@ -523,14 +491,12 @@ export default {
         <ul>
             <li>Repository</li>
             <li>ID</li>
-            <li>Title</li>
         </ul>
     </li>
     <li>Sort (ascending and descending) by:
         <ul>
             <li>Repository</li>
             <li>ID</li>
-            <li>Title</li>
             <li>Timestamp</li>
         </ul>
     </li>
