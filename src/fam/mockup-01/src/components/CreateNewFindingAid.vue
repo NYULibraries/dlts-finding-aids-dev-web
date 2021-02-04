@@ -602,9 +602,11 @@ Some things to try:
     <li>
         Upload a file with multiple elements that have <code>role</code> attributes
         containing unrecognized relator codes - i.e. codes not in the
-        <a href="https://jira.nyu.edu/jira/secure/attachment/41923/relator-authoritative-labels-2021-01-05.csv">
+        <a
+            href="https://github.com/nyudlts/fadesign_29-data-model/blob/master/relator-authoritative-labels.csv"
+            target="_blank">
             official Finding Aids relator codes list
-        </a> [TODO: CHANGE TO PUBLIC GITHUB URL ONCE IT EXISTS].
+        </a>.
         Elements whose <code>role</code> attributes are checked for valid relator codes:
         <ul>
             <li><code>&lt;controlaccess&gt;&lt;corpname role="[RELATOR CODE]"&gt;...&lt;/corpname&gt;&lt;/controlaccess&gt;</li></code>
