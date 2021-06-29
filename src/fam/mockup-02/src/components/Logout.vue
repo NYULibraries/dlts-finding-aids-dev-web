@@ -48,14 +48,14 @@ export default {
             return;
         }
 
-        await this.$sleep( 4000 );
+        await this.$sleep( 3000 );
 
         this.setCurrentUser( '' );
         this.setFetchInitialPublishedFindingAidsMetadata( true );
 
         this.showSpinner = false;
 
-        this.feedback = 'You have been logged out of the FAM.';
+        this.feedback = 'Logout complete.  Thank you, goodbye...';
 
         await this.$sleep( 2000 );
 
