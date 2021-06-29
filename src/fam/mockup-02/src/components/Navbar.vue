@@ -55,7 +55,7 @@
                         right
                         @click="logout"
                     >
-                        Log out
+                        Log Out
                     </b-nav-item>
                 </b-navbar-nav>
             </b-collapse>
