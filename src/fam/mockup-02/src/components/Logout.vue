@@ -48,7 +48,7 @@ export default {
             return;
         }
 
-        await this.$sleep( 3000 );
+        await this.$sleep( 1000 );
 
         this.setCurrentUser( '' );
         this.setFetchInitialPublishedFindingAidsMetadata( true );
@@ -57,7 +57,7 @@ export default {
 
         this.feedback = 'Logout complete.  Thank you, goodbye...';
 
-        await this.$sleep( 2000 );
+        await this.$sleep( 1000 );
 
         this.$router.push( 'login' );
     },
