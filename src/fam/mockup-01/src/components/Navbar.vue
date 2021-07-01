@@ -55,7 +55,7 @@
                         right
                         @click="logout"
                     >
-                        Log out
+                        Log Out
                     </b-nav-item>
                 </b-navbar-nav>
             </b-collapse>
@@ -64,7 +64,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
+import { mapGetters } from 'vuex';
 
 export default {
     computed : {
@@ -77,19 +77,9 @@ export default {
     methods : {
         async logout() {
             if ( this.currentUser ) {
-                await this.$sleep( 500 );
-
-                this.setCurrentUser( '' );
-                this.setFetchInitialPublishedFindingAidsMetadata( true );
-                this.$router.push( 'login' );
+                this.$router.push( 'logout' );
             }
         },
-        ...mapActions(
-            [
-                'setCurrentUser',
-                'setFetchInitialPublishedFindingAidsMetadata',
-            ],
-        ),
     },
 };
 </script>
