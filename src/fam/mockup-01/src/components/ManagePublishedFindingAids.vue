@@ -12,6 +12,7 @@
 
             <b-row id="controls-row">
                 <b-col
+                    id="result-stats"
                     class="my-1 text-left"
                     cols="6"
                 >
@@ -32,6 +33,7 @@
                         class="mb-0"
                     >
                         <b-form-select
+                            id="per-page-select"
                             v-model="perPage"
                             size="sm"
                             :options="pageOptions"
@@ -43,6 +45,7 @@
                     class="my-1"
                 >
                     <b-pagination
+                        id="page-navigation"
                         v-model="currentPage"
                         :total-rows="totalRows"
                         :per-page="perPage"
@@ -139,6 +142,7 @@
 
                 <template v-slot:cell(actions)="row">
                     <span
+                        id="toggle-details-button"
                         ref="toggle-details-span"
                         class="h1"
                     >
@@ -182,6 +186,7 @@
                 <template v-slot:row-details="row">
                     <div>
                         <b-button
+                            id="view-finding-aid-button"
                             class="action-button"
                             :href="`http://dlib.nyu.edu/findingaids/html/${ row.item.repositoryCode }/${ row.item.id }/`"
                             target="_blank"
@@ -190,6 +195,7 @@
                         </b-button>
 
                         <b-button
+                            id="view-ead-file-button"
                             class="action-button"
                             :href="`http://dlib.nyu.edu/findingaids/ead/${ row.item.repositoryCode }/${ row.item.id }.xml`"
                             target="_blank"
@@ -198,6 +204,7 @@
                         </b-button>
 
                         <b-button
+                            id="delete-finding-aid-button"
                             class="action-button"
                             :data-id="row.item.id"
                             :data-repository-code="row.item.repositoryCode"
