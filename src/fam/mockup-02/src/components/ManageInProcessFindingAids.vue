@@ -58,8 +58,10 @@
 
             <!-- Main table element -->
             <b-table
+                id="finding-aids-table"
                 ref="table"
                 bordered
+                primary-key="id"
                 striped
                 show-empty
                 small
@@ -130,8 +132,7 @@
                 </template>
 
                 <template v-slot:cell(id)="row">
-                    <div
-                        @click="row.toggleDetails">
+                    <div @click="row.toggleDetails">
                         {{ row.item.id }}
                     </div>
                 </template>
