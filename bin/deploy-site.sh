@@ -2,15 +2,13 @@
 
 ROOT=$(cd "$(dirname "$0")" ; cd ..; pwd -P )
 
-source $ROOT/bin/$(basename $0 .sh)_common.sh
-
 function usage() {
     script_name=$(basename $0)
 
     cat <<EOF
 
-usage: ${script_name} [-h] -u username
-    -h:          print this usage message
+usage: ${script_name} [-h]
+    -h:    print this usage message
 
 EOF
 }
@@ -25,4 +23,8 @@ done
 
 shift $((OPTIND-1))
 
-aws s3 sync ./web/ s3://dlts-dev-webs/finding-aids/ --exact-timestamps --delete
+aws s3 sync web/ s3://dlts-dev-webs/finding-aids \
+    --delete \
+    --exact-timestamps
+
+aws cloudfront create-invalidation --distribution-id E19LLQKYYWM1M2 --paths '/finding-aids/*'
