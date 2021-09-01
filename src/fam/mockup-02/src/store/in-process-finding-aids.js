@@ -44,7 +44,7 @@ export default {
             'title'     : 'The Disappearing In-Process Finding Aid II',
         },
     },
-    'bhs' : {
+    'cbh' : {
         '1974.002' : {
             'timestamp' : 1530124091,
             'title'     : 'Colonial manuscripts collection 1974.002',
