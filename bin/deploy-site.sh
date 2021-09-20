@@ -23,8 +23,7 @@ done
 
 shift $((OPTIND-1))
 
-aws s3 sync web/ s3://dlts-dev-webs/finding-aids \
-    --delete \
-    --exact-timestamps
+aws s3 rm s3://dlts-dev-webs/finding-aids --recursive
+aws s3 sync web/ s3://dlts-dev-webs/finding-aids
 
 aws cloudfront create-invalidation --distribution-id E19LLQKYYWM1M2 --paths '/finding-aids/*'
