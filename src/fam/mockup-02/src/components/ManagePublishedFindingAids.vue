@@ -174,7 +174,7 @@
                         <b-button
                             id="view-ead-file-button"
                             class="action-button"
-                            :href="`http://dlib.nyu.edu/findingaids/ead/${ row.item.repositoryCode }/${ row.item.id }.xml`"
+                            :href="`https://raw.githubusercontent.com/NYULibraries/findingaids_eads/master/${ row.item.repositoryCode }/${ row.item.id }.xml`"
                             target="_blank"
                         >
                             View EAD file
@@ -401,7 +401,14 @@ Some things to try:
     <li>Navigate to different pages using page navigator buttons</li>
     <li>Expand the Actions row for one or more finding aids rows</li>
     <li>Expand the Actions row for a finding aid and click the "View finding aid" button</li>
-    <li>Expand the Actions row for a finding aid and click the "View EAD file" button</li>
+    <li>
+        Expand the Actions row for a finding aid and click the "View EAD file" button.
+        Note: the resulting pop-up tab will attempt to load the published EAD file
+        from the production GitHub repo.  If the EAD file has been deleted from
+        the repo then the result will be a GitHub 404 page.
+        If possible, choose a finding aid that is fairly stable and permanent,
+        such as mc_100.
+    </li>
     <li>Expand the Actions row for a finding aid and click the "Delete finding aid" button
     (do not choose a finding aid with an ID that starts with "fadesign_118_")</li>
     <li>Expand the Actions row for the finding aid with ID = "fadesign_118_changed",
