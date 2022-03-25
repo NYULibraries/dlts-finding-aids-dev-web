@@ -801,42 +801,47 @@ Proceed to In-process FAs to preview the new EAD file and finding aid.
             this.submitDisabled = true;
         },
         validateEADID( eadid ) {
-            const errors = [];
+            // https://jira.nyu.edu/browse/FADESIGN-290
+            const EADID_REGEXP = /^[a-z0-9]+(?:_[a-z0-9]+){0,7}$/;
+            if ( EADID_REGEXP.test( eadid ) ) {
+                return true;
+            } else {
+                // Provide user with helpful feedback.
+                const errors = [];
 
-            const tokens = eadid.split( '_' );
-            if ( tokens.length < 2 || tokens.length > 8 ) {
-                errors.push( 'There must be between 2 to 8 character groups joined by underscores.' );
-            }
-
-            const allowedCharactersRegex = /[^a-z0-9]/g;
-            const disallowedCharactersFoundObject = {};
-            tokens.forEach( token => {
-                const matches = [ ...token.matchAll( allowedCharactersRegex ) ];
-
-                if ( matches.length > 0 ) {
-                    matches.forEach( match => {
-                        disallowedCharactersFoundObject[ match ] = true;
-                    } );
+                const tokens = eadid.split( '_' );
+                if ( tokens.length < 2 || tokens.length > 8 ) {
+                    errors.push( 'There must be between 2 to 8 character groups joined by underscores.' );
                 }
-            } );
 
-            const disallowedCharactersFound = Object.keys( disallowedCharactersFoundObject );
-            if ( disallowedCharactersFound.length > 0 ) {
-                errors.push( 'The following characters are not allowed in character groups: ' +
-                             disallowedCharactersFound.sort().join( ', ' ) );
+                const allowedCharactersRegex = /[^a-z0-9]/g;
+                const disallowedCharactersFoundObject = {};
+                tokens.forEach( token => {
+                    const matches = [ ...token.matchAll( allowedCharactersRegex ) ];
+
+                    if ( matches.length > 0 ) {
+                        matches.forEach( match => {
+                            disallowedCharactersFoundObject[ match ] = true;
+                        } );
+                    }
+                } );
+
+                const disallowedCharactersFound = Object.keys( disallowedCharactersFoundObject );
+                if ( disallowedCharactersFound.length > 0 ) {
+                    errors.push( 'The following characters are not allowed in character groups: ' +
+                                 disallowedCharactersFound.sort().join( ', ' ) );
+                }
+
+                if ( errors.length > 0 ) {
+                    this.results += this.getErrorHeader( 'Invalid <eadid>' ) +
+                                    `<eadid> value "${ eadid }" does ` +
+                                    'not conform to the Finding Aids specification.\n';
+
+                    this.results += errors.join( '\n' ) + '\n\n';
+
+                    return false;
+                }
             }
-
-            if ( errors.length > 0 ) {
-                this.results += this.getErrorHeader( 'Invalid <eadid>' ) +
-                                `<eadid> value "${ eadid }" does ` +
-                                'not conform to the Finding Aids specification.\n';
-
-                this.results += errors.join( '\n' ) + '\n\n';
-
-                return false;
-            }
-
-            return true;
         },
         validateEADIDNoConflicts() {
             const noConflictsInInProcess =
@@ -847,7 +852,7 @@ Proceed to In-process FAs to preview the new EAD file and finding aid.
 
             // We can't return
             //    this.validateEADIDNoConflictsInInProcess() &&
-            //    this.validateEADIDNoConflictsInInProcess()
+            //    this.validateEADIDNoConflictsInPublished()
             // ...because both methods must run for side effects, and && will
             // short-circuit the latter method call if the first returns false.
             return noConflictsInInProcess && noConflictsInInProcessPublished;
