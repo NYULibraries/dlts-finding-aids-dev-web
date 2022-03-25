@@ -775,7 +775,7 @@ Proceed to In-process FAs to preview the new EAD file and finding aid.
 
             // We can't return
             //    this.validateEADIDNoConflictsInInProcess() &&
-            //    this.validateEADIDNoConflictsInInProcess()
+            //    this.validateEADIDNoConflictsInPublished()
             // ...because both methods must run for side effects, and && will
             // short-circuit the latter method call if the first returns false.
             return noConflictsInInProcess && noConflictsInInProcessPublished;
